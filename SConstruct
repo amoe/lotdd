@@ -8,11 +8,12 @@ googletest_include_paths = [
 ]
 
 gtest_all_path = googletest_framework_root + "/googletest/src/gtest-all.cc"
+gmock_all_path = googletest_framework_root + "/googlemock/src/gmock-all.cc"
 
 env = Environment(CPPPATH=googletest_include_paths)
 
 env.Program(
     target='main',
-    source=["main.cc", gtest_all_path],
+    source=["main.cc", gtest_all_path, gmock_all_path],
     LIBS=['pthread']
 )
