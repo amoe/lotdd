@@ -1,1 +1,1 @@
-Program("main.cc")
+Program("main.cc", LIBS=['m'])
