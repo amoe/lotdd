@@ -14,6 +14,6 @@ env = Environment(CPPPATH=googletest_include_paths)
 
 env.Program(
     target='main',
-    source=["main.cc", gtest_all_path, gmock_all_path],
+    source=["main.cc", "soundex_test.cc", gtest_all_path, gmock_all_path],
     LIBS=['pthread']
 )
