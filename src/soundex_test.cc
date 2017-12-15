@@ -30,9 +30,7 @@ TEST_F(SoundexEncoding, RetainsSoleLetterOfOneLetterWord) {
 
 // now we declare another test in the same file to handle the padding case.
 
-TEST_F(SoundexEncoding, PadsWithZerosToEnsureThreeDigits) {
-    Soundex soundex;
-
+TEST(SoundexEncoding, PadsWithZerosToEnsureThreeDigits) {
     auto encoded = soundex.encode("I");
 
     ASSERT_THAT(encoded, Eq("I000"));
