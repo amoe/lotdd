@@ -1,8 +1,6 @@
 #include <gmock/gmock.h>
 
-
-// import the test predicates to make the test read more fluently
-using ::testing::Eq;
+using namespace testing;
 
 class Soundex {
 public:
@@ -16,7 +14,7 @@ private:
 };
 
 // Declare a fixture, which is just a class.
-class SoundexEncoding : public testing::Test {
+class SoundexEncoding : public Test {
 public:
     Soundex soundex;
 };
