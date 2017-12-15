@@ -1,17 +1,7 @@
 #include <gmock/gmock.h>
+#include "soundex.hh"
 
 using namespace testing;
-
-class Soundex {
-public:
-    std::string encode(const std::string& word) const {
-        return zeroPad(word);
-    }
-private:
-    std::string zeroPad(const std::string& word) const {
-        return word + "000";
-    }
-};
 
 // Declare a fixture, which is just a class.
 class SoundexEncoding : public Test {
@@ -28,4 +18,9 @@ TEST_F(SoundexEncoding, RetainsSoleLetterOfOneLetterWord) {
 
 TEST_F(SoundexEncoding, PadsWithZerosToEnsureThreeDigits) {
     ASSERT_THAT(soundex.encode("I"), Eq("I000"));
+}
+
+// 
+TEST_F(SoundexEncoding, ReplacesConsonantsWithAppropriateDigits) {
+    ASSERT_THAT(soundex.encode("Ab"), Eq("A100"));
 }
