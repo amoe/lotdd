@@ -23,15 +23,11 @@ public:
 
 // Now we can use the public member of the class to store persistent state.
 TEST_F(SoundexEncoding, RetainsSoleLetterOfOneLetterWord) {
-    auto encoded = soundex.encode("A");
-
-    ASSERT_THAT(encoded, Eq("A000"));
+    ASSERT_THAT(soundex.encode("A"), Eq("A000"));
 }
 
 // now we declare another test in the same file to handle the padding case.
 
 TEST_F(SoundexEncoding, PadsWithZerosToEnsureThreeDigits) {
-    auto encoded = soundex.encode("I");
-
-    ASSERT_THAT(encoded, Eq("I000"));
+    ASSERT_THAT(soundex.encode("I"), Eq("I000"));
 }
