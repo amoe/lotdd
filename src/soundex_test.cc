@@ -15,9 +15,14 @@ private:
     }
 };
 
-TEST(SoundexEncoding, RetainsSoleLetterOfOneLetterWord) {
+// Declare a fixture, which is just a class.
+class SoundexEncoding : public testing::Test {
+public:
     Soundex soundex;
+};
 
+// Now we can use the public member of the class to store persistent state.
+TEST_F(SoundexEncoding, RetainsSoleLetterOfOneLetterWord) {
     auto encoded = soundex.encode("A");
 
     ASSERT_THAT(encoded, Eq("A000"));
@@ -25,7 +30,7 @@ TEST(SoundexEncoding, RetainsSoleLetterOfOneLetterWord) {
 
 // now we declare another test in the same file to handle the padding case.
 
-TEST(SoundexEncoding, PadsWithZerosToEnsureThreeDigits) {
+TEST_F(SoundexEncoding, PadsWithZerosToEnsureThreeDigits) {
     Soundex soundex;
 
     auto encoded = soundex.encode("I");
