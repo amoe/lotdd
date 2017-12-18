@@ -21,13 +21,18 @@ private:
         return word.substr(0, 1);
     }
 
-    std::string encodedDigit() const {
+    // We anticipated the general case by making this a function, so I guess now
+    // we will just pass a char in.
+    std::string encodedDigit(char letter) const {
+        if (letter == 'c')
+            return "2";
+                
         return "1";
     }
 
     std::string encodedDigits(const std::string& word) const {
         if (word.length() > 1)
-            return encodedDigit();
+            return encodedDigit(word[1]);
         
         return "";
     }
