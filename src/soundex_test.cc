@@ -22,11 +22,5 @@ TEST_F(SoundexEncoding, PadsWithZerosToEnsureThreeDigits) {
 
 // 
 TEST_F(SoundexEncoding, ReplacesConsonantsWithAppropriateDigits) {
-    // Because there are multiple consonants that are touched by the
-    // specification of this behaviour, we break the "One Assert per Test" rule.
-    // Using EXPECT_THAT we specify that the other assertions should still run
-    // even if this one fails.
-    EXPECT_THAT(soundex.encode("Ab"), Eq("A100"));
-    EXPECT_THAT(soundex.encode("Ac"), Eq("A200"));
-    EXPECT_THAT(soundex.encode("Ad"), Eq("A300"));
+    ASSERT_THAT(soundex.encode("Ax"), Eq("A200"));
 }
