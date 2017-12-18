@@ -21,9 +21,13 @@ private:
         return word.substr(0, 1);
     }
 
+    std::string encodedDigit() const {
+        return "1";
+    }
+
     std::string encodedDigits(const std::string& word) const {
         if (word.length() > 1)
-            return "1";
+            return encodedDigit();
         
         return "";
     }
