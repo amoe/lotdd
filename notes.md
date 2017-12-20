@@ -1,7 +1,11 @@
+Langr - LOTDD
+
 factor out test to separate file per test case / suite
 
+2017-12-18
+
 Once we end up hardcoding 3 cases, we move to a hash solution for storing the
-if-else hierarchy.  Hence TDD ends up triggering the RUle of Three through the
+if-else hierarchy.  Hence TDD ends up triggering the Rule of Three through the
 specification of multiple data points.
 
  He uses `unordered_map` which is somewhat interesting.
