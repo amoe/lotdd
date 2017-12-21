@@ -20,3 +20,22 @@ to specify enough to get us to a correct solution.
 
 "TDD represents more of a sufficiency mentality" -- You write only as many tests
 as you need to get the necessary code and don't write any more.
+
+
+2017-12-21
+
+How to answer unknown questions?  Langr suggests to ask the customer, but if not
+find an existing similar item and just copy that.
+Basically this is handling exceptional, non-happy-path cases
+
+This test will then crash, because it tries to dereference a null pointer.
+We solve it by returning an empty string in this case.
+
+You can disable a test by prepending DISABLED_ to the name
+
+    TEST_F(SoundexEncoding, DISABLED_ReplacesMultipleConsonantsWithDigits) {
+
+Then it will ... disable these tests.
+
+He uses `word.front` function, presumably a method on the string?
+This returns a reference ot the first character of the string.

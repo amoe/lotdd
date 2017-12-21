@@ -4,14 +4,23 @@
 #include <unordered_map>
 #include <string>
 
+using std::string;
+
 class Soundex {
     static const size_t MAX_CODE_LENGTH{4};
 
 public:
     std::string encode(const std::string& word) const {
-        return zeroPad(head(word) + encodedDigits(word));
+        return zeroPad(head(word) + encodedDigits(tail(word)));
     }
+
+
 private:
+    // Return everything except for the start.
+    string tail(const string& word) const {
+        return word.substr(1);
+    }
+    
     std::string zeroPad(const std::string& word) const {
         auto zerosNeeded = MAX_CODE_LENGTH - word.length();
         
@@ -21,6 +30,14 @@ private:
     std::string head(const std::string& word) const {
         return word.substr(0, 1);
     }
+
+    std::string encodedDigits(const string& word) const {
+        if (word.empty())
+            return "";
+
+        return encodedDigit(word.front());
+    }
+
 
     // We anticipated the general case by making this a function, so I guess now
     // we will just pass a char in.
@@ -40,15 +57,14 @@ private:
             {'r', "6"}
         };
 
-        return encodings.find(letter)->second;
+        auto it = encodings.find(letter);
+        if (it == encodings.end()) {
+            return "";   // not found
+        } else {
+            return it->second;
+        }
     }
 
-    std::string encodedDigits(const std::string& word) const {
-        if (word.length() > 1)
-            return encodedDigit(word[1]);
-        
-        return "";
-    }
 };
 
 
