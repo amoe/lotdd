@@ -33,12 +33,9 @@ private:
 
     std::string encodedDigits(const string& word) const {
         // iterate over word, return the encoded digit.  basically a map
-        if (word.empty())
-            return "";
-
         string encoding;
 
-        // cool, huh?  Doesn't even look like C
+        // cool, huh?  Looks more like Python than c++x
         for (auto letter : word) {
             encoding += encodedDigit(letter);
         }
