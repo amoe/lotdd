@@ -78,19 +78,26 @@ private:
     }
 
     void encodeTail(string& sink, const string& word) const {
-        for (auto letter: tail(word)) {
+        for (auto i = 1u; i < word.length(); i++) {
             if (isComplete(sink)) break;
 
-            encodeLetter(sink, letter);
-
+            encodeLetter(sink, word[i], word[i - 1]);
         }
     }
 
-    void encodeLetter(string& sink, char letter) const {
+    bool isVowel(char letter) const {
+        return string("aeiouy").find(std::tolower(letter)) != string::npos;
+    }
+
+    // last letter must be pased in by the loop
+    void encodeLetter(string& sink, char letter, char lastLetter) const {
         auto digit = encodedDigit(letter);
 
-        if (digit != NOT_A_DIGIT && digit != lastDigit(sink)) {
-            sink += digit;
+        if (digit != NOT_A_DIGIT) {
+            auto theLast = lastDigit(sink);
+
+            if (digit != theLast || isVowel(lastLetter)) 
+                sink += digit;
         }
     }
 
