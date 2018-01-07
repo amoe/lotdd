@@ -73,25 +73,28 @@ private:
         return string(1, encoding.back());
     }
 
+    void encodeHead(string& sink, const string& word) const {
+        // do something to sink
+        sink += encodedDigit(word.front());
+    }
+
+    void encodeTail(string& sink, const string& word) const {
+        for (auto letter: tail(word)) {
+            if (isComplete(sink)) break;
+            auto digit = encodedDigit(letter);
+
+            if (digit != NOT_A_DIGIT && digit != lastDigit(sink)) {
+                sink += digit;
+            }
+        }
+    }
+
     std::string encodedDigits(const string& word) const {
         // iterate over word, return the encoded digit.  basically a map
         string encoding;
 
-        // Always include the first letter!
-        encoding += encodedDigit(word.front());
-
-        // cool, huh?  Looks more like Python than c++x
-        for (auto letter : word) {
-            // Stop if we already encoded too much.
-            if (isComplete(encoding))
-                break;
-
-            auto digit = encodedDigit(letter);
-
-            if (digit != NOT_A_DIGIT && digit != lastDigit(encoding)) {
-                encoding += digit;
-            }
-        }
+        encodeHead(encoding, word);
+        encodeTail(encoding, word);
 
         return encoding;
     }
