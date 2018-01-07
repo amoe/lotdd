@@ -81,17 +81,26 @@ private:
     void encodeTail(string& sink, const string& word) const {
         for (auto letter: tail(word)) {
             if (isComplete(sink)) break;
-            auto digit = encodedDigit(letter);
 
-            if (digit != NOT_A_DIGIT && digit != lastDigit(sink)) {
-                sink += digit;
-            }
+            encodeLetter(sink, letter);
+
+        }
+    }
+
+    void encodeLetter(string& sink, char letter) const {
+        auto digit = encodedDigit(letter);
+
+        if (digit != NOT_A_DIGIT && digit != lastDigit(sink)) {
+            sink += digit;
         }
     }
 
     std::string encodedDigits(const string& word) const {
         // iterate over word, return the encoded digit.  basically a map
         string encoding;
+
+        // post refactor to SRP, this now determines the overall policy for
+        // encoding.  The details are delegated to other functions.
 
         encodeHead(encoding, word);
         encodeTail(encoding, word);
