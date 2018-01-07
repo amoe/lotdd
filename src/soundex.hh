@@ -12,7 +12,12 @@ class Soundex {
 
 public:
     std::string encode(const std::string& word) const {
-        return zeroPad(head(word) + encodedDigits(tail(word)));
+        return zeroPad(upperCaseFront(head(word)) + encodedDigits(tail(word)));
+    }
+
+    string upperCaseFront(const string& word) const {
+        auto firstLetter = std::toupper(word.front());
+        return string(1, firstLetter);
     }
 
     // We anticipated the general case by making this a function, so I guess now
