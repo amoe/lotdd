@@ -13,7 +13,7 @@ class Soundex {
 
 public:
     std::string encode(const std::string& word) const {
-        return zeroPad(upperCaseFront(head(word)) + encodedDigits(tail(word)));
+        return zeroPad(upperCaseFront(head(word)) + tail(encodedDigits(word)));
     }
 
     string upperCaseFront(const string& word) const {
@@ -77,6 +77,9 @@ private:
         // iterate over word, return the encoded digit.  basically a map
         string encoding;
 
+        // Always include the first letter!
+        encoding += encodedDigit(word.front());
+
         // cool, huh?  Looks more like Python than c++x
         for (auto letter : word) {
             // Stop if we already encoded too much.
@@ -86,7 +89,7 @@ private:
             auto digit = encodedDigit(letter);
 
             if (digit != NOT_A_DIGIT && digit != lastDigit(encoding)) {
-                encoding += encodedDigit(letter);
+                encoding += digit;
             }
         }
 
@@ -94,7 +97,7 @@ private:
     }
 
     bool isComplete(const string& encodedSoFar) const {
-        return encodedSoFar.length() >= MAX_CODE_LENGTH - 1;
+        return encodedSoFar.length() >= MAX_CODE_LENGTH;
     }
 
 

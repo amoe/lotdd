@@ -66,3 +66,7 @@ It's worth noting that this code is very distinctive: it's not obvious how to
 translate this to any other lang I can think of.
 
 Note that the string class constants can't be static.
+
+The solution to the first-letter-also-must-collapse-adjacent-duplicates rule is
+just to pass the entire string in to the encoding algorithm and lop off the
+front afterward.  Quite great, in fact.
