@@ -56,3 +56,11 @@ Max code length is inited to 4.
 Therefore zeroPad will try to create a zero length string I suppose.
 How?
 actually it overflows!  Because `zerosNeeded` is of type `size_t`
+
+Note that he encounters a case where he needs to demonstrate something
+lower-level about the algorithm.  He chooses to just make the method in question
+public.  Langr explains that this is a calculated risk based on the idea that
+the benefit to the tests justifies the broadening of the interface.
+
+It's worth noting that this code is very distinctive: it's not obvious how to
+translate this to any other lang I can think of.
