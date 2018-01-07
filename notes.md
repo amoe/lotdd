@@ -42,3 +42,17 @@ This returns a reference ot the first character of the string.
 
 2018-01-07
 
+suffix U indicates an unsigned int.
+Strings can be iterated over by letter.
+
+Oops, an exception happened.
+
+He introduces the command line argument `--gtest_catch_exceptions=0`
+This will cause the test runner to abort when an unhandled exception happens.
+We can see std::length_error.
+We can see that problem is in zeroPad from reading the gdb trace.
+Honestly i don't see what could cause this?  Perhaps a negative length being passed?
+Max code length is inited to 4.
+Therefore zeroPad will try to create a zero length string I suppose.
+How?
+actually it overflows!  Because `zerosNeeded` is of type `size_t`

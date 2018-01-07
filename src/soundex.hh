@@ -1,6 +1,7 @@
 #ifndef SOUNDEX_HH
 #define SOUNDEX_HH
 
+#include <iostream>
 #include <unordered_map>
 #include <string>
 
@@ -23,7 +24,7 @@ private:
     
     std::string zeroPad(const std::string& word) const {
         auto zerosNeeded = MAX_CODE_LENGTH - word.length();
-        
+
         return word + std::string(zerosNeeded, '0');
     }
 
@@ -37,10 +38,18 @@ private:
 
         // cool, huh?  Looks more like Python than c++x
         for (auto letter : word) {
+            // Stop if we already encoded too much.
+            if (isComplete(encoding))
+                break;
+
             encoding += encodedDigit(letter);
         }
 
         return encoding;
+    }
+
+    bool isComplete(const string& encodedSoFar) const {
+        return encodedSoFar.length() >= MAX_CODE_LENGTH - 1;
     }
 
 
