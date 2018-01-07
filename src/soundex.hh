@@ -74,7 +74,7 @@ private:
     }
 
     void encodeHead(string& sink, const string& word) const {
-        encodeLetter(sink, word.front());
+        sink += encodedDigit(word.front());
     }
 
     void encodeTail(string& sink, const string& word) const {
