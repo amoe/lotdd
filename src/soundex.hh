@@ -9,6 +9,7 @@ using std::string;
 
 class Soundex {
     static const size_t MAX_CODE_LENGTH{4};
+    const string NOT_A_DIGIT{"*"};
 
 public:
     std::string encode(const std::string& word) const {
@@ -38,9 +39,9 @@ public:
             {'r', "6"}
         };
 
-        auto it = encodings.find(letter);
+        auto it = encodings.find(std::tolower(letter));
         if (it == encodings.end()) {
-            return "";   // not found
+            return NOT_A_DIGIT;   // not found
         } else {
             return it->second;
         }
@@ -67,7 +68,7 @@ private:
     // equivalent to someStr[-1] in Python, I guess.
     string lastDigit(const string& encoding) const {
         if (encoding.empty()) 
-            return "";
+            return NOT_A_DIGIT;
 
         return string(1, encoding.back());
     }
@@ -82,9 +83,11 @@ private:
             if (isComplete(encoding))
                 break;
 
-            // Only bother to add if we're going to add a different code.
-            if (encodedDigit(letter) != lastDigit(encoding)) 
+            auto digit = encodedDigit(letter);
+
+            if (digit != NOT_A_DIGIT && digit != lastDigit(encoding)) {
                 encoding += encodedDigit(letter);
+            }
         }
 
         return encoding;

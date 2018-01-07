@@ -64,3 +64,5 @@ the benefit to the tests justifies the broadening of the interface.
 
 It's worth noting that this code is very distinctive: it's not obvious how to
 translate this to any other lang I can think of.
+
+Note that the string class constants can't be static.

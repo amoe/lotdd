@@ -38,6 +38,7 @@ TEST_F(SoundexEncoding, LimitsLengthToFourCharacters) {
 }
 
 TEST_F(SoundexEncoding, IgnoresVowelLikeLetters) {
+    // need to handle differently-cased vowels
     ASSERT_THAT(soundex.encode("BaAeEiIoOuUhHyYcdl"), Eq("B234"));
 }
 
@@ -53,4 +54,8 @@ TEST_F(SoundexEncoding, CombinesDuplicateEncodings) {
 
 TEST_F(SoundexEncoding, UppercasesFirstLetter) {
     ASSERT_THAT(soundex.encode("abcd"), StartsWith("A"));
+}
+
+TEST_F(SoundexEncoding, IgnoresCaseWhenEncodingConsonants) {
+    ASSERT_THAT(soundex.encode("BCDL"), Eq(soundex.encode("Bcdl")));
 }
