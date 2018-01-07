@@ -39,3 +39,6 @@ Then it will ... disable these tests.
 
 He uses `word.front` function, presumably a method on the string?
 This returns a reference ot the first character of the string.
+
+2018-01-07
+
