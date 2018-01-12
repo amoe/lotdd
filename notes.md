@@ -70,3 +70,96 @@ Note that the string class constants can't be static.
 The solution to the first-letter-also-must-collapse-adjacent-duplicates rule is
 just to pass the entire string in to the encoding algorithm and lop off the
 front afterward.  Quite great, in fact.
+
+He eventually goes for a hybrid approach with some mutating functions, which
+is... interesting.
+
+He also has to resort to an index-based for loop.  He also notes that this style
+can induce frustration in some readers!  Worth considering.
+
+
+## ch3 - TDD Foundations
+
+Unit tests take the form: Arrange / Act / Assert.
+
+There's no necessary relation between fixture (test class) and the class under
+test.  Some fixtures may test multiple classes.
+
+Each test should produce the smallest meaningful increment possible.
+
+The ideal test has only 3 lines and a single assertion.
+
+It's more important to make sure to test-drive everything than to make sure that you are 100% pure.
+
+Burning the TDD cycle into your brain: red / green / refactor.  Once you no
+longer have to think about the cycle, you can focus on code design.
+
+Do NOT write extra code once your test is passing.
+
+Getting green on red: This is when you write a test that you think should fail,
+but in fact it passes.
+You must ALWAYS observe test failure before continuing!
+You can fall into silly errors like running your suite with your new test
+accidentally disabled if you don't frequently observe failure.
+
+Alternatively, the system may already contain the behaviour you specified.
+Perhaps it's provided transitively as a result of using a third-party component.
+
+Sometimes you have two interfaces to a component that reflect the same internal
+state.  For instance, isEmpty() and size() are inextricably linked.  Therefore
+if you've updated one, the other will change.  You want to avoid adding these
+linked assertions for every test.
+
+There are two "good" approaches that avoid the duplication:
+
+1.  Create a custom assertion in your test framework that explicitly asserts
+both and use that assertion instead of duplicating in each test.
+
+2.  Create another explicit test that documents the behaviour of the link in full, eg:
+
+    TEST_F(MyCollection, IsEmptyWhenSizeIsZero) {
+        // initialize collection
+        ASSERT_THAT(collection.size(), Eq(0u));
+        ASSERT_TRUE(collection.isEmpty());
+    }
+
+    TEST_F(MyCollection, IsNotEmptyWhenSizeIsNonzero) {
+        collection.add("foo");
+        ASSERT_THAT(collection.size(), Gt(1u));
+        ASSERT_TRUE(collection.isEmpty());
+    } 
+
+The tests here demonstrate the link.  The assertions on size() are not the
+primary point but are included for readability.
+After this test, you just assume that this link holds and always test just
+size(), or whichever one is clearer.
+
+"Testing for Confidence": This is when you write a test that you *expect* to
+immediately pass.  It's a symptom that you *may* be going too fast.
+
+
+Test Behaviour, Not Methods!  You don't wanna test "add", because it's both too
+much and too little. Too much because you actually need several assertions to
+verify addd.  Rather we focus on a higher level concern, eg, does this
+RetweetCollection successfully ignore duplicate tweets?  Obviously this assumes 
+that you are writing a higher-level business focused thing like this.
+
+Langr advises KISS regarding "speculation", a well known problem.
+
+What's the next test?  A good concept from Bob Martin:
+
+    All transformations are prioritized from simplest (highest priority) to most
+    complex (lowest priority).  Your job is to choose the transformation with the
+    highest-priority order and write the test that generates that transformation.
+
+Don't test drive: getters, setters, constructors because they don't have
+meaningful behaviour.
+To address this you can try to code exceptional cases first.
+
+Langr makes the suggestion to actually revert you attempt to make the test pass
+after 10 minutes!  This is quite hardcore.  Would be interesting to use a timer
+for this.
+
+Always first write regression tests for new defects found.
+
+Disable tests using the test framework tool so that you don't forget to discard it.
