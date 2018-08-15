@@ -1,8 +1,11 @@
 #include <gmock/gmock.h>
+#include <memory>
 #include "tweet.hh"
 #include "retweet_collection.hh"
 
 using namespace ::testing;
+
+using std::shared_ptr;
 
 class RetweetCollectionTest: public Test {
 public:
@@ -33,16 +36,11 @@ class RetweetCollectionContainingOneTweetTest: public Test {
 public:
     RetweetCollection collection;
     // We store this so we can duplicate it later in a test.
-    Tweet* tweet;   
+    shared_ptr<Tweet> tweet;   
 
     void SetUp() override {
-        tweet = new Tweet("msg", "@user");
+        tweet = shared_ptr<Tweet>(new Tweet("msg", "@user"));
         collection.add(*tweet);
-    }
-
-    void TearDown() override {
-        delete tweet;
-        tweet = nullptr;   // not sure why this is here
     }
 };
 

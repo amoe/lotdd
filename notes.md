@@ -181,3 +181,8 @@ Fixture vars can't be private, they have to be public.
 
 Sometimes you may need to store intermediate results in a fixture.  In this case
 you might need to store pointers and then delete them in a TearDown() function.
+
+You can use smart pointers, eliminating the need to delete them.  Smart pointers
+are dereferenced in the same way as a regular pointer.  Langr uses shared_ptr.
+
+
