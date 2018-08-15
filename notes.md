@@ -229,3 +229,13 @@ See this https://stackoverflow.com/questions/27404680/c-exception-return-type-wh
 for the explanation of the use of ASSERT_STREQ()
 
 Don't expose data only in order to assert on it.
+
+Boost has a date type, under boost::gregorian::date.  This comes from the header
+lib `<boost/date_time/gregorian/gregorian_types.hpp>`.  The debian package
+is `libboost-date-time-dev`.  But we can't use this c7 code yet because Langr
+doesn't provide any tests for it, so we just need to read the section and try to
+get the gist.
+
+
+
+
