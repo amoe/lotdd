@@ -26,3 +26,24 @@ TEST_F(RetweetCollectionTest, HasSizeOfOneAfterTweetAdded) {
 
     ASSERT_THAT(collection.size(), Eq(1));
 }
+
+
+// Note that we pick the name of the test to describe the effective contents
+// of the given fixture.
+class RetweetCollectionContainingOneTweetTest: public Test {
+public:
+    RetweetCollection collection;
+
+    void SetUp() override {
+        collection.add(Tweet());
+    }
+};
+
+TEST_F(RetweetCollectionContainingOneTweetTest, IsNoLongerEmpty) {
+    ASSERT_THAT(collection.isEmpty(), Eq(false));
+}
+
+TEST_F(RetweetCollectionContainingOneTweetTest, HasSizeOfOne) {
+    ASSERT_THAT(collection.size(), Eq(1));
+}
+

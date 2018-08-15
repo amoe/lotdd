@@ -178,3 +178,5 @@ simple implementation so that we can comfortable refactor our tests.
 Fixture not in scope: means that you forgot to use TEST_F.
 
 Fixture vars can't be private, they have to be public.
+
+
