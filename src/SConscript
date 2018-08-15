@@ -1,3 +1,5 @@
+import os
+
 googletest_framework_root = "/home/amoe/vcs/googletest"
 
 googletest_include_paths = [
@@ -12,6 +14,12 @@ gmock_all_path = googletest_framework_root + "/googlemock/src/gmock-all.cc"
 
 env = Environment(CPPPATH=googletest_include_paths)
 
+# This enables colour error messages from gcc
+maybe_term = os.environ.get('TERM')
+if maybe_term:
+    env['ENV']['TERM'] = maybe_term
+
+
 gtest_obj = env.Object(gtest_all_path)
 gmock_obj = env.Object(gmock_all_path)
 
@@ -21,8 +29,8 @@ env.Program(
     LIBS=['pthread']
 )
 
-# env.Program(
-#     target='tests_chapter4',
-#     source=Glob('chapter4/*.cc') + [gtest_all_path, gmock_all_path],
-#     LIBS=['pthread']
-# )
+env.Program(
+    target='tests_chapter4',
+    source=Glob('chapter4/*.cc') + [gtest_obj, gmock_obj],
+    LIBS=['pthread']
+)
