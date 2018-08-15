@@ -193,3 +193,17 @@ You can use a "nonfatal assertion" during test development to probe a bunch of
 assumptions and get output.  These should probably be removed before you merge
 the tests to production.  These are prefixed with `EXPECT`, eg `EXPECT_THAT`.
 
+Demos using AllOf to match multiple hamcrest matchers.  
+
+    string actual = string("al") + "pha";
+    ASSERT_THAT(
+        actual,
+        AllOf(StartsWith("al"), EndsWith("ha"), Ne("aloha"))
+    );
+
+Rule of thumb: use the most explicit assertion that you can, so don't say Gt(0)
+if it has to equal exactly 3.  And you should generally know this from the test.
+You should use Eq most of the time.  Not using Eq is sort of a code smell.
+
+When comparing floats, you must use DoubleEq which will use 'ULP' equality.
+
