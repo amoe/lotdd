@@ -9,6 +9,9 @@ class Tweet {
 public:
     Tweet() {}
     Tweet(const string& body, const string& user) : body(body), user(user) {}
+    
+    const string getBody();
+    const string getUser();
 
 private:
     const string body;
