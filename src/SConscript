@@ -13,7 +13,7 @@ gmock_all_path = googletest_framework_root + "/googlemock/src/gmock-all.cc"
 env = Environment(CPPPATH=googletest_include_paths)
 
 env.Program(
-    target='chapter3',
-    source=["main.cc", "soundex_test.cc", gtest_all_path, gmock_all_path],
+    target='tests_chapter3',
+    source=Glob('chapter3/*.cc') + [gtest_all_path, gmock_all_path],
     LIBS=['pthread']
 )
