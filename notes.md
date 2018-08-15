@@ -189,3 +189,7 @@ It still seems to work with a unique_ptr, so not sure why a shared one is used.
 
 You can use gtest filters to run test subsets, basically don't do this though.
 
+You can use a "nonfatal assertion" during test development to probe a bunch of
+assumptions and get output.  These should probably be removed before you merge
+the tests to production.  These are prefixed with `EXPECT`, eg `EXPECT_THAT`.
+
