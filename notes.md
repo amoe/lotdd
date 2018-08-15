@@ -236,6 +236,11 @@ is `libboost-date-time-dev`.  But we can't use this c7 code yet because Langr
 doesn't provide any tests for it, so we just need to read the section and try to
 get the gist.
 
+It revolves around the question: as you refactor private methods, should you
+test them?  and how?  Basically no, if you want to start testing private
+methods, you probably violate SRP.  So private methods are often a sign of
+a class that tries to do too much.  And large classes suck.
 
+TDD is again a sufficiency mentality.
 
-
+You can do parameterized tests but you probably shouldn't.
