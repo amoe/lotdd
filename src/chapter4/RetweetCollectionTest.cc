@@ -1,16 +1,23 @@
 #include <gmock/gmock.h>
+#include "tweet.hh"
+#include "retweet_collection.hh"
 
 using namespace ::testing;
 
 class RetweetCollectionTest: public Test {
 };
 
-TEST(RetweetCollectionTest, ActsAsIExpect) {
-    ASSERT_THAT(2 + 2, Eq(4));
+TEST(RetweetCollectionTest, IsEmptyWhenCreated) {
+    RetweetCollection collection;
+    ASSERT_THAT(collection.isEmpty(), Eq(4));
 }
 
 
-TEST(ARetweetCollection, IncrementsSizeWhenTweetAdded) {
-//    ASSERT_THAT(2 + 2, Eq(4));
+TEST(RetweetCollectionTest, IsNoLongerEmptyAfterTweetAdded) {
+    RetweetCollection collection;
+
+    collection.add(Tweet());
+
+    ASSERT_THAT(collection.isEmpty(), Eq(false));
 }
 
