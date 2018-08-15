@@ -7,8 +7,8 @@ using std::string;
 
 class Tweet {
 public:
-    Tweet() {}
-    Tweet(const string& body, const string& user) : body(body), user(user) {}
+    Tweet();
+    Tweet(const string& body, const string& user);
     
     const string getBody();
     const string getUser();
