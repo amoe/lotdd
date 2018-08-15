@@ -27,6 +27,11 @@ TEST_F(RetweetCollectionTest, HasSizeOfOneAfterTweetAdded) {
     ASSERT_THAT(collection.size(), Eq(1));
 }
 
+TEST_F(RetweetCollectionTest, IgnoresDuplicateTweetAdded) {
+    Tweet tweet("msg", "@user");
+//    Tweet duplicate(tweet);
+}
+
 
 // Note that we pick the name of the test to describe the effective contents
 // of the given fixture.
