@@ -29,7 +29,12 @@ TEST_F(RetweetCollectionTest, HasSizeOfOneAfterTweetAdded) {
 
 TEST_F(RetweetCollectionTest, IgnoresDuplicateTweetAdded) {
     Tweet tweet("msg", "@user");
-//    Tweet duplicate(tweet);
+    Tweet duplicate(tweet);
+
+    collection.add(tweet);
+    collection.add(duplicate);
+
+    ASSERT_THAT(collection.size(), Eq(1));
 }
 
 
