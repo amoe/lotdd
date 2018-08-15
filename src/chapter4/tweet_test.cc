@@ -25,3 +25,20 @@ TEST(TweetTest, RequiresUserToStartWithAtSignAndThrowsCorrectException) {
     );
 }
 
+
+TEST(TweetTest, RequiresUserToStartWithAtSignAndExceptionContainsCorrectValue) {
+    string invalidUser("notStartingWith@");
+
+    // You can also use this somewhat-less-magical format.
+    try {
+        Tweet tweet("msg", invalidUser);
+        FAIL();
+    } catch (const InvalidUserException& expected) {
+        // We HAVE to use ASSERT_STREQ() here because .what() uses C-strings,
+        // which are incompatible with Eq()
+        // This is because what() has to be guaranteed to not throw exceptions
+        // itself.
+        ASSERT_STREQ("notStartingWith@", expected.what());
+    }
+}
+

@@ -215,3 +215,15 @@ He gives a demo of making an exception type, it looks like so:
     };
 
 I don't really understand what's going on with the initializer list here.
+
+If you need to verify exception status, you can use the less magical form.
+
+    try {
+        Tweet tweet("msg", invalidUser);
+        FAIL();
+    } catch (const InvalidUserException& expected) {
+        ASSERT_STREQ(Eq("notStartingWith@"), expected.what());
+    }
+
+See this https://stackoverflow.com/questions/27404680/c-exception-return-type-why-char
+for the explanation of the use of ASSERT_STREQ()
