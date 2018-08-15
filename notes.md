@@ -170,4 +170,4 @@ Don't make header files for tests.
 It's fine to name tests based on behaviour descriptions rather than individual
 classes.
 
-
+We can define setup and teardown fixtures by defining a class for a test.
