@@ -6,6 +6,7 @@
 using namespace ::testing;
 
 using std::shared_ptr;
+using std::make_shared;
 
 class RetweetCollectionTest: public Test {
 public:
@@ -39,7 +40,7 @@ public:
     shared_ptr<Tweet> tweet;   
 
     void SetUp() override {
-        tweet = shared_ptr<Tweet>(new Tweet("msg", "@user"));
+        tweet = make_shared<Tweet>("msg", "@user");
         collection.add(*tweet);
     }
 };
