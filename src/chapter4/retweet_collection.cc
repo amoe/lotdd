@@ -1,9 +1,9 @@
 #include "retweet_collection.hh"
 
 bool RetweetCollection::isEmpty() {
-    return false;
+    return tweets.empty();
 }
 
 void RetweetCollection::add(Tweet t) {
-    // no impl
+    tweets.push_back(t);
 }

@@ -9,7 +9,7 @@ class RetweetCollectionTest: public Test {
 
 TEST(RetweetCollectionTest, IsEmptyWhenCreated) {
     RetweetCollection collection;
-    ASSERT_THAT(collection.isEmpty(), Eq(4));
+    ASSERT_THAT(collection.isEmpty(), Eq(true));
 }
 
 

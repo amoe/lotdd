@@ -171,3 +171,6 @@ It's fine to name tests based on behaviour descriptions rather than individual
 classes.
 
 We can define setup and teardown fixtures by defining a class for a test.
+
+It seems that there is no sample code provided, so let's write a really
+simple implementation so that we can comfortable refactor our tests.
