@@ -186,3 +186,6 @@ You can use smart pointers, eliminating the need to delete them.  Smart pointers
 are dereferenced in the same way as a regular pointer.  Langr uses shared_ptr.
 
 It still seems to work with a unique_ptr, so not sure why a shared one is used.
+
+You can use gtest filters to run test subsets, basically don't do this though.
+
