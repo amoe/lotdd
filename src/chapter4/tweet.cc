@@ -13,7 +13,7 @@ Tweet::Tweet() {
 
 Tweet::Tweet(const string& body, const string& user)  : body(body), user(user) {
     if (!isValid(user)) {
-        throw std::runtime_error("invalid user");
+        throw InvalidUserException(user);
     }
 }
 

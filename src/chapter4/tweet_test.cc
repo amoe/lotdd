@@ -14,3 +14,14 @@ TEST(TweetTest, RequiresUserToStartWithAtSign) {
     );
 }
 
+
+TEST(TweetTest, RequiresUserToStartWithAtSignAndThrowsCorrectException) {
+    string invalidUser("notStartingWith@");
+
+    // Kind of insane
+    ASSERT_THROW(
+        Tweet tweet("msg", invalidUser),
+        InvalidUserException
+    );
+}
+

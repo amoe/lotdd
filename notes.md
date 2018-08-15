@@ -207,3 +207,11 @@ You should use Eq most of the time.  Not using Eq is sort of a code smell.
 
 When comparing floats, you must use DoubleEq which will use 'ULP' equality.
 
+He gives a demo of making an exception type, it looks like so:
+
+    class InvalidUserException: public invalid_argument {
+    public:
+        InvalidUserException(const string& user): invalid_argument(user) {}
+    };
+
+I don't really understand what's going on with the initializer list here.
