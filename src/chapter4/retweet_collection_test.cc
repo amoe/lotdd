@@ -27,25 +27,22 @@ TEST_F(RetweetCollectionTest, HasSizeOfOneAfterTweetAdded) {
     ASSERT_THAT(collection.size(), Eq(1));
 }
 
-TEST_F(RetweetCollectionTest, IgnoresDuplicateTweetAdded) {
-    Tweet tweet("msg", "@user");
-    Tweet duplicate(tweet);
-
-    collection.add(tweet);
-    collection.add(duplicate);
-
-    ASSERT_THAT(collection.size(), Eq(1));
-}
-
-
 // Note that we pick the name of the test to describe the effective contents
 // of the given fixture.
 class RetweetCollectionContainingOneTweetTest: public Test {
 public:
     RetweetCollection collection;
+    // We store this so we can duplicate it later in a test.
+    Tweet* tweet;   
 
     void SetUp() override {
-        collection.add(Tweet());
+        tweet = new Tweet("msg", "@user");
+        collection.add(*tweet);
+    }
+
+    void TearDown() override {
+        delete tweet;
+        tweet = nullptr;   // not sure why this is here
     }
 };
 
@@ -57,3 +54,8 @@ TEST_F(RetweetCollectionContainingOneTweetTest, HasSizeOfOne) {
     ASSERT_THAT(collection.size(), Eq(1));
 }
 
+TEST_F(RetweetCollectionContainingOneTweetTest, IgnoresDuplicateTweetAdded) {
+    Tweet duplicate(*tweet);
+    collection.add(duplicate);
+    ASSERT_THAT(collection.size(), Eq(1));
+}

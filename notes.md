@@ -179,4 +179,5 @@ Fixture not in scope: means that you forgot to use TEST_F.
 
 Fixture vars can't be private, they have to be public.
 
-
+Sometimes you may need to store intermediate results in a fixture.  In this case
+you might need to store pointers and then delete them in a TearDown() function.
