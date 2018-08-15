@@ -5,17 +5,16 @@
 using namespace ::testing;
 
 class RetweetCollectionTest: public Test {
+public:
+    RetweetCollection collection;
 };
 
-TEST(RetweetCollectionTest, IsEmptyWhenCreated) {
-    RetweetCollection collection;
+TEST_F(RetweetCollectionTest, IsEmptyWhenCreated) {
     ASSERT_THAT(collection.isEmpty(), Eq(true));
 }
 
 
-TEST(RetweetCollectionTest, IsNoLongerEmptyAfterTweetAdded) {
-    RetweetCollection collection;
-
+TEST_F(RetweetCollectionTest, IsNoLongerEmptyAfterTweetAdded) {
     collection.add(Tweet());
 
     ASSERT_THAT(collection.isEmpty(), Eq(false));
