@@ -243,4 +243,12 @@ a class that tries to do too much.  And large classes suck.
 
 TDD is again a sufficiency mentality.
 
-You can do parameterized tests but you probably shouldn't.
+You can do parameterized tests but you probably shouldn't.  But if you need to,
+you derive your fixture class from TestWithParam<MyWrapper>, define MyWrapper to
+contain all inputs and expected outputs, define your test with TEST_P.  Inside
+the test, use `GetParam()` to get your `MyWrapper` instance.  Declare your
+dynamic data and then call `INSTANTIATE_TEST_CASE_P` with your array of
+`MyWrapper`.  You could do something like create a spec from a spreadsheet using
+this.  You'd write a Python script or similar to generate a bunch of static
+`MyWrapper(input, expected)` declarations and instantiate a `TEST_P` using them.
+But bear in mind this ain't TDD!
