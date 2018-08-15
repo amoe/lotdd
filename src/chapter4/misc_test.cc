@@ -32,3 +32,4 @@ TEST(MiscTest, ComparingFloats) {
     // Will use ULPs to get loose-EQ to a sensible tolerance.
     ASSERT_THAT(x + y, DoubleEq(4.56));
 }
+
