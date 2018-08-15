@@ -227,3 +227,5 @@ If you need to verify exception status, you can use the less magical form.
 
 See this https://stackoverflow.com/questions/27404680/c-exception-return-type-why-char
 for the explanation of the use of ASSERT_STREQ()
+
+Don't expose data only in order to assert on it.
