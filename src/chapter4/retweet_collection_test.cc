@@ -7,6 +7,8 @@ using namespace ::testing;
 
 using std::shared_ptr;
 using std::make_shared;
+using std::unique_ptr;
+using std::make_unique;
 
 class RetweetCollectionTest: public Test {
 public:
@@ -37,10 +39,10 @@ class RetweetCollectionContainingOneTweetTest: public Test {
 public:
     RetweetCollection collection;
     // We store this so we can duplicate it later in a test.
-    shared_ptr<Tweet> tweet;   
+    unique_ptr<Tweet> tweet;   
 
     void SetUp() override {
-        tweet = make_shared<Tweet>("msg", "@user");
+        tweet = make_unique<Tweet>("msg", "@user");
         collection.add(*tweet);
     }
 };
