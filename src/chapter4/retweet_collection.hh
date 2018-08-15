@@ -10,6 +10,7 @@ class RetweetCollection {
 public:
     bool isEmpty();
     void add(Tweet t);
+    int size();
 
 private:
     vector<Tweet> tweets;

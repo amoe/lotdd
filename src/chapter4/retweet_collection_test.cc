@@ -20,3 +20,9 @@ TEST_F(RetweetCollectionTest, IsNoLongerEmptyAfterTweetAdded) {
     ASSERT_THAT(collection.isEmpty(), Eq(false));
 }
 
+
+TEST_F(RetweetCollectionTest, HasSizeOfOneAfterTweetAdded) {
+    collection.add(Tweet());
+
+    ASSERT_THAT(collection.size(), Eq(1));
+}

@@ -20,6 +20,8 @@ if maybe_term:
     env['ENV']['TERM'] = maybe_term
 
 
+env.Append(CCFLAGS=['-Wall'])
+
 gtest_obj = env.Object(gtest_all_path)
 gmock_obj = env.Object(gmock_all_path)
 
