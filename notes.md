@@ -163,3 +163,11 @@ for this.
 Always first write regression tests for new defects found.
 
 Disable tests using the test framework tool so that you don't forget to discard it.
+
+## ch4 -- Test Construction
+
+Don't make header files for tests.
+It's fine to name tests based on behaviour descriptions rather than individual
+classes.
+
+
