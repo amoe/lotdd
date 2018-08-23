@@ -8,8 +8,7 @@ class HttpStub: public Http {
     void initialize() override {}
     
     std::string get(const std::string& url) const override {
-        return "???";
-
+        return R"({"address": {"road": "21 Fake Street", "city": "Brighton", "state": "East Sussex", "country": "GB"}})";
     }
 };
 
