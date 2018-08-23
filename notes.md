@@ -255,3 +255,11 @@ But bear in mind this ain't TDD!
 
 ## ch5 - test doubles
 
+He shows the method of stubbing that we are familiar with.  Polymorphism using 
+a base-class pointer.
+
+He demos adding a verification method to ensure that the SUT passes correct
+arguments to the collaborator.
+
+You can define constants for use in tests as actual constants in the test
+fixture.
