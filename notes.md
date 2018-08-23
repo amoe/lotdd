@@ -263,3 +263,6 @@ arguments to the collaborator.
 
 You can define constants for use in tests as actual constants in the test
 fixture.
+
+You can only use ASSERT_* macros in functions that return void, so you need
+to break out private methods whenever you do assertions in stub classes like this.

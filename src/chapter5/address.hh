@@ -1,6 +1,10 @@
 #ifndef ADDRESS_HH
 #define ADDRESS_HH
 
+#include <string>
+
+using std::string;
+
 struct Address {
     string road;
     string city;
