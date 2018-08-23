@@ -1,4 +1,6 @@
 #include <gmock/gmock.h>
+#include "http.hh"
+#include "place_description_service.hh"
 
 using namespace testing;
 
@@ -9,6 +11,9 @@ class HttpStub: public Http {
         return "???";
 
     }
+};
+
+class PlaceDescriptionServiceTest: public Test {
 };
 
 
