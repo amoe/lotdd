@@ -7,6 +7,7 @@ class HttpStub: public Http {
     
     std::string get(const std::string& url) const override {
         return "???";
+
     }
 };
 
@@ -16,8 +17,13 @@ TEST_F(PlaceDescriptionServiceTest, ReturnsDescriptionForValidLocation) {
 
     PlaceDescriptionService service(&httpStub);
 
-    auto description = service.summaryDescription(ValidLatitude, ValidLongitude);
 
-    ASSERT_THAT(description, Eq("21 Fake Street"));
+    double validLatitude = 50.824920;
+    double validLongitude = -0.155813;
+
+
+    auto description = service.summaryDescription(validLatitude, validLongitude);
+
+    ASSERT_THAT(description, Eq("21 Fake Street, Brighton, East Sussex, GB"));
 }
 
