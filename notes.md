@@ -252,3 +252,6 @@ dynamic data and then call `INSTANTIATE_TEST_CASE_P` with your array of
 this.  You'd write a Python script or similar to generate a bunch of static
 `MyWrapper(input, expected)` declarations and instantiate a `TEST_P` using them.
 But bear in mind this ain't TDD!
+
+## ch5 - test doubles
+
