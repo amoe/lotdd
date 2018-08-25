@@ -40,5 +40,5 @@ env.Program(
 env.Program(
     target='tests_chapter5',
     source=Glob('chapter5/*.cc') + [gtest_obj, gmock_obj],
-    LIBS=['pthread']
+    LIBS=['pthread', 'jsoncpp']
 )
