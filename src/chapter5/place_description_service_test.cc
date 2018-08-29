@@ -13,22 +13,20 @@ public:
 
 
 class HttpStub: public Http {
+public:
+    // These member will be mutated by the client class.
+    string returnResponse;
+    string expectedUrl;
+
     void initialize() override {}
     
     std::string get(const std::string& url) const override {
         verify(url);
-        return R"({"address": {"road": "21 Fake Street", "city": "Brighton", "state": "East Sussex", "country": "GB"}})";
+        return returnResponse;
     }
 
     void verify(const string& url) const  {
-        string urlStart("http://open.mapquestapi.com/nominatim/v1/reverse?format=json&");
-
-        string expectedArgs(
-            urlStart + "lat=" + to_string(PlaceDescriptionServiceTest::VALID_LATITUDE)
-            + "&lon=" + to_string(PlaceDescriptionServiceTest::VALID_LONGITUDE)
-        );
-
-        ASSERT_THAT(url, EndsWith(expectedArgs));
+        ASSERT_THAT(url, Eq(expectedUrl));
     }
 };
 
@@ -36,6 +34,15 @@ class HttpStub: public Http {
 
 TEST_F(PlaceDescriptionServiceTest, ReturnsDescriptionForValidLocation) {
     HttpStub httpStub;
+
+    string urlStart("http://open.mapquestapi.com/nominatim/v1/reverse?format=json&");
+    string expectedUrl(
+        urlStart + "lat=" + to_string(PlaceDescriptionServiceTest::VALID_LATITUDE)
+        + "&lon=" + to_string(PlaceDescriptionServiceTest::VALID_LONGITUDE)
+    );
+
+    httpStub.returnResponse = R"({"address": {"road": "21 Fake Street", "city": "Brighton", "state": "East Sussex", "country": "GB"}})";
+    httpStub.expectedUrl = expectedUrl;
 
     PlaceDescriptionService service(&httpStub);
 

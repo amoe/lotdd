@@ -266,3 +266,17 @@ fixture.
 
 You can only use ASSERT_* macros in functions that return void, so you need
 to break out private methods whenever you do assertions in stub classes like this.
+
+He mentions the fact that the expectation in the test matches the production
+code, and says he'll talk about it later, in 'Implicit Meaning' section.
+
+If we have this, 
+    ASSERT_THAT(description, Eq("21 Fake Street, Brighton, East Sussex, GB"));
+
+That later matches something returned by a stub, but it's present in two places.
+We modify it so the test patches a public class member variable.
+
+He changes the stub to accept the passed-in stuff as an intent of the test,
+which admittedly elongates the test substantially... And finally starts talking
+about mocking tools.
+
