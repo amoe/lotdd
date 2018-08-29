@@ -9,6 +9,8 @@ class PlaceDescriptionService {
 public:
     PlaceDescriptionService(Http* http) : http(http) { }
     string summaryDescription(double latitude, double longitude);
+    string keyValue(const string& key, const string& value) const;
+    string createGetRequestUrl(double latitude, double longitude) const;
 
 private:
     Http* http;
