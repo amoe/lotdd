@@ -21,9 +21,12 @@ class HttpStub: public Http {
     }
 
     void verify(const string& url) const  {
-        string expectedArgs
-            = "lat=" + to_string(PlaceDescriptionServiceTest::VALID_LATITUDE)
-            + "&lon=" + to_string(PlaceDescriptionServiceTest::VALID_LONGITUDE);
+        string urlStart("http://open.mapquestapi.com/nominatim/v1/reverse?format=json&");
+
+        string expectedArgs(
+            urlStart + "lat=" + to_string(PlaceDescriptionServiceTest::VALID_LATITUDE)
+            + "&lon=" + to_string(PlaceDescriptionServiceTest::VALID_LONGITUDE)
+        );
 
         ASSERT_THAT(url, EndsWith(expectedArgs));
     }

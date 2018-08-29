@@ -4,8 +4,10 @@
 using std::to_string;
 
 string PlaceDescriptionService::summaryDescription(double latitude, double longitude) {
+    string urlPrefix("http://open.mapquestapi.com/nominatim/v1/reverse?format=json&");
+
     string getRequestUrl
-        = "lat=" + to_string(latitude) + "&lon=" + to_string(longitude);
+        = urlPrefix + "lat=" + to_string(latitude) + "&lon=" + to_string(longitude);
 
     auto jsonResponse = http->get(getRequestUrl);
     
