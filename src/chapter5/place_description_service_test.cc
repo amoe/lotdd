@@ -21,3 +21,8 @@ public:
 
 
 
+TEST_F(PlaceDescriptionServiceTest, MakesHttpRequestToObtainAddress) {
+    HttpStub httpStub;
+
+    ASSERT_THAT(2 + 2, Eq(4));
+}
