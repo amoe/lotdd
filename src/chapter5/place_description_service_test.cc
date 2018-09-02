@@ -23,6 +23,17 @@ public:
 
 TEST_F(PlaceDescriptionServiceTest, MakesHttpRequestToObtainAddress) {
     HttpStub httpStub;
+    
+    string expectedUrl = "foo";
+
+    // Arrange...
+    EXPECT_CALL(httpStub, get(expectedUrl));
+
+
+    PlaceDescriptionService service(&httpStub);
+
+    // Act
+    service.summaryDescription(VALID_LATITUDE, VALID_LONGITUDE);
 
     ASSERT_THAT(2 + 2, Eq(4));
 }
