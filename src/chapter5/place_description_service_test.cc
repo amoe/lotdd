@@ -24,11 +24,10 @@ public:
 TEST_F(PlaceDescriptionServiceTest, MakesHttpRequestToObtainAddress) {
     HttpStub httpStub;
     
-    string expectedUrl = "foo";
+    string expectedUrl = "http://open.mapquestapi.com/nominatim/v1/reverse?format=json&lat=50.824920&lon=-0.155813";
 
     // Arrange...
     EXPECT_CALL(httpStub, get(expectedUrl));
-
 
     PlaceDescriptionService service(&httpStub);
 

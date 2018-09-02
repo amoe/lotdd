@@ -283,3 +283,7 @@ about mocking tools.
 lotdd - using mock tools
 
 we delete existing implemetnations and decide to re-test drive them again.
+
+When does the assertion happen -- Google Mock does verification against
+expectations once the mock object goes out of scope.  Therefore it's equivalent
+to putting an implicit assertion at the end of the test.
