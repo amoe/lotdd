@@ -280,3 +280,6 @@ He changes the stub to accept the passed-in stuff as an intent of the test,
 which admittedly elongates the test substantially... And finally starts talking
 about mocking tools.
 
+lotdd - using mock tools
+
+we delete existing implemetnations and decide to re-test drive them again.

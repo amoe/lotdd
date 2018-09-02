@@ -14,40 +14,10 @@ public:
 
 class HttpStub: public Http {
 public:
-    // These member will be mutated by the client class.
-    string returnResponse;
-    string expectedUrl;
-
-    void initialize() override {}
-    
-    std::string get(const std::string& url) const override {
-        verify(url);
-        return returnResponse;
-    }
-
-    void verify(const string& url) const  {
-        ASSERT_THAT(url, Eq(expectedUrl));
-    }
+    MOCK_METHOD0(initialize, void());
+    MOCK_CONST_METHOD1(get, string(const string&));
 };
 
 
 
-TEST_F(PlaceDescriptionServiceTest, ReturnsDescriptionForValidLocation) {
-    HttpStub httpStub;
-
-    string urlStart("http://open.mapquestapi.com/nominatim/v1/reverse?format=json&");
-    string expectedUrl(
-        urlStart + "lat=" + to_string(PlaceDescriptionServiceTest::VALID_LATITUDE)
-        + "&lon=" + to_string(PlaceDescriptionServiceTest::VALID_LONGITUDE)
-    );
-
-    httpStub.returnResponse = R"({"address": {"road": "21 Fake Street", "city": "Brighton", "state": "East Sussex", "country": "GB"}})";
-    httpStub.expectedUrl = expectedUrl;
-
-    PlaceDescriptionService service(&httpStub);
-
-    auto description = service.summaryDescription(VALID_LATITUDE, VALID_LONGITUDE);
-
-    ASSERT_THAT(description, Eq("21 Fake Street, Brighton, East Sussex, GB"));
-}
 
