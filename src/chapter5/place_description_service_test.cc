@@ -35,4 +35,6 @@ TEST_F(PlaceDescriptionServiceTest, MakesHttpRequestToObtainAddress) {
     service.summaryDescription(VALID_LATITUDE, VALID_LONGITUDE);
 
     ASSERT_THAT(2 + 2, Eq(4));
+
+    Mock::VerifyAndClearExpectations(&httpStub);
 }
