@@ -14,7 +14,12 @@ string PlaceDescriptionService::summaryDescription(double latitude, double longi
     string url = server + document + "?" + keyValue("format", "json")
         + "&" + keyValue("lat", to_string(latitude)) + "&"
         + keyValue("lon", to_string(longitude));
+    
+    auto response = http->get(url);
 
-    http->get(url);
-    return "";
+    AddressExtractor extractor;
+
+    auto address = extractor.addressFrom(response);
+    string result = address.road + ", " + address.city + ", " + address.state + ", " + address.country;
+    return result;
 }

@@ -292,3 +292,4 @@ You can use this line to force expectations to convert to assertions instead
 of the implicitness.
 
     Mock::VerifyAndClearExpectations(&httpStub);
+

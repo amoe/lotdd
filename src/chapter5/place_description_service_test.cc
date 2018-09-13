@@ -20,14 +20,13 @@ public:
 
 const string jsonResponse = R"({"address": {"road": "21 Fake Street", "city": "Brighton", "state": "East Sussex", "country": "GB"}})";
 
-
 TEST_F(PlaceDescriptionServiceTest, MakesHttpRequestToObtainAddress) {
     HttpStub httpStub;
     
     string expectedUrl = "http://open.mapquestapi.com/nominatim/v1/reverse?format=json&lat=50.824920&lon=-0.155813";
 
     // Arrange...
-    EXPECT_CALL(httpStub, get(expectedUrl));
+    EXPECT_CALL(httpStub, get(expectedUrl)).WillOnce(Return(jsonResponse));
 
     PlaceDescriptionService service(&httpStub);
 
