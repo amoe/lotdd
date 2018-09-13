@@ -34,7 +34,12 @@ TEST_F(PlaceDescriptionServiceTest, MakesHttpRequestToObtainAddress) {
     // Act
     service.summaryDescription(VALID_LATITUDE, VALID_LONGITUDE);
 
-    ASSERT_THAT(2 + 2, Eq(4));
-
+    // Explicit assert just to check.
     Mock::VerifyAndClearExpectations(&httpStub);
+}
+
+TEST_F(PlaceDescriptionServiceTest, FormatsRetrievedAddressIntoSummaryDescription) {
+    HttpStub httpStub;
+
+    EXPECT_CALL(httpStub, get(_)).WillOnce(Return(""));
 }
