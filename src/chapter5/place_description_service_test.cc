@@ -18,7 +18,7 @@ public:
     MOCK_CONST_METHOD1(get, string(const string&));
 };
 
-
+const string jsonResponse = R"({"address": {"road": "21 Fake Street", "city": "Brighton", "state": "East Sussex", "country": "GB"}})";
 
 
 TEST_F(PlaceDescriptionServiceTest, MakesHttpRequestToObtainAddress) {
@@ -41,5 +41,11 @@ TEST_F(PlaceDescriptionServiceTest, MakesHttpRequestToObtainAddress) {
 TEST_F(PlaceDescriptionServiceTest, FormatsRetrievedAddressIntoSummaryDescription) {
     HttpStub httpStub;
 
-    EXPECT_CALL(httpStub, get(_)).WillOnce(Return(""));
+    EXPECT_CALL(httpStub, get(_)).WillOnce(Return(jsonResponse));
+
+    PlaceDescriptionService service(&httpStub);
+
+    auto description = service.summaryDescription(VALID_LATITUDE, VALID_LONGITUDE);
+
+    ASSERT_THAT(description, Eq("21 Fake Street, Brighton, East Sussex, GB"));
 }
