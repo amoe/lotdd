@@ -6,3 +6,7 @@ To build, you need to define `googletest_framework_root` in the SConscript file.
 
 You also need to install `libjsoncpp-dev`.
 
+## Errata
+
+Errata for the book are located here: https://pragprog.com/cms/errata/lotdd-errata/
+
