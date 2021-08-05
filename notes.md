@@ -303,3 +303,7 @@ Order doesn't matter by default???  Seems odd.  But simply by declaring
 InSequence you force the calls to be in the correct order.  What a crazy API.
 If it wasn't C++ I'd say it was bad and too magical.  Apparently there are also
 less weird APIs within gmock, though.
+
+"Interactions with collaborators are a key aspect of [the design of the
+system]...  Having tests that describe those interactions will be of high value
+to other developers." -- I'm not totally sure that I buy this, but fair.
