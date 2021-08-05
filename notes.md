@@ -293,3 +293,8 @@ of the implicitness.
 
     Mock::VerifyAndClearExpectations(&httpStub);
 
+Returning to this chapter in 2021.
+
+NiceMock is a template that allows wrapping mocks and tells them to only track
+cases where calls are expected, rather than tracking every call.  NiceMock is
+caveatted that there should be some caution

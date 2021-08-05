@@ -3,7 +3,16 @@
 #include "place_description_service.hh"
 
 using std::to_string;
-using namespace testing;
+
+// Just explicitly requesting everything to more clearly demo how the DSL is
+// defined.  Note that the ASSERT_* macros are global, as with all C++ macros.
+using testing::Test;
+using testing::NiceMock;
+using testing::Eq;
+using testing::Return;
+using testing::_;
+using testing::Mock;
+
 
 class PlaceDescriptionServiceTest: public Test {
 public:
@@ -40,7 +49,7 @@ TEST_F(PlaceDescriptionServiceTest, MakesHttpRequestToObtainAddress) {
 }
 
 TEST_F(PlaceDescriptionServiceTest, FormatsRetrievedAddressIntoSummaryDescription) {
-    HttpStub httpStub;
+    NiceMock<HttpStub> httpStub;
 
     EXPECT_CALL(httpStub, get(_)).WillOnce(Return(jsonResponse));
 
