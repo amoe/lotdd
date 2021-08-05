@@ -298,3 +298,8 @@ Returning to this chapter in 2021.
 NiceMock is a template that allows wrapping mocks and tells them to only track
 cases where calls are expected, rather than tracking every call.  NiceMock is
 caveatted that there should be some caution
+
+Order doesn't matter by default???  Seems odd.  But simply by declaring
+InSequence you force the calls to be in the correct order.  What a crazy API.
+If it wasn't C++ I'd say it was bad and too magical.  Apparently there are also
+less weird APIs within gmock, though.

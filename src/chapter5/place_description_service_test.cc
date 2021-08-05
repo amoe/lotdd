@@ -12,6 +12,7 @@ using testing::Eq;
 using testing::Return;
 using testing::_;
 using testing::Mock;
+using testing::InSequence;
 
 
 class PlaceDescriptionServiceTest: public Test {
@@ -30,6 +31,8 @@ public:
 const string jsonResponse = R"({"address": {"road": "21 Fake Street", "city": "Brighton", "state": "East Sussex", "country": "GB"}})";
 
 TEST_F(PlaceDescriptionServiceTest, MakesHttpRequestToObtainAddress) {
+    InSequence s;
+    
     HttpStub httpStub;
     
     string expectedUrl = "http://open.mapquestapi.com/nominatim/v1/reverse?format=json&lat=50.824920&lon=-0.155813";
@@ -49,6 +52,7 @@ TEST_F(PlaceDescriptionServiceTest, MakesHttpRequestToObtainAddress) {
 }
 
 TEST_F(PlaceDescriptionServiceTest, FormatsRetrievedAddressIntoSummaryDescription) {
+    
     NiceMock<HttpStub> httpStub;
 
     EXPECT_CALL(httpStub, get(_)).WillOnce(Return(jsonResponse));
