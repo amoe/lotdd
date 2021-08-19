@@ -1,5 +1,7 @@
+import pdb
 import os
 
+ 
 googletest_framework_root = "/home/amoe/vcs/googletest"
 
 googletest_include_paths = [
@@ -12,33 +14,32 @@ googletest_include_paths = [
 gtest_all_path = googletest_framework_root + "/googletest/src/gtest-all.cc"
 gmock_all_path = googletest_framework_root + "/googlemock/src/gmock-all.cc"
 
-env = Environment(CPPPATH=googletest_include_paths)
 
-# This enables colour error messages from gcc
-maybe_term = os.environ.get('TERM')
-if maybe_term:
-    env['ENV']['TERM'] = maybe_term
-
-
-env.Append(CCFLAGS=['-Wall'])
+env = Environment(
+    CPPPATH=googletest_include_paths,
+    CCFLAGS=['-Wall'],
+    LIBS=['pthread',  'jsoncpp']
+)
 
 gtest_obj = env.Object(gtest_all_path)
 gmock_obj = env.Object(gmock_all_path)
 
-env.Program(
-    target='tests_chapter3',
-    source=Glob('chapter3/*.cc') + [gtest_obj, gmock_obj],
-    LIBS=['pthread']
-)
+def all_non_binaries():
+    all_nodes = env.Glob('chapter*', strings=True)
+    return [
+        node for node in all_nodes
+        if os.path.isdir(node)
+    ]
 
-env.Program(
-    target='tests_chapter4',
-    source=Glob('chapter4/*.cc') + [gtest_obj, gmock_obj],
-    LIBS=['pthread']
-)
 
-env.Program(
-    target='tests_chapter5',
-    source=Glob('chapter5/*.cc') + [gtest_obj, gmock_obj],
-    LIBS=['pthread', 'jsoncpp']
-)
+for chapter_directory in all_non_binaries():
+    chapter_name = os.path.basename(chapter_directory)
+    pattern = chapter_directory + '/example*'
+    for exercise_directory in env.Glob(pattern, strings=True):
+        exercise_name = os.path.basename(exercise_directory)
+        source_pattern = exercise_directory + '/*.cc'
+        sources = env.Glob(source_pattern)
+        full_path = '{}-{}'.format(chapter_name, exercise_name)
+        
+        if sources:
+            env.Program(full_path, sources + [gtest_obj, gmock_obj])
