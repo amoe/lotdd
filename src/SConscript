@@ -18,7 +18,7 @@ gmock_all_path = googletest_framework_root + "/googlemock/src/gmock-all.cc"
 env = Environment(
     CPPPATH=googletest_include_paths,
     CCFLAGS=['-Wall'],
-    LIBS=['pthread',  'jsoncpp']
+    LIBS=['pthread',  'jsoncpp', 'curl']
 )
 
 gtest_obj = env.Object(gtest_all_path)
