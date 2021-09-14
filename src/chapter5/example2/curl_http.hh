@@ -11,7 +11,7 @@ public:
 
     void initialize();
     virtual std::string get(const std::string& url) const;
-}
+};
 
 
 #endif /* CURL_HTTP_HH */

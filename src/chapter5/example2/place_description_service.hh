@@ -2,10 +2,13 @@
 #define PLACE_DESCRIPTION_SERVICE_HH
 
 #include <memory>
-#include "curl_http.hh"
+#include "http.hh"
 
 class PlaceDescriptionService {
     virtual ~PlaceDescriptionService() { }
+
+private:
+    std::string get(const std::string& url) const;
 
 protected:
     virtual std::shared_ptr<Http> httpService() const;
