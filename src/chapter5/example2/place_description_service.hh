@@ -5,6 +5,7 @@
 #include "http.hh"
 
 class PlaceDescriptionService {
+public:
     virtual ~PlaceDescriptionService() { }
 
 private:
