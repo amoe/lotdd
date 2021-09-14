@@ -3,6 +3,7 @@
 
 #include <curl/curl.h>
 #include <string>
+#include "http.hh"
 
 class CurlHttp: public Http {
 public:
