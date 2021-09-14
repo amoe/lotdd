@@ -7,6 +7,9 @@
 using std::string;
 using std::shared_ptr;
 
+using testing::Test;
+using testing::InSequence;
+
 class HttpStub: public Http {
 public:
    MOCK_METHOD0(initialize, void());
@@ -26,3 +29,12 @@ public:
 
     shared_ptr<Http> httpStub;
 };
+
+class PlaceDescriptionServiceTest: public Test {
+};
+
+
+TEST_F(PlaceDescriptionServiceTest, makesHttpRequestToObtainAddress) {
+//    InSequence forceExpectationOrder;
+    shared_ptr<HttpStub> httpStub{new HttpStub};
+}
