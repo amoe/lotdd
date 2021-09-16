@@ -307,3 +307,8 @@ less weird APIs within gmock, though.
 "Interactions with collaborators are a key aspect of [the design of the
 system]...  Having tests that describe those interactions will be of high value
 to other developers." -- I'm not totally sure that I buy this, but fair.
+
+Brace initialization widely used -- this is actually a better convention to
+adopt everywhere as it's stricter.
+
+<https://stackoverflow.com/questions/18222926/>

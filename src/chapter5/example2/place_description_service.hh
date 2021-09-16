@@ -8,8 +8,13 @@ class PlaceDescriptionService {
 public:
     virtual ~PlaceDescriptionService() { }
 
+    std::string summaryDescription(
+        const std::string& latitude, const std::string& longitude
+    ) const;
+
 private:
     std::string get(const std::string& url) const;
+    std::string summaryDescription(const std::string& response) const;
 
 protected:
     virtual std::shared_ptr<Http> httpService() const;

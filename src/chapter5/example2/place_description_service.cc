@@ -16,3 +16,17 @@ string PlaceDescriptionService::get(const string& url) const {
 shared_ptr<Http> PlaceDescriptionService::httpService() const {
     return make_shared<CurlHttp>();
 }
+
+// string PlaceDescriptionService::summaryDescription(const string& response) const {
+//     // AddressExtractor extractor;
+//     // auto address = extractor.addressFrom(response);
+//     // return address.summaryDescription();
+
+//     return "";
+// }
+
+string PlaceDescriptionService::summaryDescription(
+    const string& latitude, const string& longitude
+) const {
+    return "";
+}
