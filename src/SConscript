@@ -21,6 +21,8 @@ env = Environment(
     LIBS=['pthread',  'jsoncpp', 'curl']
 )
 
+env.MergeFlags(["!pkg-config --cflags jsoncpp"])
+
 gtest_obj = env.Object(gtest_all_path)
 gmock_obj = env.Object(gmock_all_path)
 

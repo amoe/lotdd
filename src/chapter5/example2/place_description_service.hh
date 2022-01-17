@@ -15,7 +15,9 @@ public:
 private:
     std::string get(const std::string& url) const;
     std::string summaryDescription(const std::string& response) const;
-
+    std::string createGetRequestUrl(const std::string& latitude, const std::string& longitude) const;
+    std::string keyValue(const std::string& key, const std::string& value) const;
+    
 protected:
     virtual std::shared_ptr<Http> httpService() const;
 };

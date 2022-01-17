@@ -47,7 +47,7 @@ TEST_F(PlaceDescriptionServiceTest, makesHttpRequestToObtainAddress) {
     InSequence forceExpectationOrder;
     shared_ptr<HttpStub> httpStub{new HttpStub};
 
-    string urlStart{"http://open.mapquestapi.com/nominatim/v/reverse?format=json&"};
+    string urlStart{"http://open.mapquestapi.com/nominatim/v1/reverse?format=json&"};
 
     auto expectedUrl = urlStart
         + "lat=" + VALID_LATITUDE + "&lon=" + VALID_LONGITUDE;
@@ -60,6 +60,6 @@ TEST_F(PlaceDescriptionServiceTest, makesHttpRequestToObtainAddress) {
     EXPECT_CALL(*httpStub, get(expectedUrl));
 
     PlaceDescriptionService_StubHttpService service{httpStub};
-    
+     
     service.summaryDescription(VALID_LATITUDE, VALID_LONGITUDE);
 }
