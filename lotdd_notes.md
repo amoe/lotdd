@@ -313,3 +313,20 @@ adopt everywhere as it's stricter.
 
 <https://stackoverflow.com/questions/18222926/>
 
+Ex16: Demonstrate "override getter".
+
+PlaceDescriptionService constructor gains a constructor with an implementation.
+PlaceDescriptionService gains a private shared_ptr<Http>.
+This will be initialized in the constructor.  The test will continue to override
+the factory method.
+This is in addition to the httpService() factory method.
+What does this gain us?
+Even though we use a derived class for the test stub, our base class no-arg
+constructor is automatically called, meaning that the code that was previously
+part of the "factory":
+
+    make_shared<CurlHttp>()
+
+does end up being called now, where before (with plain "Override Factory
+Method") this code would never be exercised at all.
+

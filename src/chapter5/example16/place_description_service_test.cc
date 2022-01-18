@@ -22,12 +22,11 @@ public:
     PlaceDescriptionService_StubHttpService(shared_ptr<HttpStub> httpStub): httpStub(httpStub) {
     }
 
-    // Override Factory Method pattern.  We override httpService() to return a
-    // specific stub version.
+    // Override Getter pattern.  We override httpService() to return a specific
+    // stub version.
     shared_ptr<Http> httpService() const override {
         return httpStub;
     }
-
 
     shared_ptr<Http> httpStub;
 };

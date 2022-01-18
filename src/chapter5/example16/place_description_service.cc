@@ -4,10 +4,15 @@
 #include "curl_http.hh"
 #include "address_extractor.hh"
 #include "address.hh"
+#include <iostream>
 
 using std::string;
 using std::shared_ptr;
 using std::make_shared;
+
+// Override Getter means the initialization code does get invoked by the tests.
+PlaceDescriptionService::PlaceDescriptionService(): http_(make_shared<CurlHttp>()) {
+}
 
 string PlaceDescriptionService::get(const string& url) const {
     auto http = httpService();
@@ -15,8 +20,9 @@ string PlaceDescriptionService::get(const string& url) const {
     return http->get(url);
 }
 
+// Override Getter: just return our previously instantiated stubbable thing.
 shared_ptr<Http> PlaceDescriptionService::httpService() const {
-    return make_shared<CurlHttp>();
+    return http_;
 }
 
 string PlaceDescriptionService::summaryDescription(const string& response) const {

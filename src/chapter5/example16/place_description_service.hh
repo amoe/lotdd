@@ -6,6 +6,7 @@
 
 class PlaceDescriptionService {
 public:
+    PlaceDescriptionService();
     virtual ~PlaceDescriptionService() { }
 
     std::string summaryDescription(
@@ -17,6 +18,8 @@ private:
     std::string summaryDescription(const std::string& response) const;
     std::string createGetRequestUrl(const std::string& latitude, const std::string& longitude) const;
     std::string keyValue(const std::string& key, const std::string& value) const;
+    
+    std::shared_ptr<Http> http_;
     
 protected:
     virtual std::shared_ptr<Http> httpService() const;
