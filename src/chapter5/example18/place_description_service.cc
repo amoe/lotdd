@@ -10,19 +10,15 @@ using std::string;
 using std::shared_ptr;
 using std::make_shared;
 
-// Override Getter means the initialization code does get invoked by the tests.
-PlaceDescriptionService::PlaceDescriptionService(): http_(make_shared<CurlHttp>()) {
-}
+PlaceDescriptionService::PlaceDescriptionService(
+    shared_ptr<HttpFactory> httpFactory
+): httpFactory_(httpFactory) { }
+
 
 string PlaceDescriptionService::get(const string& url) const {
-    auto http = httpService();
+    auto http = httpFactory_->get();
     http->initialize();
     return http->get(url);
-}
-
-// Override Getter: just return our previously instantiated stubbable thing.
-shared_ptr<Http> PlaceDescriptionService::httpService() const {
-    return http_;
 }
 
 string PlaceDescriptionService::summaryDescription(const string& response) const {

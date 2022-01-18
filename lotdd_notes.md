@@ -330,3 +330,7 @@ part of the "factory":
 does end up being called now, where before (with plain "Override Factory
 Method") this code would never be exercised at all.
 
+Ex18: demonstrate "introduce via factory"
+
+Here we create a factory class.  We make TWO derived classes from the test class.
+I'm not sure if this is strictly necessary...

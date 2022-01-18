@@ -3,12 +3,12 @@
 
 #include <memory>
 #include "http.hh"
+#include "http_factory.hh"
 
 class PlaceDescriptionService {
 public:
-    PlaceDescriptionService();
-    virtual ~PlaceDescriptionService() { }
-
+    PlaceDescriptionService(std::shared_ptr<HttpFactory> httpFactory);
+    
     std::string summaryDescription(
         const std::string& latitude, const std::string& longitude
     ) const;
@@ -19,10 +19,7 @@ private:
     std::string createGetRequestUrl(const std::string& latitude, const std::string& longitude) const;
     std::string keyValue(const std::string& key, const std::string& value) const;
     
-    std::shared_ptr<Http> http_;
-    
-protected:
-    virtual std::shared_ptr<Http> httpService() const;
+    std::shared_ptr<HttpFactory> httpFactory_;
 };
 
 

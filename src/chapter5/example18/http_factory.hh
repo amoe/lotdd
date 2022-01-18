@@ -1,6 +1,8 @@
 #ifndef HTTP_FACTORY_HH
 #define HTTP_FACTORY_HH
 
+#include "http.hh"
+
 class HttpFactory {
 public:
     HttpFactory();
