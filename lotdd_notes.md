@@ -2,7 +2,7 @@ Langr - LOTDD
 
 factor out test to separate file per test case / suite
 
-2017-12-18
+# 2017-12-18
 
 Once we end up hardcoding 3 cases, we move to a hash solution for storing the
 if-else hierarchy.  Hence TDD ends up triggering the Rule of Three through the
@@ -22,7 +22,7 @@ to specify enough to get us to a correct solution.
 as you need to get the necessary code and don't write any more.
 
 
-2017-12-21
+# 2017-12-21
 
 How to answer unknown questions?  Langr suggests to ask the customer, but if not
 find an existing similar item and just copy that.
@@ -40,7 +40,7 @@ Then it will ... disable these tests.
 He uses `word.front` function, presumably a method on the string?
 This returns a reference ot the first character of the string.
 
-2018-01-07
+# 2018-01-07
 
 suffix U indicates an unsigned int.
 Strings can be iterated over by letter.
@@ -148,9 +148,9 @@ Langr advises KISS regarding "speculation", a well known problem.
 
 What's the next test?  A good concept from Bob Martin:
 
-    All transformations are prioritized from simplest (highest priority) to most
-    complex (lowest priority).  Your job is to choose the transformation with the
-    highest-priority order and write the test that generates that transformation.
+> All transformations are prioritized from simplest (highest priority) to most
+> complex (lowest priority).  Your job is to choose the transformation with the
+> highest-priority order and write the test that generates that transformation.
 
 Don't test drive: getters, setters, constructors because they don't have
 meaningful behaviour.
@@ -312,3 +312,4 @@ Brace initialization widely used -- this is actually a better convention to
 adopt everywhere as it's stricter.
 
 <https://stackoverflow.com/questions/18222926/>
+
