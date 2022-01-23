@@ -9,9 +9,7 @@
 template<typename T>
 class PlaceDescriptionServiceTemplate {
 public:
-    std::string summaryDescription(
-        const std::string& latitude, const std::string& longitude
-    ) const {
+    std::string summaryDescription(const std::string& latitude, const std::string& longitude) {
         auto request = createGetRequestUrl(latitude, longitude);
         auto response = get(request);
         return summaryDescription(response);
