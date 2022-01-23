@@ -1,16 +1,3 @@
-class PlaceDescriptionService {
-public:
-    PlaceDescriptionService(std::shared_ptr<HttpFactory> httpFactory);
-
-private:
-    std::string get(const std::string& url) const;
-    std::string createGetRequestUrl(const std::string& latitude, const std::string& longitude) const;
-    std::string keyValue(const std::string& key, const std::string& value) const;
-    
-    std::shared_ptr<HttpFactory> httpFactory_;
-};
-
-
 #ifndef PLACE_DESCRIPTION_SERVICE_HH
 #define PLACE_DESCRIPTION_SERVICE_HH
 
