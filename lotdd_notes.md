@@ -334,3 +334,36 @@ Ex18: demonstrate "introduce via factory"
 
 Here we create a factory class.  We make TWO derived classes from the test class.
 I'm not sure if this is strictly necessary...
+
+### Ex19: Introduce via Template Parameter
+
+The basic technique:
+
+typedef your production class like so:
+
+    using PlaceDescriptionService = PlaceDescriptionServiceTemplate<Http>;
+
+In test, use the template directly with the stub class:
+
+    PlaceDescriptionServiceTemplate<HttpStub> service;
+
+Crucially this causes the instantiation of the mock to actually take place
+within the template's code itself (as part of the class's default constructor, I
+think).  Hence the public accessor needs to be made otherwise there would be no
+way to verify calls on the stub at all.
+
+    T& http() { return http_; }
+
+### Injection Tools
+
+Autumn Framework is a C++ DI tool from 2007.
+Qt IOC Container is still around on sourceforge, but not updated since 2006.
+
+http://qtioccontainer.sourceforge.net/
+
+This almost certainly doesn't work anymore though as it uses Qt MOC.
+
+
+### Ex17 -- Design Will Change
+
+
