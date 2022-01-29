@@ -13,6 +13,13 @@ public:
     ) const;
 
 private:
+    std::string createGetRequestUrl(
+        const std::string& latitude, const std::string& longitude
+    ) const;
+
+
+    // ???
+    static std::string response_;
     
 protected:
 };
