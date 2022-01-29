@@ -366,4 +366,5 @@ This almost certainly doesn't work anymore though as it uses Qt MOC.
 
 ### Ex17 -- Design Will Change
 
-
+The example here is a great example of what I mean when Sandi Metz talks about
+the trade-off between concrete & easy-to-change.
