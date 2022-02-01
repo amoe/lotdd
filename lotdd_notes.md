@@ -368,3 +368,15 @@ This almost certainly doesn't work anymore though as it uses Qt MOC.
 
 The example here is a great example of what I mean when Sandi Metz talks about
 the trade-off between concrete & easy-to-change.
+
+The concrete curl class segfaults with an error if it's not declared as static.
+In this call:
+
+    curl_easy_setopt(
+        curl, CURLOPT_WRITEFUNCTION, &PlaceDescriptionService::writeCallback
+    );
+
+`PlaceDescriptionService::writeCallback` MUST be static, otherwise Curl ends up
+calling it in the wrong way!  Basically gets miscompiled.  `this` gets passed as
+an implicit first argument by the compiler, throwing the argument stack out by
+1.

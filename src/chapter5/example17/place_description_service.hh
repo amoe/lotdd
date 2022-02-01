@@ -25,7 +25,7 @@ private:
 
     // Must fulfil signature of CURLOPT_WRITEFUNCTION.
     // XXX: const?
-    size_t writeCallback(
+    static size_t writeCallback(
         const char* buf, size_t size, size_t nMemb, void* userData
     );
 

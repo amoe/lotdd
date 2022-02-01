@@ -19,6 +19,7 @@ PlaceDescriptionService::PlaceDescriptionService(): curl(NULL) {
     );
 }
 
+// XXX: MUST BE DECLARED AS STATIC!  Otherwise this will be called wrong by Curl.
 size_t PlaceDescriptionService::writeCallback(
     const char* buf, size_t size, size_t nMemb, void* userData
 ) {
@@ -46,22 +47,7 @@ string PlaceDescriptionService::summaryDescription(
     std::cout << "requesting " << url << std::endl;
 
     curl_easy_setopt(curl, CURLOPT_URL, url.c_str());
-    CURLcode res = curl_easy_perform(curl);
-
-    if (res == CURLE_OK) {
-        std::cout << "success" << std::endl;
-    } else {
-
-    size_t len = strlen(errorBuffer);
-    fprintf(stderr, "\nlibcurl: (%d) ", res);
-    if(len)
-      fprintf(stderr, "%s%s", errorBuffer,
-              ((errorBuffer[len - 1] != '\n') ? "\n" : ""));
-    else
-      fprintf(stderr, "%s\n", curl_easy_strerror(res));        
-//        std::cout << "error was " << errorBuffer << std::endl;
-    }
-    
+    curl_easy_perform(curl);
     curl_easy_cleanup(curl);
 
     std::cout << "wrote value '" << response_ << "'" << std::endl;
