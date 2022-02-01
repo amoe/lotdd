@@ -16,7 +16,7 @@ gmock_all_path = googletest_framework_root + "/googlemock/src/gmock-all.cc"
 
 
 env = Environment(
-    CPPPATH=googletest_include_paths,
+    CPPPATH=googletest_include_paths + ['#src'],
     CCFLAGS=['-Wall',  '-Wno-deprecated-declarations', '-ggdb', '-g'],
     LIBS=['pthread',  'jsoncpp', 'curl']
 )
@@ -25,6 +25,39 @@ env.MergeFlags(["!pkg-config --cflags jsoncpp"])
 
 gtest_obj = env.Object(gtest_all_path)
 gmock_obj = env.Object(gmock_all_path)
+
+KEY_FILE_PATH = '#.mapquest_api_key'
+
+def get_key(source_path):
+    real_path = File(source_path).abspath
+    with open(real_path, 'r') as f:
+        version = f.read().rstrip()
+    return version
+
+def version_action(target, source, env):
+    source_path = source[0].path
+    target_path = target[0].path
+
+    version_c_text = """
+    #include "mapquest_api_key.hh"
+
+    const char* const MAPQUEST_API_KEY = "%s";
+    """ % get_key(source_path)
+
+    with open(target_path, 'w') as f:
+        f.write(version_c_text)
+
+    return 0
+
+KEYCC = 'mapquest_api_key.cc'
+
+# Build API key source file using the special action
+env.Command(
+    target='mapquest_api_key.cc',
+    source=KEY_FILE_PATH,
+    action=version_action
+)
+key_obj = env.Object('mapquest_api_key.cc')
 
 def all_non_binaries():
     all_nodes = env.Glob('chapter*', strings=True)
@@ -44,4 +77,4 @@ for chapter_directory in all_non_binaries():
         full_path = '{}-{}'.format(chapter_name, exercise_name)
         
         if sources:
-            env.Program(full_path, sources + [gtest_obj, gmock_obj])
+            env.Program(full_path, sources + [gtest_obj, gmock_obj, KEYCC])

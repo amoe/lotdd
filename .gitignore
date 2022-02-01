@@ -1,2 +1,4 @@
-.sconsign.dblite
+/core
+/.mapquest_api_key
+/.sconsign.dblite
 build/

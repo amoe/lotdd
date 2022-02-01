@@ -380,3 +380,6 @@ In this call:
 calling it in the wrong way!  Basically gets miscompiled.  `this` gets passed as
 an implicit first argument by the compiler, throwing the argument stack out by
 1.
+
+Needed to change the build process to allow embedding a "real" mapquest API key.
+

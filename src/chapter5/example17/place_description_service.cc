@@ -1,6 +1,7 @@
 #include <iostream>
 #include <cstring>
 #include "place_description_service.hh"
+#include "mapquest_api_key.hh"
 
 using std::string;
 
@@ -67,7 +68,8 @@ string PlaceDescriptionService::createGetRequestUrl(
     return server + document + "?" +
         keyValue("format", "json") + "&" +
         keyValue("lat", latitude) + "&" +
-        keyValue("lon", longitude);
+        keyValue("lon", longitude) + "&" +
+        keyValue("key", MAPQUEST_API_KEY);
 }
 
 string PlaceDescriptionService::keyValue(
