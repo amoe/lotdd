@@ -1,6 +1,8 @@
 #include <iostream>
 #include <cstring>
+#include <jsoncpp/json/json.h>
 #include "place_description_service.hh"
+#include "address.hh"
 #include "mapquest_api_key.hh"
 
 using std::string;
@@ -53,11 +55,20 @@ string PlaceDescriptionService::summaryDescription(
 
     std::cout << "wrote value '" << response_ << "'" << std::endl;
 
-    // Value location;
-    // Reader reader;
-    // reader.parse(response_, location);
-    
-    return "";
+    Json::Value location;
+    Json::Reader reader;
+    reader.parse(response_, location);
+
+    auto jsonAddress = location.get("address", Json::Value::null);
+
+    Address address;
+    address.road = jsonAddress.get("road", "").asString();
+    address.city = jsonAddress.get("city", "").asString();
+    address.state = jsonAddress.get("state", "").asString();
+    address.country = jsonAddress.get("country", "").asString();
+
+    return address.road + ", " + address.city + ", " + address.state
+        + ", " + address.country;
 }
 
 string PlaceDescriptionService::createGetRequestUrl(

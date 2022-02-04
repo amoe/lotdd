@@ -8,6 +8,7 @@ using std::string;
 using std::shared_ptr;
 
 using testing::Test;
+using testing::Eq;
 using testing::InSequence;
 
 class PlaceDescriptionServiceTest: public Test {
@@ -36,5 +37,6 @@ TEST_F(PlaceDescriptionServiceTest, makesHttpRequestToObtainAddress) {
     // EXPECT_CALL(*httpStub, get(expectedUrl));
 
     // PlaceDescriptionService_StubHttpService service{httpStub};
-    service.summaryDescription(VALID_LATITUDE, VALID_LONGITUDE);
+    string description = service.summaryDescription(VALID_LATITUDE, VALID_LONGITUDE);
+    ASSERT_THAT(description, Eq(", , Colorado, United States of America"));
 }
