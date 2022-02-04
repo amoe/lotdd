@@ -16,9 +16,10 @@ gmock_all_path = googletest_framework_root + "/googlemock/src/gmock-all.cc"
 
 
 env = Environment(
+    CXX='clang',
     CPPPATH=googletest_include_paths + ['#src'],
     CCFLAGS=['-Wall',  '-Wno-deprecated-declarations', '-ggdb', '-g'],
-    LIBS=['pthread',  'jsoncpp', 'curl']
+    LIBS=['pthread',  'jsoncpp', 'curl', 'm', 'stdc++']
 )
 
 env.MergeFlags(["!pkg-config --cflags jsoncpp"])
