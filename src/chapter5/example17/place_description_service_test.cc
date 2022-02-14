@@ -23,20 +23,10 @@ const string PlaceDescriptionServiceTest::VALID_LONGITUDE{"-104.44"};
 
 
 TEST_F(PlaceDescriptionServiceTest, makesHttpRequestToObtainAddress) {
-    // InSequence forceExpectationOrder;
-    // shared_ptr<HttpStub> httpStub{new HttpStub};
-
     PlaceDescriptionService service;
-
-    string urlStart{"http://open.mapquestapi.com/nominatim/v1/reverse?format=json&"};
-
-    auto expectedUrl = urlStart
-        + "lat=" + VALID_LATITUDE + "&lon=" + VALID_LONGITUDE;
-
-    // EXPECT_CALL(*httpStub, initialize());
-    // EXPECT_CALL(*httpStub, get(expectedUrl));
-
-    // PlaceDescriptionService_StubHttpService service{httpStub};
     string description = service.summaryDescription(VALID_LATITUDE, VALID_LONGITUDE);
+
+    // Because the road and city aren't populated any more, we expect empty
+    // strings in their place.
     ASSERT_THAT(description, Eq(", , Colorado, United States of America"));
 }
