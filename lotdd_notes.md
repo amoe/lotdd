@@ -364,7 +364,7 @@ http://qtioccontainer.sourceforge.net/
 This almost certainly doesn't work anymore though as it uses Qt MOC.
 
 
-### Ex17 -- Design Will Change
+### 5.8 -- Design Will Change
 
 The example here is a great example of what I mean when Sandi Metz talks about
 the trade-off between concrete & easy-to-change.
@@ -383,3 +383,88 @@ an implicit first argument by the compiler, throwing the argument stack out by
 
 Needed to change the build process to allow embedding a "real" mapquest API key.
 
+> Longer functions like this promote unnecessary duplication. Other services
+> are likely to need some of the same cURL logic, for example. Developers will
+> often re-code the three lines related to cURL rather than try to reuse them.
+> Reuse begins with isolation of reusable constructs that other programmers
+> can readily identify. As long as the potentially reusable chunks of code lay
+> buried in a Long Method, reuse won’t happen.
+
+Interesting take here.  In Fox, for instance, reuse just doesn't happen
+full-stop.
+
+### 5.9 Strategies for Using Test Doubles
+
+Reading this 2022-04-28.
+
+> Many of the mocks for controller-level code verified sequences of events by
+> expecting that methods were called in a certain order. (Worse, the tool they
+> used required method expectations to be represented as strings. Renaming a
+> method meant you had to remember to update the string literals used by the
+> mocks.)
+
+Yuck!
+
+> Having tests highly dependent on implementation specifics—which methods are
+> called in which order—created significant problems. But in hindsight, the far
+> larger problem was our inadequate system design. We might have had an easier
+> time had we factored away duplication across tests.
+
+This describes the frustrations of maintaining tests during heavy refactoring.
+I would likely have disabled tests at this point.
+
+_Growing Object-Oriented Software, Guided By Tests_ uses mockist TDD.
+
+Tell-Don't-Ask means we don't interrogate state of objects, rather we let the
+object handle its own state.
+
+The classicist school avoids mocks until forced to use them.  Kent Beck's text
+"TDD By Example" uses this approach.
+
+Regarding test doubles:
+
+> *Recognize the concession to unit testing coverage.* A test double represents a
+> hole of sorts in your system’s coverage. The lines of logic that your test
+> double supplants is code that your unit tests will not execute. You _must_
+> ensure that other tests cover that logic.
+
+> Refactor your tests as much as you refactor your production code!  Encapsulate
+> expectation declarations in common helper methods to improve abstraction, reduce
+> the extent of the dependency, and minimize duplicate code.
+
+I don't agree with this necessarily but it is good to aim at this.
+
+> Having multiple levels of mocks is usually a recipe for headaches.
+
+Yeah, this would clearly seem to be the case.  If I saw this I would seriously
+rethink the design.
+
+## 5.10 Miscellaneous Test Double Topics
+
+A fake is a small clone of some production class that has the same interface.
+Clearly there's not really a bright line between a stub and a fake, but imagine
+trying to implement an in memory database using hash tables.  This seems very
+silly when you could just mock out the specific DB calls required.  If you use
+fakes it's appropriate to unit test them.
+
+> Remember that changes to the production interface will break tests that use
+> derived test doubles. If you’re all on the same team and following collective
+> code ownership guidelines (everyone has to right to change any code), the
+> developer changing the production interface is responsible for running all
+> tests and fixing any that break. In other circumstances, sending out a message
+> that clearly communicates the change (and implications) is prudent.
+
+Interesting guideline here, although how does it interact with the PR process?
+
+Vtables and performance: This involves making certain methods virtual to enable
+polymorphism.  Could mean a perf discussion.  Obviously not the case in
+Python/Java.
+
+> If the measured degradation is unacceptable, consider a different mocking form
+> (perhaps a template-based solution), rework the design (and possibly recoup the
+> performance loss by optimizing elsewhere), or introduce integration tests to
+> compensate for the loss of the ability to unit test.
+
+# CHAPTER 6 -- Incremental Design
+
+This is the next chapter.
