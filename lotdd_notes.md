@@ -468,3 +468,11 @@ Python/Java.
 # CHAPTER 6 -- Incremental Design
 
 This is the next chapter.
+
+Simple Design: A set of rules for clean code
+
+* Readability and expressiveness is priority #1
+* Eliminating duplication is priority #2
+* Not adding unnecessary stuff is #3
+
+

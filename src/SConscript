@@ -60,22 +60,17 @@ env.Command(
 )
 key_obj = env.Object('mapquest_api_key.cc')
 
-def all_non_binaries():
-    all_nodes = env.Glob('chapter*', strings=True)
-    return [
-        node for node in all_nodes
-        if os.path.isdir(node)
-    ]
 
-
-for chapter_directory in all_non_binaries():
+# "programs" is also a subdirectory of the build dir, containing the finished
+# binaries, but the glob pattern itself excludes this directory.
+for chapter_directory in env.Glob('chapter*', strings=True):
     chapter_name = os.path.basename(chapter_directory)
     pattern = chapter_directory + '/example*'
     for exercise_directory in env.Glob(pattern, strings=True):
         exercise_name = os.path.basename(exercise_directory)
         source_pattern = exercise_directory + '/*.cc'
         sources = env.Glob(source_pattern)
-        full_path = '{}-{}'.format(chapter_name, exercise_name)
+        full_path = 'programs/{}-{}'.format(chapter_name, exercise_name)
         
         if sources:
             env.Program(full_path, sources + [gtest_obj, gmock_obj, KEYCC])
