@@ -15,11 +15,31 @@ detected using `pkg-config`.
 When adding a new chapter directory you must nuke the entire `build` directory
 otherwise SCons won't pick up the new one.  Not sure why at the moment.
 
+We decided not to use LSP-mode on this, even after switching it to build using
+clang, because the build system is too complex to interface it with clangd's
+configuration.
+
+## Adding a new example directory
+
+Each new example also needs its own test driver file, which is named `main.cc`,
+and should read as follows:
+
+    #include <gmock/gmock.h>
+
+    int main(int argc, char **argv) {
+        testing::InitGoogleMock(&argc, argv);
+        return RUN_ALL_TESTS();
+    }
+
+
 ## Author's conventions
 
 Langr uses a 3-space indent in his code archive, which is rather satanic.
 
-He also likes to use the `_` suffix to distinguish member variables.
+He also likes to use the `_` suffix to distinguish member variables.  We also
+follow that convention here.  It makes it easier to avoid name clashes,
+especially since we use `camelCase` for member function names where Langr does
+not.
 
 ## Errata
 

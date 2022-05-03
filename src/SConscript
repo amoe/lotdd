@@ -16,11 +16,24 @@ gmock_all_path = googletest_framework_root + "/googlemock/src/gmock-all.cc"
 
 
 env = Environment(
-    CXX='clang',
+#    CXX='clang',
+    CXX='g++',
     CPPPATH=googletest_include_paths + ['#src'],
     CCFLAGS=['-Wall',  '-Wno-deprecated-declarations', '-ggdb', '-g'],
-    LIBS=['pthread',  'jsoncpp', 'curl', 'm', 'stdc++']
+    LIBS=[
+        'pthread',
+        'jsoncpp',
+        'curl',
+        'm',
+        'stdc++'
+    ]
 )
+
+# This enables colour error messages from gcc
+maybe_term = os.environ.get('TERM')
+if maybe_term:
+    env['ENV']['TERM'] = maybe_term
+
 
 env.MergeFlags(["!pkg-config --cflags jsoncpp"])
 
