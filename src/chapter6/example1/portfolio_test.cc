@@ -14,6 +14,11 @@ TEST_F(PortfolioTest, answersZeroForShareCountOfUnpurchasedSymbol) {
     ASSERT_THAT(portfolio.shareCount("AAPL"), Eq(0u));
 }
 
+TEST_F(PortfolioTest, IsNotEmptyAfterPurchase) {
+    portfolio.purchase("IBM", 1u);
+    ASSERT_FALSE(portfolio.isEmpty());
+}
+
 TEST_F(PortfolioTest, isEmptyWhenCreated) {
     ASSERT_TRUE(portfolio.isEmpty());
 }
