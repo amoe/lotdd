@@ -46,3 +46,4 @@ not.
 Errata for the book are located here:
 https://pragprog.com/cms/errata/lotdd-errata/
 
+You can find Langr's solutions in the file named `lotdd-code.tgz`.
