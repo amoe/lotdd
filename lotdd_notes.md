@@ -476,3 +476,12 @@ Simple Design: A set of rules for clean code
 * Not adding unnecessary stuff is #3
 
 
+Duplication can have multiple forms.  Repeated expressions is one, but
+"algorithmic" duplication is another one, i.e. redundancy in the actual
+representation of data within a class.  e.g. a class that tracks its
+empty/non-empty status with a boolean contains 'algorithmic' duplication.  I
+would say that algorithmic duplication surely implies redundancy at a textual
+level as well.  Algorithmic duplication would seem to be a worse issue than
+expression duplication.
+
+Next exercise: use an unordered_map to implement the next round of tests.

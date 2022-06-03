@@ -37,3 +37,17 @@ TEST_F(PortfolioTest, answersShareCountForPurchasedSymbol) {
 TEST_F(PortfolioTest, throwsOnPurchaseOfZeroShares) {
     ASSERT_THROW(portfolio.purchase(stockSymbol1, 0), InvalidPurchaseException);
 }
+
+TEST_F(PortfolioTest, answersShareCountForAppropriateSymbol) {
+}
+
+TEST_F(PortfolioTest, shareCountReflectsAccumulatedPurchasesOfSameSymbol) {
+}
+
+TEST_F(PortfolioTest, reducesShareCountOfSymbolOnSell) {
+}
+
+TEST_F(PortfolioTest, throwsWhenSellingMoreSharesThanPurchased) {
+}
+
+
