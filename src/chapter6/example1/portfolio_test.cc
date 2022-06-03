@@ -22,3 +22,10 @@ TEST_F(PortfolioTest, IsNotEmptyAfterPurchase) {
 TEST_F(PortfolioTest, isEmptyWhenCreated) {
     ASSERT_TRUE(portfolio.isEmpty());
 }
+
+TEST_F(PortfolioTest, answersShareCountForPurchasedSymbol) {
+    portfolio.purchase("IBM", 2u);
+    ASSERT_THAT(portfolio.shareCount("IBM"), Eq(2u));
+}
+
+
