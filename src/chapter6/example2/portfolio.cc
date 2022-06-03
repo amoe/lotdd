@@ -1,13 +1,14 @@
 #include "portfolio.hh"
 
-Portfolio::Portfolio(): isEmpty_(true), shareCount_(0u) { }
+Portfolio::Portfolio(): shareCount_(0u) { }
 
 bool Portfolio::isEmpty() const {
-    return isEmpty_;
+    return shareCount_ == 0u;
 }
 
 void Portfolio::purchase(const std::string& symbol, unsigned int shareCount) {
-    isEmpty_ = false;
+    if (shareCount == 0) throw InvalidPurchaseException();
+    
     shareCount_ = shareCount;
 }
 

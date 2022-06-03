@@ -1,5 +1,9 @@
 #include <string>
 
+class InvalidPurchaseException: public std::exception {
+};
+
+
 class Portfolio {
 public:
     Portfolio();
@@ -11,7 +15,6 @@ public:
     
 
 private:
-    bool isEmpty_;
     unsigned int shareCount_;
 };
 
