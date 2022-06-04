@@ -50,15 +50,15 @@ TEST_F(PortfolioTest, shareCountReflectsAccumulatedPurchasesOfSameSymbol) {
     ASSERT_THAT(portfolio.shareCount(stockSymbol1), Eq(3u));
 }
 
-// TEST_F(PortfolioTest, reducesShareCountOfSymbolOnSell) {
-//     portfolio.purchase(stockSymbol1, 1u);
-//     portfolio.sell(stockSymbol1, 1u);
-//     ASSERT_THAT(portfolio.shareCount(stockSymbol1), Eq(0u));
-// }
+TEST_F(PortfolioTest, reducesShareCountOfSymbolOnSell) {
+    portfolio.purchase(stockSymbol1, 1u);
+    portfolio.sell(stockSymbol1, 1u);
+    ASSERT_THAT(portfolio.shareCount(stockSymbol1), Eq(0u));
+}
 
-// TEST_F(PortfolioTest, throwsWhenSellingMoreSharesThanPurchased) {
-//     portfolio.purchase(stockSymbol1, 1u);
-//     ASSERT_THROW(portfolio.sell(stockSymbol1, 2u), InvalidSellException);
-// }
+TEST_F(PortfolioTest, throwsWhenSellingMoreSharesThanPurchased) {
+    portfolio.purchase(stockSymbol1, 1u);
+    ASSERT_THROW(portfolio.sell(stockSymbol1, 2u), InvalidSellException);
+}
 
 

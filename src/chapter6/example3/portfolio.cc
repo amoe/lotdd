@@ -25,6 +25,16 @@ void Portfolio::purchase(const std::string& symbol, unsigned int purchaseCount) 
 }
 
 void Portfolio::sell(const std::string& symbol, unsigned int sellCount) {
+    auto it = shareHoldings.find(symbol);
+    if (it == shareHoldings.end()) {
+//        throw InvalidSellException
+    } else {
+        if (sellCount > it->second) {
+            throw InvalidSellException();
+        } else {
+            it->second = it->second - sellCount;
+        }
+    }
 }
 
 

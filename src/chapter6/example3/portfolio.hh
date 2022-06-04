@@ -20,6 +20,6 @@ public:
 
 private:
     unsigned int shareCount_;
-    std::unordered_map<std::string, int> shareHoldings;
+    std::unordered_map<std::string, unsigned int> shareHoldings;
 };
 
