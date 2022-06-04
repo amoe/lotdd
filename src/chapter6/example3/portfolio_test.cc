@@ -44,11 +44,11 @@ TEST_F(PortfolioTest, answersShareCountForAppropriateSymbol) {
     ASSERT_THAT(portfolio.shareCount("AAPL"), Eq(2u));
 }
 
-// TEST_F(PortfolioTest, shareCountReflectsAccumulatedPurchasesOfSameSymbol) {
-//     portfolio.purchase(stockSymbol1, 1u);
-//     portfolio.purchase(stockSymbol1, 2u);
-//     ASSERT_THAT(portfolio.shareCount(stockSymbol1), Eq(3u));
-// }
+TEST_F(PortfolioTest, shareCountReflectsAccumulatedPurchasesOfSameSymbol) {
+    portfolio.purchase(stockSymbol1, 1u);
+    portfolio.purchase(stockSymbol1, 2u);
+    ASSERT_THAT(portfolio.shareCount(stockSymbol1), Eq(3u));
+}
 
 // TEST_F(PortfolioTest, reducesShareCountOfSymbolOnSell) {
 //     portfolio.purchase(stockSymbol1, 1u);
