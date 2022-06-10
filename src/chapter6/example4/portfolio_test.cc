@@ -62,3 +62,16 @@ TEST_F(PortfolioTest, throwsWhenSellingMoreSharesThanPurchased) {
 }
 
 
+TEST_F(PortfolioTest, answersThePurchaseRecordForASinglePurchase) {
+    portfolio.purchase(stockSymbol1, 1u);
+    auto purchases = portfolio.purchases(stockSymbol1);
+
+    auto thePurchase = purchases.at(0);
+    
+    ASSERT_THAT(thePurchase.shareCount, Eq(1u));
+    ASSERT_THAT(thePurchase.date, Eq(Portfolio::FIXED_PURCHASE_DATE));
+                
+    ASSERT_THROW(portfolio.sell(stockSymbol1, 2u), InvalidSellException);
+}
+
+

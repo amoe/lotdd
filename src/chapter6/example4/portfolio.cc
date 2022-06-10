@@ -2,10 +2,16 @@
 #include <stdexcept>
 #include <iostream>
 #include <ostream>
+#include <string>
+#include <vector>
 
 using std::runtime_error;
 using std::cout;
 using std::endl;
+using std::string;
+using std::vector;
+
+const string Portfolio::FIXED_PURCHASE_DATE{"1970-01-01"};
 
 Portfolio::Portfolio(): shareCount_(0u) { }
 
@@ -22,6 +28,8 @@ void Portfolio::purchase(const std::string& symbol, unsigned int purchaseCount) 
     } else {
         it->second = it->second + purchaseCount;
     }
+
+    purchaseRecords.push_back(PurchaseRecord(purchaseCount, FIXED_PURCHASE_DATE));
 }
 
 void Portfolio::sell(const std::string& symbol, unsigned int sellCount) {
@@ -45,4 +53,8 @@ unsigned int Portfolio::shareCount(const std::string& symbol) const {
     } else {
         return it->second;
     }
+}
+
+vector<PurchaseRecord> Portfolio::purchases(const string& symbol) const {
+    return purchaseRecords;
 }
