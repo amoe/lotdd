@@ -12,6 +12,8 @@ To build, you need to define `googletest_framework_root` in the SConscript file.
 You also need to install `libjsoncpp-dev`.  The include files location are
 detected using `pkg-config`.
 
+You need `libboost-date-time-dev` for the date classes.
+
 When adding a new chapter directory you must nuke the entire `build` directory
 otherwise SCons won't pick up the new one.  Not sure why at the moment.
 

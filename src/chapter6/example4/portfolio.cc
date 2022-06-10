@@ -4,14 +4,16 @@
 #include <ostream>
 #include <string>
 #include <vector>
+#include <boost/date_time/gregorian/gregorian_types.hpp>
 
 using std::runtime_error;
 using std::cout;
 using std::endl;
 using std::string;
 using std::vector;
+using boost::gregorian::date;
 
-const string Portfolio::FIXED_PURCHASE_DATE{"1970-01-01"};
+const date Portfolio::FIXED_PURCHASE_DATE{date(1970, 1, 1)};
 
 Portfolio::Portfolio(): shareCount_(0u) { }
 

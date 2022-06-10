@@ -485,3 +485,8 @@ level as well.  Algorithmic duplication would seem to be a worse issue than
 expression duplication.
 
 Next exercise: use an unordered_map to implement the next round of tests.
+
+Story: Show purchase history
+
+Start off by hardcoding the date object, this enables writing tests, while
+avoiding the need to change all the method signatures.

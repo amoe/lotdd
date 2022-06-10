@@ -1,6 +1,8 @@
 #include <string>
 #include <unordered_map>
 #include <vector>
+#include <boost/date_time/gregorian/gregorian_types.hpp>
+
 
 class InvalidPurchaseException: public std::exception {
 };
@@ -10,11 +12,11 @@ class InvalidSellException: public std::exception {
 
 struct PurchaseRecord {
     PurchaseRecord(
-        unsigned int shareCount, std::string date
+        unsigned int shareCount, boost::gregorian::date date
     ): shareCount(shareCount), date(date) {}
     
     unsigned int shareCount;
-    std::string date;
+    boost::gregorian::date date;
 };
 
 
@@ -28,7 +30,7 @@ public:
     unsigned int shareCount(const std::string& symbol) const;
     std::vector<PurchaseRecord> purchases(const std::string& symbol) const;
 
-    static const std::string FIXED_PURCHASE_DATE;
+    static const boost::gregorian::date FIXED_PURCHASE_DATE;
 
 private:
     unsigned int shareCount_;
