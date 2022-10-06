@@ -502,3 +502,10 @@ addition.
 
 The `=` sign in declaration refers to something which I presume must be
 constructible at compile-time.
+
+We could adjust all tests to pass in the date, but this would violate "test
+abstraction".  All tests should only manifestly/textually care about what they
+directly care about.
+
+The answer is basically to create a test utility that calls the method in
+question.
