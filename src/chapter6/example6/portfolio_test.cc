@@ -81,7 +81,7 @@ TEST_F(PortfolioTest, throwsWhenSellingMoreSharesThanPurchaseHelperd) {
 
 TEST_F(PortfolioTest, answersThePurchaseRecordForASinglePurchase) {
     date dateOfPurchase{2014, 03, 17};
-    portfolio.purchase(stockSymbol2, 5, dateOfPurchase);
+    purchaseHelper(stockSymbol2, 5, dateOfPurchase);
     
     auto purchases = portfolio.purchases(stockSymbol2);
 
