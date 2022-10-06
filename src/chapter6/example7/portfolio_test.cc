@@ -46,7 +46,10 @@ TEST_F(PortfolioTest, isEmptyWhenCreated) {
 }
 
 TEST_F(PortfolioTest, answersShareCountForPurchasedSymbol) {
-    purchaseHelper(stockSymbol1, 2u);
+    // This test should use the purchase() method directly rather than going
+    // through the purchaseHelper, as otherwise we would be hiding the Act
+    // method, apparently.
+    portfolio.purchase(stockSymbol1, 2u, date{1970, 1, 1});
     ASSERT_THAT(portfolio.shareCount(stockSymbol1), Eq(2u));
 }
 
