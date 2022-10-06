@@ -509,3 +509,7 @@ directly care about.
 
 The answer is basically to create a test utility that calls the method in
 question.
+
+> As a rule of thumb, avoid hiding Act (see Arrange-Act-Assert [...])
+
+So he agrees with me.

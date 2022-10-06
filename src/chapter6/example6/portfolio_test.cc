@@ -45,7 +45,7 @@ TEST_F(PortfolioTest, isEmptyWhenCreated) {
     ASSERT_TRUE(portfolio.isEmpty());
 }
 
-TEST_F(PortfolioTest, answersShareCountForPurchaseHelperdSymbol) {
+TEST_F(PortfolioTest, answersShareCountForPurchasedSymbol) {
     purchaseHelper(stockSymbol1, 2u);
     ASSERT_THAT(portfolio.shareCount(stockSymbol1), Eq(2u));
 }
