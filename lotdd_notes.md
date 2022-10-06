@@ -490,3 +490,15 @@ Story: Show purchase history
 
 Start off by hardcoding the date object, this enables writing tests, while
 avoiding the need to change all the method signatures.
+
+Introduces the notion of parameter defaulting, which is perhaps a C++11
+addition.
+
+    void purchase(
+        const std::string& symbol,
+        unsigned int shareCount,
+        const boost::gregorian::date& transactionDate=Portfolio::FIXED_PURCHASE_DATE
+    );
+
+The `=` sign in declaration refers to something which I presume must be
+constructible at compile-time.

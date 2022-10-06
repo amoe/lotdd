@@ -35,7 +35,7 @@ void Portfolio::purchase(
         it->second = it->second + purchaseCount;
     }
 
-    purchaseRecords.push_back(PurchaseRecord(purchaseCount, FIXED_PURCHASE_DATE));
+    purchaseRecords.push_back(PurchaseRecord(purchaseCount, transactionDate));
 }
 
 void Portfolio::sell(const std::string& symbol, unsigned int sellCount) {
