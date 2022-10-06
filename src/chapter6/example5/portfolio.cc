@@ -13,7 +13,7 @@ using std::string;
 using std::vector;
 using boost::gregorian::date;
 
-const date Portfolio::FIXED_PURCHASE_DATE{date(1970, 1, 1)};
+const date Portfolio::FIXED_PURCHASE_DATE{date{1970, 1, 1}};
 
 Portfolio::Portfolio(): shareCount_(0u) { }
 
@@ -21,7 +21,11 @@ bool Portfolio::isEmpty() const {
     return shareHoldings.empty();
 }
 
-void Portfolio::purchase(const std::string& symbol, unsigned int purchaseCount) {
+void Portfolio::purchase(
+    const std::string& symbol,
+    unsigned int purchaseCount,
+    const date& transactionDate
+) {
     if (purchaseCount == 0) throw InvalidPurchaseException();
 
     auto it = shareHoldings.find(symbol);

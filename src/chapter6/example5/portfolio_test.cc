@@ -1,18 +1,22 @@
 #include <gmock/gmock.h>
 #include "portfolio.hh"
 #include <string>
+#include <boost/date_time/gregorian/gregorian_types.hpp>
 
 using testing::Test;
 using testing::Eq;
 using std::string;
+using boost::gregorian::date;
 
 class PortfolioTest: public Test {
 public:
     static const string stockSymbol1;
+    static const string stockSymbol2;
     Portfolio portfolio;
 };
 
 const string PortfolioTest::stockSymbol1{"IBM"};
+const string PortfolioTest::stockSymbol2{"SSNLF"};    // Samsung
 
 
 TEST_F(PortfolioTest, answersZeroForShareCountOfUnpurchasedSymbol) {
@@ -63,15 +67,15 @@ TEST_F(PortfolioTest, throwsWhenSellingMoreSharesThanPurchased) {
 
 
 TEST_F(PortfolioTest, answersThePurchaseRecordForASinglePurchase) {
-    portfolio.purchase(stockSymbol1, 1u);
-    auto purchases = portfolio.purchases(stockSymbol1);
+    date dateOfPurchase{2014, 03, 17};
+    portfolio.purchase(stockSymbol2, 5, dateOfPurchase);
+    
+    auto purchases = portfolio.purchases(stockSymbol2);
 
     auto thePurchase = purchases.at(0);
     
-    ASSERT_THAT(thePurchase.shareCount, Eq(1u));
-    ASSERT_THAT(thePurchase.date, Eq(Portfolio::FIXED_PURCHASE_DATE));
-                
-    ASSERT_THROW(portfolio.sell(stockSymbol1, 2u), InvalidSellException);
+    ASSERT_THAT(thePurchase.shareCount, Eq(5u));
+    ASSERT_THAT(thePurchase.date, Eq(dateOfPurchase));
 }
 
 

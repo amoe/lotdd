@@ -3,7 +3,6 @@
 #include <vector>
 #include <boost/date_time/gregorian/gregorian_types.hpp>
 
-
 class InvalidPurchaseException: public std::exception {
 };
 
@@ -25,7 +24,13 @@ public:
     Portfolio();
 
     bool isEmpty() const;
-    void purchase(const std::string& symbol, unsigned int shareCount);
+    
+    void purchase(
+        const std::string& symbol,
+        unsigned int shareCount,
+        const boost::gregorian::date& transactionDate=Portfolio::FIXED_PURCHASE_DATE
+    );
+    
     void sell(const std::string& symbol, unsigned int shareCount);
     unsigned int shareCount(const std::string& symbol) const;
     std::vector<PurchaseRecord> purchases(const std::string& symbol) const;
