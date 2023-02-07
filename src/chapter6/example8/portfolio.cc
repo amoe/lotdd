@@ -23,10 +23,10 @@ bool Portfolio::isEmpty() const {
 
 void Portfolio::purchase(
     const std::string& symbol,
-    unsigned int purchaseCount,
+    int purchaseCount,
     const date& transactionDate
 ) {
-    if (purchaseCount == 0) throw InvalidPurchaseException();
+    if (purchaseCount < 1) throw InvalidPurchaseException();
 
     auto it = shareHoldings.find(symbol);
     if (it == shareHoldings.end()) {
@@ -38,7 +38,14 @@ void Portfolio::purchase(
     purchaseRecords.push_back(PurchaseRecord(purchaseCount, transactionDate));
 }
 
-void Portfolio::sell(const std::string& symbol, unsigned int sellCount) {
+void Portfolio::sell(
+    const std::string& symbol,
+    int sellCount,
+    const date& transactionDate
+) {
+    if (sellCount > shareCount(symbol))
+        throw InvalidSellException();
+    
     auto it = shareHoldings.find(symbol);
     if (it == shareHoldings.end()) {
 //        throw InvalidSellException
@@ -47,15 +54,16 @@ void Portfolio::sell(const std::string& symbol, unsigned int sellCount) {
             throw InvalidSellException();
         } else {
             it->second = it->second - sellCount;
+            purchaseRecords.push_back(PurchaseRecord(-sellCount, transactionDate));
         }
     }
 }
 
 
-unsigned int Portfolio::shareCount(const std::string& symbol) const {
+int Portfolio::shareCount(const std::string& symbol) const {
     auto it = shareHoldings.find(symbol);
     if (it == shareHoldings.end()) {
-        return 0u;
+        return 0;
     } else {
         return it->second;
     }

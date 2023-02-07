@@ -515,3 +515,20 @@ question.
 So he agrees with me.
 
 ## More Duplication
+
+We need to represent negative numbers in the purchase record, but we can only
+purchase unsigned values obviously.  The correct response is to change
+everything to be ints and add runtime checks, probably.
+
+The alternative would be to accept unsigned int, but then you're accepting
+double the range and have to do a complicated range check at all times which
+seems slow and impractical.
+
+* Purchase should prevent purchasing x<1 share.
+* Sell should prevent selling more than we have, so holdings can never drop
+  below zero.
+* This means that shareCount can never drop below zero.  So it can be unsigned
+
+Actually, good practice in c++ is to always use signed values because unsigned
+is weird.
+

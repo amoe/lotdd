@@ -11,10 +11,10 @@ class InvalidSellException: public std::exception {
 
 struct PurchaseRecord {
     PurchaseRecord(
-        unsigned int shareCount, boost::gregorian::date date
-    ): shareCount(shareCount), date(date) {}
+        int shareDelta, boost::gregorian::date date
+    ): shareDelta(shareDelta), date(date) {}
     
-    unsigned int shareCount;
+    int shareDelta;    // can be both positive and negative
     boost::gregorian::date date;
 };
 
@@ -27,19 +27,24 @@ public:
     
     void purchase(
         const std::string& symbol,
-        unsigned int shareCount,
+        int shareCount,
         const boost::gregorian::date& transactionDate
     );
     
-    void sell(const std::string& symbol, unsigned int shareCount);
-    unsigned int shareCount(const std::string& symbol) const;
+    void sell(
+        const std::string& symbol,
+        int shareCount,
+        const boost::gregorian::date& transactionDate
+    );
+    
+    int shareCount(const std::string& symbol) const;
     std::vector<PurchaseRecord> purchases(const std::string& symbol) const;
 
     static const boost::gregorian::date FIXED_PURCHASE_DATE;
 
 private:
-    unsigned int shareCount_;
-    std::unordered_map<std::string, unsigned int> shareHoldings;
+    int shareCount_;
+    std::unordered_map<std::string, int> shareHoldings;
 
     std::vector<PurchaseRecord> purchaseRecords;
 };

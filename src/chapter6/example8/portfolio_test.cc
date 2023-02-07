@@ -16,16 +16,23 @@ public:
 
     void purchaseHelper(
         const string& symbol,
-        unsigned int shareCount,
+        int shareCount,
         const date& transactionDate=Portfolio::FIXED_PURCHASE_DATE
     );
 
+    void sellHelper(
+        const string& symbol,
+        int shareCount,
+        const date& transactionDate=Portfolio::FIXED_PURCHASE_DATE
+    );
+
+    
     void assertPurchase(
         const PurchaseRecord& thePurchase,
-        unsigned int shareCount,
+        int shareCount,
         const date& transactionDate
     ) {
-        ASSERT_THAT(thePurchase.shareCount, Eq(shareCount));
+        ASSERT_THAT(thePurchase.shareDelta, Eq(shareCount));
         ASSERT_THAT(thePurchase.date, Eq(transactionDate));
     }
 };
@@ -34,19 +41,25 @@ const string PortfolioTest::stockSymbol1{"IBM"};
 const string PortfolioTest::stockSymbol2{"SSNLF"};    // Samsung
 
 void PortfolioTest::purchaseHelper(
-    const string& symbol, unsigned int shareCount, const date& transactionDate
+    const string& symbol, int shareCount, const date& transactionDate
 ) {
     portfolio.purchase(symbol, shareCount, transactionDate);
 }
-    
+
+void PortfolioTest::sellHelper(
+    const string& symbol, int shareCount, const date& transactionDate
+) {
+    portfolio.sell(symbol, shareCount, transactionDate);
+}
+
 
 
 TEST_F(PortfolioTest, answersZeroForShareCountOfUnpurchaseHelperdSymbol) {
-    ASSERT_THAT(portfolio.shareCount("AAPL"), Eq(0u));
+    ASSERT_THAT(portfolio.shareCount("AAPL"), Eq(0));
 }
 
 TEST_F(PortfolioTest, isNotEmptyAfterPurchaseHelper) {
-    purchaseHelper(stockSymbol1, 1u);
+    purchaseHelper(stockSymbol1, 1);
     ASSERT_FALSE(portfolio.isEmpty());
 }
 
@@ -55,36 +68,36 @@ TEST_F(PortfolioTest, isEmptyWhenCreated) {
 }
 
 TEST_F(PortfolioTest, answersShareCountForPurchasedSymbol) {
-    purchaseHelper(stockSymbol1, 2u);
-    ASSERT_THAT(portfolio.shareCount(stockSymbol1), Eq(2u));
+    purchaseHelper(stockSymbol1, 2);
+    ASSERT_THAT(portfolio.shareCount(stockSymbol1), Eq(2));
 }
 
 
 TEST_F(PortfolioTest, throwsOnPurchaseHelperOfZeroShares) {
-    ASSERT_THROW(purchaseHelper(stockSymbol1, 0u), InvalidPurchaseException);
+    ASSERT_THROW(purchaseHelper(stockSymbol1, 0), InvalidPurchaseException);
 }
 
 TEST_F(PortfolioTest, answersShareCountForAppropriateSymbol) {
-    purchaseHelper("AAPL", 2u);
-    purchaseHelper("IBM", 1u);
-    ASSERT_THAT(portfolio.shareCount("AAPL"), Eq(2u));
+    purchaseHelper("AAPL", 2);
+    purchaseHelper("IBM", 1);
+    ASSERT_THAT(portfolio.shareCount("AAPL"), Eq(2));
 }
 
 TEST_F(PortfolioTest, shareCountReflectsAccumulatedPurchaseHelpersOfSameSymbol) {
-    purchaseHelper(stockSymbol1, 1u);
-    purchaseHelper(stockSymbol1, 2u);
-    ASSERT_THAT(portfolio.shareCount(stockSymbol1), Eq(3u));
+    purchaseHelper(stockSymbol1, 1);
+    purchaseHelper(stockSymbol1, 2);
+    ASSERT_THAT(portfolio.shareCount(stockSymbol1), Eq(3));
 }
 
 TEST_F(PortfolioTest, reducesShareCountOfSymbolOnSell) {
-    purchaseHelper(stockSymbol1, 1u);
-    portfolio.sell(stockSymbol1, 1u);
-    ASSERT_THAT(portfolio.shareCount(stockSymbol1), Eq(0u));
+    purchaseHelper(stockSymbol1, 1);
+    sellHelper(stockSymbol1, 1);
+    ASSERT_THAT(portfolio.shareCount(stockSymbol1), Eq(0));
 }
 
 TEST_F(PortfolioTest, throwsWhenSellingMoreSharesThanPurchaseHelperd) {
-    purchaseHelper(stockSymbol1, 1u);
-    ASSERT_THROW(portfolio.sell(stockSymbol1, 2u), InvalidSellException);
+    purchaseHelper(stockSymbol1, 1);
+    ASSERT_THROW(sellHelper(stockSymbol1, 2), InvalidSellException);
 }
 
 
@@ -94,12 +107,12 @@ TEST_F(PortfolioTest, answersThePurchaseRecordForASinglePurchase) {
     
     auto purchases = portfolio.purchases(stockSymbol2);
 
-    assertPurchase(purchases.at(0), 5u, dateOfPurchase);
+    assertPurchase(purchases.at(0), 5, dateOfPurchase);
 }
 
 TEST_F(PortfolioTest, includesSalesInPurchaseRecords) {
     purchaseHelper(stockSymbol2, 10);
-    portfolio.sell(stockSymbol2, 5);
+    sellHelper(stockSymbol2, 5);
 
     auto sales = portfolio.purchases(stockSymbol2);
     assertPurchase(sales.at(1), -5, Portfolio::FIXED_PURCHASE_DATE);
