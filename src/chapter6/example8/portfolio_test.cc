@@ -19,6 +19,15 @@ public:
         unsigned int shareCount,
         const date& transactionDate=Portfolio::FIXED_PURCHASE_DATE
     );
+
+    void assertPurchase(
+        const PurchaseRecord& thePurchase,
+        unsigned int shareCount,
+        const date& transactionDate
+    ) {
+        ASSERT_THAT(thePurchase.shareCount, Eq(shareCount));
+        ASSERT_THAT(thePurchase.date, Eq(transactionDate));
+    }
 };
 
 const string PortfolioTest::stockSymbol1{"IBM"};
@@ -85,10 +94,15 @@ TEST_F(PortfolioTest, answersThePurchaseRecordForASinglePurchase) {
     
     auto purchases = portfolio.purchases(stockSymbol2);
 
-    auto thePurchase = purchases.at(0);
-    
-    ASSERT_THAT(thePurchase.shareCount, Eq(5u));
-    ASSERT_THAT(thePurchase.date, Eq(dateOfPurchase));
+    assertPurchase(purchases.at(0), 5u, dateOfPurchase);
+}
+
+TEST_F(PortfolioTest, includesSalesInPurchaseRecords) {
+    purchaseHelper(stockSymbol2, 10);
+    portfolio.sell(stockSymbol2, 5);
+
+    auto sales = portfolio.purchases(stockSymbol2);
+    assertPurchase(sales.at(1), -5, Portfolio::FIXED_PURCHASE_DATE);
 }
 
 
