@@ -40,6 +40,7 @@ public:
         int shareCount,
         const boost::gregorian::date& transactionDate
     );
+
     
     int shareCount(const std::string& symbol) const;
     std::vector<PurchaseRecord> purchases(const std::string& symbol) const;
@@ -47,6 +48,13 @@ public:
     static const boost::gregorian::date FIXED_PURCHASE_DATE;
 
 private:
+    void transact(
+        const std::string& symbol,
+        int shareCount,
+        const boost::gregorian::date& transactionDate
+    );
+
+    
     int shareCount_;
     std::unordered_map<std::string, int> shareHoldings;
 

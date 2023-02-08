@@ -21,25 +21,34 @@ bool Portfolio::isEmpty() const {
     return shareHoldings.empty();
 }
 
+void Portfolio::transact(
+    const std::string& symbol,
+    int shareChange,
+    const date& transactionDate
+) {
+    if (shareChange == 0)
+        throw ShareCountCannotBeZeroException();
+    
+    auto it = shareHoldings.find(symbol);
+    if (it == shareHoldings.end()) {
+        // In the case of a sell, we will never reach this point, because the
+        // guard clause prevents us.
+        shareHoldings.insert({symbol, shareChange});
+    } else {
+        it->second = it->second + shareChange;
+    }
+
+    // XXX: probably needs to be renamed to reflect fact that it's no longer
+    // purely purchases
+    purchaseRecords.push_back(PurchaseRecord(shareChange, transactionDate));
+}
+
 void Portfolio::purchase(
     const std::string& symbol,
     int purchaseCount,
     const date& transactionDate
 ) {
-    if (purchaseCount < 1)
-        throw ShareCountCannotBeZeroException();
-
-
-    int shareChange = purchaseCount;
-    
-    auto it = shareHoldings.find(symbol);
-    if (it == shareHoldings.end()) {
-        shareHoldings.insert({symbol, purchaseCount});
-    } else {
-        it->second = it->second + shareChange;
-    }
-
-    purchaseRecords.push_back(PurchaseRecord(shareChange, transactionDate));
+    transact(symbol, purchaseCount, transactionDate);
 }
 
 void Portfolio::sell(
@@ -47,25 +56,10 @@ void Portfolio::sell(
     int sellCount,
     const date& transactionDate
 ) {
-    if (sellCount < 1)
-        throw ShareCountCannotBeZeroException();
-    
     if (sellCount > shareCount(symbol))
         throw InvalidSellException();
 
-    int shareChange = -sellCount;
-    
-    auto it = shareHoldings.find(symbol);
-    if (it == shareHoldings.end()) {
-//        throw InvalidSellException
-    } else {
-        if (sellCount > it->second) {
-            throw InvalidSellException();
-        } else {
-            it->second = it->second + shareChange;
-            purchaseRecords.push_back(PurchaseRecord(shareChange, transactionDate));
-        }
-    }
+    transact(symbol, -sellCount, transactionDate);
 }
 
 
