@@ -26,7 +26,8 @@ void Portfolio::purchase(
     int purchaseCount,
     const date& transactionDate
 ) {
-    if (purchaseCount < 1) throw InvalidPurchaseException();
+    if (purchaseCount < 1)
+        throw ShareCountCannotBeZeroException();
 
     auto it = shareHoldings.find(symbol);
     if (it == shareHoldings.end()) {
@@ -43,6 +44,9 @@ void Portfolio::sell(
     int sellCount,
     const date& transactionDate
 ) {
+    if (sellCount < 1)
+        throw ShareCountCannotBeZeroException();
+    
     if (sellCount > shareCount(symbol))
         throw InvalidSellException();
     

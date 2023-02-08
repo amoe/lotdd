@@ -9,6 +9,10 @@ class InvalidPurchaseException: public std::exception {
 class InvalidSellException: public std::exception {
 };
 
+class ShareCountCannotBeZeroException: public std::exception {
+};
+
+
 struct PurchaseRecord {
     PurchaseRecord(
         int shareDelta, boost::gregorian::date date

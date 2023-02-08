@@ -73,8 +73,12 @@ TEST_F(PortfolioTest, answersShareCountForPurchasedSymbol) {
 }
 
 
-TEST_F(PortfolioTest, throwsOnPurchaseHelperOfZeroShares) {
-    ASSERT_THROW(purchaseHelper(stockSymbol1, 0), InvalidPurchaseException);
+TEST_F(PortfolioTest, throwsOnPurchaseOfZeroShares) {
+    ASSERT_THROW(purchaseHelper(stockSymbol1, 0), ShareCountCannotBeZeroException);
+}
+
+TEST_F(PortfolioTest, throwsOnSellOfZeroShares) {
+    ASSERT_THROW(sellHelper(stockSymbol1, 0), ShareCountCannotBeZeroException);
 }
 
 TEST_F(PortfolioTest, answersShareCountForAppropriateSymbol) {
