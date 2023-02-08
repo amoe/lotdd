@@ -29,14 +29,17 @@ void Portfolio::purchase(
     if (purchaseCount < 1)
         throw ShareCountCannotBeZeroException();
 
+
+    int shareChange = purchaseCount;
+    
     auto it = shareHoldings.find(symbol);
     if (it == shareHoldings.end()) {
         shareHoldings.insert({symbol, purchaseCount});
     } else {
-        it->second = it->second + purchaseCount;
+        it->second = it->second + shareChange;
     }
 
-    purchaseRecords.push_back(PurchaseRecord(purchaseCount, transactionDate));
+    purchaseRecords.push_back(PurchaseRecord(shareChange, transactionDate));
 }
 
 void Portfolio::sell(
@@ -49,6 +52,8 @@ void Portfolio::sell(
     
     if (sellCount > shareCount(symbol))
         throw InvalidSellException();
+
+    int shareChange = -sellCount;
     
     auto it = shareHoldings.find(symbol);
     if (it == shareHoldings.end()) {
@@ -57,8 +62,8 @@ void Portfolio::sell(
         if (sellCount > it->second) {
             throw InvalidSellException();
         } else {
-            it->second = it->second - sellCount;
-            purchaseRecords.push_back(PurchaseRecord(-sellCount, transactionDate));
+            it->second = it->second + shareChange;
+            purchaseRecords.push_back(PurchaseRecord(shareChange, transactionDate));
         }
     }
 }
