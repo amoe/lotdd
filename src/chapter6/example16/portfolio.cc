@@ -85,5 +85,6 @@ int Portfolio::shareCount(const std::string& symbol) const {
 }
 
 vector<PurchaseRecord> Portfolio::purchases(const string& symbol) const {
+    // Note that we currently ignore the argument, but we need to change this.
     return purchaseRecords;
 }

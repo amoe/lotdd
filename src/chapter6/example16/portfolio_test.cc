@@ -5,6 +5,7 @@
 
 using testing::Test;
 using testing::Eq;
+using testing::ElementsAre;
 using std::string;
 using boost::gregorian::date;
 
@@ -123,3 +124,16 @@ TEST_F(PortfolioTest, includesSalesInPurchaseRecords) {
 }
 
 
+bool operator==(const PurchaseRecord& lhs, const PurchaseRecord& rhs) {
+    return lhs.shareDelta == rhs.shareDelta && lhs.date == rhs.date;
+}
+
+TEST_F(PortfolioTest, separatesPurchaseRecordsBySymbol) {
+    purchaseHelper(stockSymbol2, 5);
+    purchaseHelper(stockSymbol1, 1);
+
+    // As we segment by 'stockSymbol2', we expect to only get the value that we
+    // submitted for that symbol.
+    auto sales = portfolio.purchases(stockSymbol2);
+    ASSERT_THAT(sales, ElementsAre(PurchaseRecord(5, Portfolio::FIXED_PURCHASE_DATE)));
+}
