@@ -6,10 +6,10 @@
 class InvalidPurchaseException: public std::exception {
 };
 
-class InvalidSellException: public std::exception {
+class ShareCountCannotBeZeroException: public std::exception {
 };
 
-class ShareCountCannotBeZeroException: public std::exception {
+class InsufficientSharesException: public std::exception {
 };
 
 

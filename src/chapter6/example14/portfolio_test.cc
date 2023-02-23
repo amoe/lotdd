@@ -101,7 +101,7 @@ TEST_F(PortfolioTest, reducesShareCountOfSymbolOnSell) {
 
 TEST_F(PortfolioTest, throwsWhenSellingMoreSharesThanPurchased) {
     purchaseHelper(stockSymbol1, 1);
-    ASSERT_THROW(sellHelper(stockSymbol1, 2), InsufficentSharesException);
+    ASSERT_THROW(sellHelper(stockSymbol1, 2), InsufficientSharesException);
 }
 
 

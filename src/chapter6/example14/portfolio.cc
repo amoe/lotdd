@@ -57,7 +57,7 @@ void Portfolio::sell(
     const date& transactionDate
 ) {
     if (sellCount > shareCount(symbol))
-        throw InvalidSellException();
+        throw InsufficientSharesException();
 
     transact(symbol, -sellCount, transactionDate);
 }
