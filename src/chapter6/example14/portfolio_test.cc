@@ -99,9 +99,9 @@ TEST_F(PortfolioTest, reducesShareCountOfSymbolOnSell) {
     ASSERT_THAT(portfolio.shareCount(stockSymbol1), Eq(0));
 }
 
-TEST_F(PortfolioTest, throwsWhenSellingMoreSharesThanPurchaseHelperd) {
+TEST_F(PortfolioTest, throwsWhenSellingMoreSharesThanPurchased) {
     purchaseHelper(stockSymbol1, 1);
-    ASSERT_THROW(sellHelper(stockSymbol1, 2), InvalidSellException);
+    ASSERT_THROW(sellHelper(stockSymbol1, 2), InsufficentSharesException);
 }
 
 
