@@ -7,6 +7,7 @@ using testing::Test;
 using testing::Eq;
 using testing::ElementsAre;
 using std::string;
+using std::vector;
 using boost::gregorian::date;
 
 class PortfolioTest: public Test {
@@ -136,4 +137,8 @@ TEST_F(PortfolioTest, separatesPurchaseRecordsBySymbol) {
     // submitted for that symbol.
     auto sales = portfolio.purchases(stockSymbol2);
     ASSERT_THAT(sales, ElementsAre(PurchaseRecord(5, Portfolio::FIXED_PURCHASE_DATE)));
+}
+
+TEST_F(PortfolioTest, answersEmptyPurchaseRecordVectorWhenSymbolNotFound) {
+    ASSERT_THAT(portfolio.purchases(stockSymbol2), Eq(vector<PurchaseRecord>()));
 }
