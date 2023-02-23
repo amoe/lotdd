@@ -26,9 +26,19 @@ void Portfolio::transact(
     int shareChange,
     const date& transactionDate
 ) {
+    throwIfShareCountIsZero(shareChange);
+    updateShareCount(symbol, shareChange);
+    addPurchaseRecord(shareChange, transactionDate);
+}
+
+// I definitely would not have gone this far in abstracting out small methods,
+// IMO this is introducing cognitive load, but we're following Langr's lead here
+void Portfolio::throwIfShareCountIsZero(int shareChange) const {
     if (shareChange == 0)
         throw ShareCountCannotBeZeroException();
-    
+}
+
+void Portfolio::updateShareCount(const string& symbol, int shareChange) {
     auto it = shareHoldings.find(symbol);
     if (it == shareHoldings.end()) {
         // In the case of a sell, we will never reach this point, because the
@@ -37,7 +47,9 @@ void Portfolio::transact(
     } else {
         it->second = it->second + shareChange;
     }
+}
 
+void Portfolio::addPurchaseRecord(int shareChange, const date& transactionDate) {
     // XXX: probably needs to be renamed to reflect fact that it's no longer
     // purely purchases
     purchaseRecords.push_back(PurchaseRecord(shareChange, transactionDate));
