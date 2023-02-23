@@ -28,7 +28,7 @@ void Portfolio::transact(
 ) {
     throwIfShareCountIsZero(shareChange);
     updateShareCount(symbol, shareChange);
-    addPurchaseRecord(shareChange, transactionDate);
+    addPurchaseRecord(symbol, shareChange, transactionDate);
 }
 
 // I definitely would not have gone this far in abstracting out small methods,
@@ -49,10 +49,9 @@ void Portfolio::updateShareCount(const string& symbol, int shareChange) {
     }
 }
 
-void Portfolio::addPurchaseRecord(int shareChange, const date& transactionDate) {
-    // XXX: probably needs to be renamed to reflect fact that it's no longer
-    // purely purchases
-    purchaseRecords.push_back(PurchaseRecord(shareChange, transactionDate));
+void Portfolio::addPurchaseRecord(const std::string& symbol, int shareChange, const date& transactionDate) {
+    auto record = PurchaseRecord(shareChange, transactionDate);
+    purchaseRecords[symbol].push_back(record);
 }
 
 void Portfolio::purchase(
@@ -85,6 +84,5 @@ int Portfolio::shareCount(const std::string& symbol) const {
 }
 
 vector<PurchaseRecord> Portfolio::purchases(const string& symbol) const {
-    // Note that we currently ignore the argument, but we need to change this.
-    return purchaseRecords;
+    return purchaseRecords.at(symbol);
 }

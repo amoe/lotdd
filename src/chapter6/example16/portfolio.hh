@@ -56,11 +56,11 @@ private:
 
     void throwIfShareCountIsZero(int shareChange) const;
     void updateShareCount(const std::string&, int);
-    void addPurchaseRecord(int, const boost::gregorian::date&);
+    void addPurchaseRecord(const std::string&, int, const boost::gregorian::date&);
 
     
     int shareCount_;
     std::unordered_map<std::string, int> shareHoldings;
 
-    std::vector<PurchaseRecord> purchaseRecords;
+    std::unordered_map<std::string, std::vector<PurchaseRecord>> purchaseRecords;
 };
