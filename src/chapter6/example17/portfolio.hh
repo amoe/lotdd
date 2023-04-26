@@ -3,6 +3,8 @@
 #include <vector>
 #include <boost/date_time/gregorian/gregorian_types.hpp>
 
+    
+
 class InvalidPurchaseException: public std::exception {
 };
 
@@ -48,6 +50,19 @@ public:
     static const boost::gregorian::date FIXED_PURCHASE_DATE;
 
 private:
+    // Find a value in a map, or return the empty initialization of that value.
+    template <typename T> T find(
+        std::unordered_map<std::string, T> theMap,
+        const std::string& key
+    ) const {
+        auto it = theMap.find(key);
+        if (it == theMap.end()) {
+            return T{};
+        } else {
+            return it->second;
+        }
+    }
+    
     void transact(
         const std::string& symbol,
         int shareCount,

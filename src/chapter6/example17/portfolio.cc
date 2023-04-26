@@ -75,20 +75,9 @@ void Portfolio::sell(
 
 
 int Portfolio::shareCount(const std::string& symbol) const {
-    auto it = shareHoldings.find(symbol);
-    if (it == shareHoldings.end()) {
-        return 0;
-    } else {
-        return it->second;
-    }
+    return find(shareHoldings, symbol);
 }
 
 vector<PurchaseRecord> Portfolio::purchases(const string& symbol) const {
-    auto it = purchaseRecords.find(symbol);
-    
-    if (it == purchaseRecords.end()) {
-        return vector<PurchaseRecord>();
-    } else {
-        return it->second;
-    }
+    return find(purchaseRecords, symbol);
 }
