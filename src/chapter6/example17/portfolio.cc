@@ -84,5 +84,11 @@ int Portfolio::shareCount(const std::string& symbol) const {
 }
 
 vector<PurchaseRecord> Portfolio::purchases(const string& symbol) const {
-    return purchaseRecords.at(symbol);
+    auto it = purchaseRecords.find(symbol);
+    
+    if (it == purchaseRecords.end()) {
+        return vector<PurchaseRecord>();
+    } else {
+        return it->second;
+    }
 }
