@@ -73,6 +73,10 @@ private:
     void updateShareCount(const std::string&, int);
     void addPurchaseRecord(const std::string&, int, const boost::gregorian::date&);
 
+    bool containsSymbol(const std::string& symbol) const;
+    void initializePurchaseRecords(const std::string& symbol);
+
+
     
     int shareCount_;
     std::unordered_map<std::string, int> shareHoldings;

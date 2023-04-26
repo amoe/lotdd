@@ -50,9 +50,24 @@ void Portfolio::updateShareCount(const string& symbol, int shareChange) {
 }
 
 void Portfolio::addPurchaseRecord(const std::string& symbol, int shareChange, const date& transactionDate) {
-    auto record = PurchaseRecord(shareChange, transactionDate);
-    purchaseRecords[symbol].push_back(record);
+    // auto record = PurchaseRecord(shareChange, transactionDate);
+    // purchaseRecords[symbol].push_back(record);
+
+    if (!containsSymbol(symbol)) {
+        initializePurchaseRecords(symbol);
+    }
+
+    // add(symbol, {shareChange, date});
 }
+
+bool Portfolio::containsSymbol(const string& symbol) const {
+    return purchaseRecords.find(symbol) != purchaseRecords.end();
+}
+
+void Portfolio::initializePurchaseRecords(const string& symbol) {
+    purchaseRecords.insert({symbol, vector<PurchaseRecord>()});
+}
+
 
 void Portfolio::purchase(
     const std::string& symbol,
