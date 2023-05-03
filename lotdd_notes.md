@@ -549,4 +549,6 @@ been in the language since C++98.  The temporary exists for the compiler.
 This uses the `&&` rvalue syntax to take ownership of the temporary.  You can
 write it as `const PurchaseRecord& record` as well.  Basically the push_back()
 method has a version that takes a `T&&` argument that moves the value into the
-vector.  So this is a zero-copy version unlike the `const T&` version.x
+vector.  So this is a zero-copy version unlike the `const T&` version.  Also
+note that `struct` provides a default move constructor that delegates to all of
+the constituent fields.
