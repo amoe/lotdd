@@ -75,6 +75,7 @@ private:
 
     bool containsSymbol(const std::string& symbol) const;
     void initializePurchaseRecords(const std::string& symbol);
+    void add(const std::string& symbol, PurchaseRecord&& record);
 
 
     

@@ -19,7 +19,7 @@ env = Environment(
 #    CXX='clang',
     CXX='g++',
     CPPPATH=googletest_include_paths + ['#src'],
-    CCFLAGS=['-Wall',  '-Wno-deprecated-declarations', '-ggdb', '-g'],
+    CCFLAGS=['-Wall',  '-Wno-deprecated-declarations', '-ggdb', '-g', '-std=c++14'],
     LIBS=[
         'pthread',
         'jsoncpp',

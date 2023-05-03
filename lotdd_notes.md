@@ -532,3 +532,21 @@ seems slow and impractical.
 Actually, good practice in c++ is to always use signed values because unsigned
 is weird.
 
+
+## Finishing the Functionality
+
+We see this odd syntax.
+
+    add(symbol, {shareChange, transactionDate});
+
+This is C++11 specific and it creates a 'temporary'.  Temporaries have actually
+been in the language since C++98.  The temporary exists for the compiler.
+
+    void Portfolio::add(const string& symbol, PurchaseRecord&& record) {
+        purchaseRecords[symbol].push_back(record);
+    }
+
+This uses the `&&` rvalue syntax to take ownership of the temporary.  You can
+write it as `const PurchaseRecord& record` as well.  Basically the push_back()
+method has a version that takes a `T&&` argument that moves the value into the
+vector.  So this is a zero-copy version unlike the `const T&` version.x

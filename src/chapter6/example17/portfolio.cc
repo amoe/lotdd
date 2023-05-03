@@ -57,7 +57,7 @@ void Portfolio::addPurchaseRecord(const std::string& symbol, int shareChange, co
         initializePurchaseRecords(symbol);
     }
 
-    // add(symbol, {shareChange, date});
+    add(symbol, {shareChange, transactionDate});
 }
 
 bool Portfolio::containsSymbol(const string& symbol) const {
@@ -66,6 +66,11 @@ bool Portfolio::containsSymbol(const string& symbol) const {
 
 void Portfolio::initializePurchaseRecords(const string& symbol) {
     purchaseRecords.insert({symbol, vector<PurchaseRecord>()});
+}
+
+
+void Portfolio::add(const string& symbol, PurchaseRecord&& record) {
+    purchaseRecords[symbol].push_back(record);
 }
 
 
