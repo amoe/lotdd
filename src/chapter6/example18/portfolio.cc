@@ -4,6 +4,7 @@
 #include <ostream>
 #include <string>
 #include <vector>
+#include <numeric>
 #include <boost/date_time/gregorian/gregorian_types.hpp>
 
 using std::runtime_error;
@@ -11,6 +12,7 @@ using std::cout;
 using std::endl;
 using std::string;
 using std::vector;
+using std::accumulate;
 using boost::gregorian::date;
 
 const date Portfolio::FIXED_PURCHASE_DATE{date{1970, 1, 1}};
@@ -93,10 +95,18 @@ void Portfolio::sell(
     transact(symbol, -sellCount, transactionDate);
 }
 
+int doAddition(int total, const PurchaseRecord& b) {
+    return total + b.shareDelta;
+}
+
 
 int Portfolio::shareCount(const std::string& symbol) const {
-    //return find(shareHoldings, symbol);
-    return 0;
+    vector<PurchaseRecord> recordsForSymbol = purchaseRecords.at(symbol);
+
+    int result = accumulate(
+        recordsForSymbol.begin(), recordsForSymbol.end(), 0, doAddition
+    );
+    return result;
 }
 
 vector<PurchaseRecord> Portfolio::purchases(const string& symbol) const {
