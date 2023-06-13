@@ -2,7 +2,7 @@
 
 Jeff Langr -- Modern C++ Programming with Test-Driven Development
 
-## Build Process
+## Build Process -- Linux
 
 **You need to provide a Mapquest API key in the local gitignored file,
 `.mapquest_api_key`, in the repository root.**
@@ -20,6 +20,10 @@ otherwise SCons won't pick up the new one.  Not sure why at the moment.
 We decided not to use LSP-mode on this, even after switching it to build using
 clang, because the build system is too complex to interface it with clangd's
 configuration.
+
+## Build Process -- Mac
+
+TBD
 
 ## Adding a new example directory
 
