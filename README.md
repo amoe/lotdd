@@ -23,7 +23,7 @@ configuration.
 
 ## Build Process -- Mac
 
-TBD
+Still working on this...
 
 ## Adding a new example directory
 
