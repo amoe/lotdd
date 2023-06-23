@@ -21,9 +21,16 @@ We decided not to use LSP-mode on this, even after switching it to build using
 clang, because the build system is too complex to interface it with clangd's
 configuration.
 
+The SCons version that has been tested is SCons 3.0.5.
+
 ## Build Process -- Mac
 
-Still working on this...
+    pip3 install --user scons==3.0.5
+
+With later versions of pip (>21ish), pip recommends against using global
+installations.  So you can satisfy its neediness by using the `--user` flag
+here.  Hopefully, you have `~/.local/bin` setup in your PATH.
+
 
 ## Adding a new example directory
 
