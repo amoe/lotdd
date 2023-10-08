@@ -4,6 +4,9 @@ Jeff Langr -- Modern C++ Programming with Test-Driven Development
 
 ## Build Process -- Linux
 
+This has been tested with scons version `4.5.2` from pip.  Other versions may or
+may not work.
+
 **You need to provide a Mapquest API key in the local gitignored file,
 `.mapquest_api_key`, in the repository root.**
 
@@ -23,7 +26,9 @@ configuration.
 
 ## Build Process -- Mac
 
-TBD
+I currently recommend getting Scons 3.0.5 from pip.  You can do this as such:
+
+    sudo pip3 install scons==3.0.5
 
 ## Adding a new example directory
 
