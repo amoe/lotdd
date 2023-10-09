@@ -66,7 +66,5 @@ private:
     void initializePurchaseRecords(const std::string& symbol);
     void add(const std::string& symbol, PurchaseRecord&& record);
     
-    std::unordered_map<std::string, std::vector<PurchaseRecord>> purchaseRecords;
-
     std::unordered_map<std::string, Holding> holdings;
 };

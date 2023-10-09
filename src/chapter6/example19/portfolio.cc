@@ -21,7 +21,7 @@ Portfolio::Portfolio() { }
 
 bool Portfolio::isEmpty() const {
     // XXX: surely this won't handle the case where you buy a share then sell it
-    return purchaseRecords.empty();
+    return holdings.empty();
 }
 
 void Portfolio::transact(
@@ -49,17 +49,15 @@ void Portfolio::addPurchaseRecord(const std::string& symbol, int shareChange, co
 }
 
 bool Portfolio::containsSymbol(const string& symbol) const {
-    return purchaseRecords.find(symbol) != purchaseRecords.end();
+    return holdings.find(symbol) != holdings.end();
 }
 
 void Portfolio::initializePurchaseRecords(const string& symbol) {
-    purchaseRecords.insert({symbol, vector<PurchaseRecord>()});
     holdings.insert({symbol, Holding()});
 }
 
 
 void Portfolio::add(const string& symbol, PurchaseRecord&& record) {
-    purchaseRecords[symbol].push_back(record);
     holdings[symbol].add(record);
 }
 
@@ -89,12 +87,12 @@ int doAddition(int total, const PurchaseRecord& b) {
 
 
 int Portfolio::shareCount(const std::string& symbol) const {
-    auto it = purchaseRecords.find(symbol);
+    auto it = holdings.find(symbol);
 
-    if (it == purchaseRecords.end()) {
+    if (it == holdings.end()) {
         return 0;
     } else {
-        vector<PurchaseRecord> recordsForSymbol = it->second;
+        vector<PurchaseRecord> recordsForSymbol = (it->second).purchases();
 
         int result = accumulate(
             recordsForSymbol.begin(), recordsForSymbol.end(), 0, doAddition
@@ -104,5 +102,5 @@ int Portfolio::shareCount(const std::string& symbol) const {
 }
 
 vector<PurchaseRecord> Portfolio::purchases(const string& symbol) const {
-    return find(purchaseRecords, symbol);
+    return find(holdings, symbol).purchases();
 }
