@@ -552,3 +552,6 @@ method has a version that takes a `T&&` argument that moves the value into the
 vector.  So this is a zero-copy version unlike the `const T&` version.  Also
 note that `struct` provides a default move constructor that delegates to all of
 the constituent fields.
+
+I learned that you can't define an operator / free function in a header file as
+it will be included into all units multiple times.
