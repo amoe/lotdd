@@ -588,3 +588,15 @@ So we have a similar attitude here to Python's one.
 So we aim to prevent all the mental blockers from refactoring.  (Adjusting tests
 presumably not being one of them!)
 
+> Premature performance obsession: Many of the ideas promoted in this
+> book about design center around small classes and functions, which
+> incurs the overhead of creating additional objects and calling extra
+> methods. Many developers resist such changes and are content with
+> longer functions and classes.
+>
+> Ensure you first create a clean, maintainable design. Profile the proper
+> design to determine whether it exhibits performance deficiencies. Optimize
+> the code only if absolutely necessary. Most optimizations increase the
+> difficulty of understanding and maintaining the code.
+
+This is quite amusing and true.  I probably have been guilty of this.
