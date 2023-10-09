@@ -76,11 +76,6 @@ private:
     bool containsSymbol(const std::string& symbol) const;
     void initializePurchaseRecords(const std::string& symbol);
     void add(const std::string& symbol, PurchaseRecord&& record);
-
-
     
-    int shareCount_;
-    std::unordered_map<std::string, int> shareHoldings;
-
     std::unordered_map<std::string, std::vector<PurchaseRecord>> purchaseRecords;
 };

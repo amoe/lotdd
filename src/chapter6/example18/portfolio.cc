@@ -17,10 +17,11 @@ using boost::gregorian::date;
 
 const date Portfolio::FIXED_PURCHASE_DATE{date{1970, 1, 1}};
 
-Portfolio::Portfolio(): shareCount_(0u) { }
+Portfolio::Portfolio() { }
 
 bool Portfolio::isEmpty() const {
-    return shareHoldings.empty();
+    // XXX: surely this won't handle the case where you buy a share then sell it
+    return purchaseRecords.empty();
 }
 
 void Portfolio::transact(
@@ -29,7 +30,6 @@ void Portfolio::transact(
     const date& transactionDate
 ) {
     throwIfShareCountIsZero(shareChange);
-    updateShareCount(symbol, shareChange);
     addPurchaseRecord(symbol, shareChange, transactionDate);
 }
 
@@ -40,21 +40,7 @@ void Portfolio::throwIfShareCountIsZero(int shareChange) const {
         throw ShareCountCannotBeZeroException();
 }
 
-void Portfolio::updateShareCount(const string& symbol, int shareChange) {
-    auto it = shareHoldings.find(symbol);
-    if (it == shareHoldings.end()) {
-        // In the case of a sell, we will never reach this point, because the
-        // guard clause prevents us.
-        shareHoldings.insert({symbol, shareChange});
-    } else {
-        it->second = it->second + shareChange;
-    }
-}
-
 void Portfolio::addPurchaseRecord(const std::string& symbol, int shareChange, const date& transactionDate) {
-    // auto record = PurchaseRecord(shareChange, transactionDate);
-    // purchaseRecords[symbol].push_back(record);
-
     if (!containsSymbol(symbol)) {
         initializePurchaseRecords(symbol);
     }
@@ -101,12 +87,18 @@ int doAddition(int total, const PurchaseRecord& b) {
 
 
 int Portfolio::shareCount(const std::string& symbol) const {
-    vector<PurchaseRecord> recordsForSymbol = purchaseRecords.at(symbol);
+    auto it = purchaseRecords.find(symbol);
 
-    int result = accumulate(
-        recordsForSymbol.begin(), recordsForSymbol.end(), 0, doAddition
-    );
-    return result;
+    if (it == purchaseRecords.end()) {
+        return 0;
+    } else {
+        vector<PurchaseRecord> recordsForSymbol = it->second;
+
+        int result = accumulate(
+            recordsForSymbol.begin(), recordsForSymbol.end(), 0, doAddition
+        );
+        return result;
+    }
 }
 
 vector<PurchaseRecord> Portfolio::purchases(const string& symbol) const {
