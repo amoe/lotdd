@@ -568,3 +568,23 @@ enable change.
 Don't sweat the details of design.  Just "focus on class names, dependencies,
 and maybe a few key public behaviors."  What are the main elements of the system
 and the main interactions between them?
+
+Regarding the least-access principle (public vs private members):
+
+> However, if you need to relax access to allow tests to verify that things
+> actually work as intended, you shouldn’t worry most of the time. If everything
+> is tested, the tests will likely protect your system against
+> stupidity. Knowing the system works is far more compelling than over- doting
+> on a vague concern about future abuse.
+
+So we have a similar attitude here to Python's one.
+
+> With the notion of using simple, incremental design as your primary design
+> driver, the refactoring step is where much of the real work gets done. Anything
+> that keeps you from refactoring easily, or even from wanting to refactor, is
+> bad. Very bad. When you stop refactoring incrementally, your system will
+> start degrading quickly.
+
+So we aim to prevent all the mental blockers from refactoring.  (Adjusting tests
+presumably not being one of them!)
+
