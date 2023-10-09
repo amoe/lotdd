@@ -588,6 +588,8 @@ So we have a similar attitude here to Python's one.
 So we aim to prevent all the mental blockers from refactoring.  (Adjusting tests
 presumably not being one of them!)
 
+## Refactoring Inhibitors
+
 > Premature performance obsession: Many of the ideas promoted in this
 > book about design center around small classes and functions, which
 > incurs the overhead of creating additional objects and calling extra
@@ -600,3 +602,29 @@ presumably not being one of them!)
 > difficulty of understanding and maintaining the code.
 
 This is quite amusing and true.  I probably have been guilty of this.
+
+Of course this is the absolute doozy that we've all seen:
+
+> Short-sighted infatuation with speed: “Just ship it. Stop spending time on
+> refactoring.” Can you blame a project manager for not understanding the
+> importance of keeping your system’s design clean? Sure, it might look
+> like you’re speedy for a while, but you’ll eventually suffer dramatically
+> (sometimes devastatingly) for letting your system’s quality slide.
+>
+> Just say no, and otherwise keep your refactoring to yourself. Work to
+> keep your code clean every few minutes as part of the TDD cycle. If asked,
+> you can say “This is how I work as a responsible professional.”
+> 
+> You must take advantage of the opportunity that each passing test pro-
+> vides you; otherwise, code cruft will build up quickly and begin to slow
+> the rate of development. You might even feel compelled to ask for a
+> refactoring iteration. Don’t! Nontechnical folks have no idea what refactor-
+> ing is. They will simply translate your request as “The programmers just
+> want to play around with the software, and I won’t get any business value
+> this iteration.”
+>
+> Unfortunately, no matter how hard you try, you will inevitably have itera-
+> tions where a new feature doesn’t fit easily into the code, causing you to
+> deliver the feature later than expected. When this occurs, ask for forgive-
+> ness, and run an honest investigation into how you might have prevented
+> the additional effort. Don’t let it happen habitually.
