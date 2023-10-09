@@ -81,10 +81,6 @@ void Portfolio::sell(
     transact(symbol, -sellCount, transactionDate);
 }
 
-int doAddition(int total, const PurchaseRecord& b) {
-    return total + b.shareDelta;
-}
-
 
 int Portfolio::shareCount(const std::string& symbol) const {
     auto it = holdings.find(symbol);
@@ -92,12 +88,7 @@ int Portfolio::shareCount(const std::string& symbol) const {
     if (it == holdings.end()) {
         return 0;
     } else {
-        vector<PurchaseRecord> recordsForSymbol = (it->second).purchases();
-
-        int result = accumulate(
-            recordsForSymbol.begin(), recordsForSymbol.end(), 0, doAddition
-        );
-        return result;
+        return it->second.shareCount();
     }
 }
 
