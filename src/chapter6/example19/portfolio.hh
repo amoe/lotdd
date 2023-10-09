@@ -1,9 +1,8 @@
 #include <string>
 #include <unordered_map>
 #include <vector>
-#include <boost/date_time/gregorian/gregorian_types.hpp>
-
-    
+#include "purchase_record.hh"   // temporary
+#include "holding.hh"
 
 class InvalidPurchaseException: public std::exception {
 };
@@ -12,16 +11,6 @@ class ShareCountCannotBeZeroException: public std::exception {
 };
 
 class InsufficientSharesException: public std::exception {
-};
-
-
-struct PurchaseRecord {
-    PurchaseRecord(
-        int shareDelta, boost::gregorian::date date
-    ): shareDelta(shareDelta), date(date) {}
-    
-    int shareDelta;    // can be both positive and negative
-    boost::gregorian::date date;
 };
 
 
@@ -78,4 +67,6 @@ private:
     void add(const std::string& symbol, PurchaseRecord&& record);
     
     std::unordered_map<std::string, std::vector<PurchaseRecord>> purchaseRecords;
+
+    std::unordered_map<std::string, Holding> holdings;
 };

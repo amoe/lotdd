@@ -54,11 +54,13 @@ bool Portfolio::containsSymbol(const string& symbol) const {
 
 void Portfolio::initializePurchaseRecords(const string& symbol) {
     purchaseRecords.insert({symbol, vector<PurchaseRecord>()});
+    holdings.insert({symbol, Holding()});
 }
 
 
 void Portfolio::add(const string& symbol, PurchaseRecord&& record) {
     purchaseRecords[symbol].push_back(record);
+    holdings[symbol].add(record);
 }
 
 
