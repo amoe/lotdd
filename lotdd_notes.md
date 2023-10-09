@@ -555,3 +555,16 @@ the constituent fields.
 
 I learned that you can't define an operator / free function in a header file as
 it will be included into all units multiple times.
+
+I like this quote:
+
+> TDD is a means of addressing design on a continual basis. Consider that you
+> are taking all the time saved in initial detailed design efforts and spreading
+> it out across the rest of the product’s life span.
+
+So agile is not necessarily to move faster but rather to redistribute effort to
+enable change.
+
+Don't sweat the details of design.  Just "focus on class names, dependencies,
+and maybe a few key public behaviors."  What are the main elements of the system
+and the main interactions between them?
