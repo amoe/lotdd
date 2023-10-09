@@ -1,5 +1,6 @@
 #include <gmock/gmock.h>
 #include "portfolio.hh"
+#include "purchase_record.hh"
 #include <string>
 #include <boost/date_time/gregorian/gregorian_types.hpp>
 
@@ -124,10 +125,6 @@ TEST_F(PortfolioTest, includesSalesInPurchaseRecords) {
     assertPurchase(sales.at(1), -5, Portfolio::FIXED_PURCHASE_DATE);
 }
 
-
-bool operator==(const PurchaseRecord& lhs, const PurchaseRecord& rhs) {
-    return lhs.shareDelta == rhs.shareDelta && lhs.date == rhs.date;
-}
 
 TEST_F(PortfolioTest, separatesPurchaseRecordsBySymbol) {
     purchaseHelper(stockSymbol2, 5);

@@ -13,5 +13,6 @@ struct PurchaseRecord {
     boost::gregorian::date date;
 };
 
+bool operator==(const PurchaseRecord& lhs, const PurchaseRecord& rhs);
 
 #endif /* PURCHASE_RECORD_HH */
