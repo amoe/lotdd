@@ -78,7 +78,7 @@ He also has to resort to an index-based for loop.  He also notes that this style
 can induce frustration in some readers!  Worth considering.
 
 
-## ch3 - TDD Foundations
+# ch3 - TDD Foundations
 
 Unit tests take the form: Arrange / Act / Assert.
 
@@ -164,7 +164,7 @@ Always first write regression tests for new defects found.
 
 Disable tests using the test framework tool so that you don't forget to discard it.
 
-## ch4 -- Test Construction
+# ch4 -- Test Construction
 
 Don't make header files for tests.
 It's fine to name tests based on behaviour descriptions rather than individual
@@ -628,3 +628,45 @@ Of course this is the absolute doozy that we've all seen:
 > deliver the feature later than expected. When this occurs, ask for forgive-
 > ness, and run an honest investigation into how you might have prevented
 > the additional effort. Don’t let it happen habitually.
+
+# CHAPTER 7 - Quality Tests
+
+
+FIRST --
+Fast
+Isolated
+Repeatable
+Self-verifying
+Timely
+
+Build times are a big issue in C++ because we need to compile and link for every
+test change.  Need to follow the I in SOLID: interface segregation principle.
+That will minimize rebuilds naturally, two birds with one stone.
+
+Likewise if we use DI and pure virtual void classes, then clients don't need to
+rebuild when we change the implementation of some given interface.
+
+There is something called PIMPL: Pointer to Implementation.
+
+> Extract your concrete class to a separate implementation class.  Delegate to
+> the implementation as needed from the implementation functions.
+
+This is equivalent to having e.g. TwitterService and TwitterServiceImpl in
+Java.  I guess the point is that you can add private methods ad-hoc within
+TwitterServiceImpl, but if client code only uses TwitterService then it won't be
+forced to rebuild.
+
+Pimpl uses a weird syntax: here's a reasonable example
+https://www.geeksforgeeks.org/pimpl-idiom-in-c-with-examples/
+This uses nested classes, a language feature I didn't know about.
+https://en.cppreference.com/w/cpp/language/nested_types
+
+Pimpl uses a single unique_ptr to a nested class.
+
+Try to run all the tests in your whole project, or failing that, run all the
+tests in a given file.  Don't run single tests habitually (I'm guilty of this).
+
+> Any test that uses static data runs the risk of failing because of stale data.
+
+This means that any code that manipulates/relies on ambient state can fail for
+that reason.  We prefer to fix this by minimizing such state where possible.
