@@ -666,7 +666,26 @@ Pimpl uses a single unique_ptr to a nested class.
 Try to run all the tests in your whole project, or failing that, run all the
 tests in a given file.  Don't run single tests habitually (I'm guilty of this).
 
+
+Isolated and repeatable:
+
 > Any test that uses static data runs the risk of failing because of stale data.
 
 This means that any code that manipulates/relies on ambient state can fail for
-that reason.  We prefer to fix this by minimizing such state where possible.
+that reason.  We prefer to fix this by minimizing such state where possible.  So
+isolated means isolated from systemwide state as well as dependencies.
+
+Isolate from: static system state, external services, concurrency.  There's a
+whole chapter on concurrency.
+
+Self-verifying: everything that fails should be directly testable through
+assertions.  This is stronger than saying "every test should have an assertion"
+because it means that to debug failing tests you should be relying on specific
+more focused unit tests and using assertions!  It relies on your testing
+framework being able to print values in a sane way.
+
+Timely: everything is incremental.  You write the smallest possible variant at
+every time.
+
+
+
