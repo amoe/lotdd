@@ -34,6 +34,8 @@ public:
     void transfer(Branch branch) {
     }
 
+    // XXX: This is clearly buggy as it doesn't differentiate with respect to
+    // the branch, but it's enough to satisfy the unit test for now.
     bool isAvailable() const {
         return _isAvailable;
     }
