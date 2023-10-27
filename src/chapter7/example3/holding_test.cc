@@ -88,3 +88,23 @@ TEST_F(CheckedInHolding, updatesDateDueOnCheckout) {
 }
 
 
+TEST_F(HoldingTest, isNotAvailableAfterCheckout) {
+    holding->transfer(EAST_BRANCH);
+
+    holding->checkOut(ARBITRARY_DATE);
+
+    EXPECT_THAT(
+        holding->isAvailable(), Eq(false)
+    );
+}
+
+// You can check a book back in on the same day that you check it out, I believe.
+TEST_F(HoldingTest, isAvailableAfterCheckin) {
+    holding->transfer(EAST_BRANCH);
+    holding->checkOut(ARBITRARY_DATE);
+    holding->checkIn(ARBITRARY_DATE, EAST_BRANCH);
+
+    EXPECT_THAT(
+        holding->isAvailable(), Eq(true)
+    );
+}

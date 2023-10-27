@@ -689,3 +689,23 @@ every time.
 
 
 
+## One Assert per Test
+
+> Should you ever have more than one assert per test?  Strive hard to have only
+> one.  Sometimes it makes sense to have more, though. [...] If multiple
+> assertions are required to describe a single behaviour, you can justify a
+> second assertion in a test.
+
+There are a couple of other exceptional cases but mostly one-assert-per-test is
+a good rule.
+
+## Test Abstraction
+
+> Abstraction is as important in your tests as it is in object-oriented design.
+> Since you want to be able to read your tests as documentation, they must cut
+> to the chase, declaring their intent as clearly and simply as possible.
+
+Langr suggests using fixture functions to abstract most of the cruft.
+
+It's not clear if the library code from example 7.3 will ever be returned to?  I
+hope it will!  As we didn't do any of the implementation.
