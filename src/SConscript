@@ -25,7 +25,8 @@ env = Environment(
         'jsoncpp',
         'curl',
         'm',
-        'stdc++'
+        'stdc++',
+        'boost_iostreams'   # for LineReader
     ]
 )
 
