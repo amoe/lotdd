@@ -708,4 +708,5 @@ a good rule.
 Langr suggests using fixture functions to abstract most of the cruft.
 
 It's not clear if the library code from example 7.3 will ever be returned to?  I
-hope it will!  As we didn't do any of the implementation.
+hope it will!  As we didn't do any of the implementation.  We are now focused on
+a completely separate "line reader" test.
