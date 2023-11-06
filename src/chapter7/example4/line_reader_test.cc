@@ -4,18 +4,16 @@
 using testing::Test;
 using testing::Eq;
 
-// Free function defined in test, I don't approve of the StudlyCaps here
-
-static int getTemporaryFile() {
+static int writeTemporaryFile() {
     FILE* temporaryFile = tmpfile();
     int fileDescriptor = fileno(temporaryFile);
+    write(fd, "a", 1);
+    lseek(fd, 0, SEEK_SET);
     return fileDescriptor;
 }
 
 TEST(LineReaderTest, oneLine) {
-    const int fd = getTemporaryFile();
-    write(fd, "a", 1);
-    lseek(fd, 0, SEEK_SET);
+    const int fd = writeTemporyFile("a");
 
     LineReader reader(fd);
     const char* line;
