@@ -6,6 +6,15 @@ using testing::Test;
 using testing::Eq;
 using std::string;
 
+class LineReaderTest: public Test {
+public:
+    virtual void TearDown() override {
+        close(fd);
+    }
+
+    int fd;   // const??
+};
+
 static int writeTemporaryFile(const string& content) {
     FILE* temporaryFile = tmpfile();
     int fileDescriptor = fileno(temporaryFile);
@@ -14,8 +23,8 @@ static int writeTemporaryFile(const string& content) {
     return fileDescriptor;
 }
 
-TEST(LineReaderTest, oneLine) {
-    const int fd = writeTemporaryFile("a");
+TEST_F(LineReaderTest, oneLine) {
+    fd = writeTemporaryFile("a");
 
     LineReader reader(fd);
     const char* line;
@@ -30,6 +39,4 @@ TEST(LineReaderTest, oneLine) {
     reader.popLine(len);
 
     ASSERT_FALSE(reader.getNextLine(&line, &len));
-
-    close(fd);
 }
