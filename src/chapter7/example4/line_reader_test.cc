@@ -1,19 +1,21 @@
 #include <gmock/gmock.h>
+#include <string>
 #include "line_reader.hh"
 
 using testing::Test;
 using testing::Eq;
+using std::string;
 
-static int writeTemporaryFile() {
+static int writeTemporaryFile(const string& content) {
     FILE* temporaryFile = tmpfile();
     int fileDescriptor = fileno(temporaryFile);
-    write(fd, "a", 1);
-    lseek(fd, 0, SEEK_SET);
+    write(fileDescriptor, content.c_str(), 1);
+    lseek(fileDescriptor, 0, SEEK_SET);
     return fileDescriptor;
 }
 
 TEST(LineReaderTest, oneLine) {
-    const int fd = writeTemporyFile("a");
+    const int fd = writeTemporaryFile("a");
 
     LineReader reader(fd);
     const char* line;
