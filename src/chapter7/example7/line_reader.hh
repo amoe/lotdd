@@ -1,6 +1,7 @@
 class LineReader {
 public:
-    LineReader(const int fd): fd(fd) {  }
+    LineReader(const int fd);
+    ~LineReader();
 
     bool getNextLine(const char** line, unsigned int* len);
 

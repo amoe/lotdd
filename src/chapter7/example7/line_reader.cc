@@ -43,3 +43,11 @@ bool LineReader::getNextLine(const char** line, unsigned int* len) {
 void LineReader::popLine(unsigned int len) const {
     delete buffer;
 }
+
+LineReader::LineReader(const int fd): fd(fd) {
+}
+
+
+LineReader::~LineReader() {
+    close(fd);
+}
