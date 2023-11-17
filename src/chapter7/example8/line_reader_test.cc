@@ -7,6 +7,13 @@ using testing::Eq;
 using std::string;
 
 
+class LineReaderTest: public Test {
+public:
+    const char* line;
+    unsigned len;
+};
+
+
 static int writeTemporaryFile(const string& content) {
     FILE* temporaryFile = tmpfile();
     int fileDescriptor = fileno(temporaryFile);
@@ -15,10 +22,8 @@ static int writeTemporaryFile(const string& content) {
     return fileDescriptor;
 }
 
-TEST(LineReaderTest, oneLine) {
+TEST_F(LineReaderTest, oneLine) {
     LineReader reader(writeTemporaryFile("a"));
-    const char* line;
-    unsigned int len;
     
     ASSERT_TRUE(reader.getNextLine(&line, &len));
 
