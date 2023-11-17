@@ -716,3 +716,6 @@ we have to do something even more bizarre:
 
 Boost can wrap a file descriptor in an fstream.  We might have to prototype this
 separately.
+
+7.8 -- Slight erratum here as we already removed the fd variable.  Langr shows
+factoring all test state into the test class.
