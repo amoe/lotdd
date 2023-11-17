@@ -13,7 +13,6 @@ public:
     unsigned len;
 };
 
-
 static int writeTemporaryFile(const string& content) {
     FILE* temporaryFile = tmpfile();
     int fileDescriptor = fileno(temporaryFile);
