@@ -50,14 +50,3 @@ TEST_F(LineReaderTest, answersFalseWhenAtEof) {
 }
 
 
-// TEST_F(LineReaderTest, oneLine) {
-//     LineReader reader(writeTemporaryFile("a"));
-    
-//     ASSERT_TRUE(reader.getNextLine(&line, &len));
-
-//     ASSERT_EQ_WITH_LENGTH("a", line, len);
-    
-//     reader.popLine(len);
-
-//     ASSERT_FALSE(reader.getNextLine(&line, &len));
-// }
