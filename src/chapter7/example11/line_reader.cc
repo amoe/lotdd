@@ -3,6 +3,7 @@
 #include <boost/iostreams/device/file_descriptor.hpp>
 #include <boost/iostreams/stream.hpp>
 #include "line_reader.hh"
+#include <iostream>
 
 using boost::iostreams::file_descriptor_source;
 using boost::iostreams::never_close_handle;
@@ -10,42 +11,48 @@ using boost::iostreams::stream;
 using std::getline;
 using std::string;
 using std::memcpy;
+using std::cout;
+using std::endl;
 
 bool LineReader::getNextLine(const char** line, unsigned int* len) {
-    file_descriptor_source fdSource{fd, never_close_handle};
-    stream<file_descriptor_source> fileStream{fdSource};
+    if (buffer == nullptr) {
+        string theLine;
+        getline(fileStream, theLine);
 
+        lastReadLength = theLine.length();
 
-    string theLine;
-    getline(fileStream, theLine);
+        // Testing just eof() is not enough here as we can reach the end of file
+        // after a "good" read.
+        if (lastReadLength == 0 && fileStream.eof()){
+            return false;
+        }
     
-    int length = theLine.length();
+        int lengthWithNul = lastReadLength + 1;
+    
+        buffer = new char[lengthWithNul];
+        memcpy(buffer, theLine.c_str(), lengthWithNul);
 
-    // Testing just eof() is not enough here as we can reach the end of file
-    // after a "good" read.
-    if (length == 0 && fileStream.eof())
+        *line = buffer;
+        *len = lastReadLength;
+
+        return true;
+    } else {
+        *line = buffer;
+        *len = lastReadLength;
         return false;
-
-    
-    int lengthWithNul = theLine.length() + 1;
-    
-    buffer = new char[lengthWithNul];
-    memcpy(buffer, theLine.c_str(), lengthWithNul);
-
-    *line = buffer;
-    *len = length;
-
-    return true;
+    }
 }
 
 
 // In this implementation we need to free the memory
-void LineReader::popLine(unsigned int len) const {
+void LineReader::popLine(unsigned int len) {
     delete buffer;
+    buffer = nullptr;
 }
 
-LineReader::LineReader(const int fd): fd(fd) {
-}
+LineReader::LineReader(const int fd):
+    fileStream{file_descriptor_source{fd, never_close_handle}}
+    { }
 
 
 LineReader::~LineReader() {
