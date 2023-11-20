@@ -7,6 +7,13 @@ using testing::Eq;
 using std::string;
 
 
+void ASSERT_EQ_WITH_LENGTH(
+    const char* expected, const char* actual, unsigned length
+) {
+    ASSERT_EQ(length, strlen(actual));
+    ASSERT_STREQ(expected, actual);
+}
+
 class LineReaderTest: public Test {
 public:
     const char* line;
@@ -26,9 +33,7 @@ TEST_F(LineReaderTest, oneLine) {
     
     ASSERT_TRUE(reader.getNextLine(&line, &len));
 
-    ASSERT_EQ(len, (unsigned) 1);
-    ASSERT_EQ(line[0], 'a');
-    ASSERT_EQ(line[1], 0);
+    ASSERT_EQ_WITH_LENGTH("a", line, len);
     
     reader.popLine(len);
 
