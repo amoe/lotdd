@@ -719,3 +719,6 @@ separately.
 
 7.8 -- Slight erratum here as we already removed the fd variable.  Langr shows
 factoring all test state into the test class.
+
+Langr thinks nothing of creating a helper function to wrap a custom assert.  I
+might possibly avoid this, or maybe not (it might be more appropriate in C++).
