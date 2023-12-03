@@ -8,8 +8,14 @@ using testing::Eq;
 template <typename T>
 class Persistence {
 public:
+    Persistence(const string& table): table(table) { }
+    virtual ~Persistence(void) { }
+    
     virtual void add(T&) = 0;
     virtual T get(const string& id) const = 0;
+
+protected:
+    string table;
 };
 
 class Serializable {
@@ -31,7 +37,9 @@ public:
     TestSerializable* objectWithId1;
 
     void SetUp() override {
-        objectWithId1 = new TestSerializable("one", "1");
+        // currently causing a compiler error: "invalid new-expression"
+//        persister = new Persistence<TestSerializable>{};
+        objectWithId1 = new TestSerializable{"one", "1"};
     }
 };
 
@@ -39,6 +47,6 @@ public:
 
 // XXX: Should be using TEST_P macro
 TEST_F(PersistenceTest, addedItemCanBeRetrievedById) {
-//    persister->add(*objectWithId1);
+    persister->add(*objectWithId1);
 //    auto found = persister->get("1");
 }
