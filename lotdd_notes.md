@@ -722,3 +722,17 @@ factoring all test state into the test class.
 
 Langr thinks nothing of creating a helper function to wrap a custom assert.  I
 might possibly avoid this, or maybe not (it might be more appropriate in C++).
+
+## Unnecessary Test Code
+
+TEST_P -- This is used for paramterized tests.  The test parameter is accessed
+using GetParam() method.
+
+Parameterized tests are created using
+
+    INSTANTIATE_TEST_CASE_P(
+        KeyedMemory, PersistenceTest,
+        Values(&KeyedMemoryPersistenceTest::CreatePersistence)
+    );
+
+Instead of using auto_ptr, we use unique_pr.
