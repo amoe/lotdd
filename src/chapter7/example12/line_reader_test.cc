@@ -18,7 +18,14 @@ class LineReaderTest: public Test {
 public:
     const char* line;
     unsigned len;
+
+    
+    static const string ARBITRARY_TEXT;
 };
+
+
+const string LineReaderTest::ARBITRARY_TEXT{"a"};
+
 
 static int writeTemporaryFile(const string& content) {
     FILE* temporaryFile = tmpfile();
@@ -35,13 +42,13 @@ TEST_F(LineReaderTest, updatesLineAndLenOnRead) {
 }
 
 TEST_F(LineReaderTest, answersTrueWhenLineAvailable) {
-    LineReader reader(writeTemporaryFile("a"));
+    LineReader reader(writeTemporaryFile(ARBITRARY_TEXT));
     bool wasRead = reader.getNextLine(&line, &len);
     ASSERT_TRUE(wasRead);
 }
 
 TEST_F(LineReaderTest, answersFalseWhenAtEof) {
-    LineReader reader(writeTemporaryFile("a"));
+    LineReader reader(writeTemporaryFile(ARBITRARY_TEXT));
     reader.getNextLine(&line, &len);
     reader.popLine(len);
 
