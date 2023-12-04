@@ -736,3 +736,6 @@ Parameterized tests are created using
     );
 
 Instead of using auto_ptr, we use unique_pr.
+
+TEST_P was actually briefly mentioned back in Chapter 3, with a big ol' proviso
+on it saying that you shouldn't often use it.

@@ -82,8 +82,6 @@ public:
 };
 
 // create 2 objects, 1 called persister
-
-// XXX: Should be using TEST_P macro
 TEST_F(PersistenceTest, addedItemCanBeRetrievedById) {
     persister->add(*objectWithId1);
     auto found = persister->get("1");
