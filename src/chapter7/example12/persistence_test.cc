@@ -7,6 +7,7 @@ using std::string;
 using testing::Test;
 using testing::Eq;
 using testing::NotNull;
+using testing::IsNull;
 using std::unique_ptr;
 using std::make_unique;
 using std::unordered_map;
@@ -58,7 +59,13 @@ public:
     }
 
     virtual unique_ptr<T> get(const string& id) const {
-        return make_unique<T>(contents.at(id));
+        auto it = contents.find(id);
+
+        if (it == contents.end()) {
+            return nullptr;
+        } else {
+            return make_unique<T>(contents.at(id));
+        }
     }
 
 private:
@@ -87,4 +94,8 @@ TEST_F(PersistenceTest, addedItemCanBeRetrievedById) {
     auto found = persister->get("1");
     ASSERT_THAT(found, NotNull());
     ASSERT_THAT(*found, Eq(*objectWithId1));
+}
+
+TEST_F(PersistenceTest, returnsNullPointerWhenItemNotFound) {
+    ASSERT_THAT(persister->get("no id there"), IsNull());
 }

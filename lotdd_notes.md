@@ -739,3 +739,18 @@ Instead of using auto_ptr, we use unique_pr.
 
 TEST_P was actually briefly mentioned back in Chapter 3, with a big ol' proviso
 on it saying that you shouldn't often use it.
+
+In this function:
+
+    virtual unique_ptr<T> get(const string& id) const {
+        auto it = contents.find(id);
+
+        if (it == contents.end()) {
+            return nullptr;
+        } else {
+            return make_unique<T>(contents.at(id));
+        }
+    }
+
+It's interesting that you can just return nullptr and it doesn't have to be
+wrapped in any way, I am not sure why this is the case.
