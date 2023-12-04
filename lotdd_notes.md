@@ -754,3 +754,11 @@ In this function:
 
 It's interesting that you can just return nullptr and it doesn't have to be
 wrapped in any way, I am not sure why this is the case.
+
+Assert not null: When you use raw pointers, you have the option to check them
+using something like `ASSERT_THAT(foo, NotNull())`.  This will create a test
+failure instead of a segfault when you try to use a null pointer which may be
+more meaningful.  You can get around coding this by explicitly handling the null
+case in a different test, and then "let it crash" (it never should).  Raw
+pointers should be avoided anyway so one way to approach this is just to not use
+them.
