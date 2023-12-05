@@ -10,6 +10,7 @@ using testing::Eq;
 using std::string;
 using std::exception;
 using std::shared_ptr;
+using std::to_string;
 
 class DuplicateBranchNameException: public exception {
 };
@@ -28,6 +29,15 @@ public:
         return persister->matches(matchBranchByName, name);
     }
 
+    void save(Branch& branch) {
+        persister->add(branch);
+    }
+
+    int size() const {
+        return persister->size();
+    }
+
+
 private:
     shared_ptr<Persistence<Branch>> persister;
 };
@@ -38,6 +48,10 @@ public:
     void add(const string& name, const string& address) {
         if (branchAccess.existsWithName(name))
             throw DuplicateBranchNameException();
+
+        string generatedId = to_string(branchAccess.size());
+        Branch theBranch{generatedId, name};
+        branchAccess.save(theBranch);
     }
 
 private:

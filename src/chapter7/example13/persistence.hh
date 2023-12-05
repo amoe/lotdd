@@ -16,6 +16,7 @@ public:
     virtual void add(T&) = 0;
     virtual std::unique_ptr<T> get(const std::string& id) const = 0;
     virtual bool matches(MatcherFunction, const std::string&) const = 0;
+    virtual int size() const = 0;
 
 protected:
     std::string table;

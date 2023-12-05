@@ -34,6 +34,10 @@ public:
         return false;
     }
 
+    virtual int size() const {
+        return contents.size();
+    }
+
 private:
     std::unordered_map<std::string, T> contents;
 };
