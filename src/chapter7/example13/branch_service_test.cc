@@ -2,6 +2,7 @@
 #include <gmock/gmock.h>
 #include "branch.hh"
 #include "persistence.hh"
+#include "keyed_memory_persistence.hh"
 #include "serializable.hh"
 
 using testing::Test;
@@ -21,6 +22,8 @@ bool matchBranchByName(const Serializable& each, const string& name) {
 
 class BranchAccess {
 public:
+    BranchAccess(): persister(new KeyedMemoryPersistence<Branch>("table")) { }
+    
     bool existsWithName(const string& name) const {
         return persister->matches(matchBranchByName, name);
     }

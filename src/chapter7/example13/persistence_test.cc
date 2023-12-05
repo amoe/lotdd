@@ -4,6 +4,7 @@
 #include <gmock/gmock.h>
 #include "serializable.hh"
 #include "persistence.hh"
+#include "keyed_memory_persistence.hh"
 
 using std::string;
 using testing::Test;
@@ -31,42 +32,6 @@ private:
     string name;
     string id;
 };
-
-
-template <typename T>
-class KeyedMemoryPersistence: public Persistence<T> {
-public:
-    KeyedMemoryPersistence(const string& table): Persistence<T>(table) { }
-    ~KeyedMemoryPersistence(void) { }
-
-    virtual void add(T& item) {
-        contents.insert({item.getId(), item});
-    }
-
-    virtual unique_ptr<T> get(const string& id) const {
-        auto it = contents.find(id);
-
-        if (it == contents.end()) {
-            return nullptr;
-        } else {
-            return make_unique<T>(contents.at(id));
-        }
-    }
-
-    virtual bool matches(MatcherFunction matches, const string& name) const {
-        for (const auto& pair: contents) {
-            if (matches(pair.second, name))
-                return true;
-        }
-        return false;
-    }
-
-private:
-    unordered_map<string, T> contents;
-};
-
-
-
 
 class PersistenceTest: public Test {
 public:
