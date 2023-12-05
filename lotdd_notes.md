@@ -762,3 +762,15 @@ more meaningful.  You can get around coding this by explicitly handling the null
 case in a different test, and then "let it crash" (it never should).  Raw
 pointers should be avoided anyway so one way to approach this is just to not use
 them.
+
+Google Test provides a "Pointee" macro that will allow checking equality and
+pointer not nullness at the same time:
+
+> Pointee(m) matches a pointer if and only if m matches the value the pointer
+> points to...  One nice thing about Pointee() is that it treats a NULL pointer as
+> a match failure.
+
+    ASSERT_THAT(found, Pointee(*objectWithId1));
+
+You always need to pass the VALUE as the second part, so in this case we still
+have to manually dereference the second pointer.
