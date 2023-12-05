@@ -59,7 +59,7 @@ public:
     }
 };
 
-Branch EAST_BRANCH;
+Branch EAST_BRANCH{"1", "east"};
 
 const date HoldingTest::ARBITRARY_DATE{1970, 1, 1};
 

@@ -2,6 +2,8 @@
 #include <memory>
 #include <unordered_map>
 #include <gmock/gmock.h>
+#include "serializable.hh"
+#include "persistence.hh"
 
 using std::string;
 using testing::Test;
@@ -12,10 +14,6 @@ using testing::Pointee;
 using std::unique_ptr;
 using std::make_unique;
 using std::unordered_map;
-
-class Serializable {
-    virtual string getId() const = 0;
-};
 
 class TestSerializable: public Serializable {
 public:
@@ -32,20 +30,6 @@ public:
 private:
     string name;
     string id;
-};
-
-
-template <typename T>
-class Persistence {
-public:
-    Persistence(const string& table): table(table) { }
-    virtual ~Persistence(void) { }
-    
-    virtual void add(T&) = 0;
-    virtual unique_ptr<T> get(const string& id) const = 0;
-
-protected:
-    string table;
 };
 
 
@@ -67,6 +51,14 @@ public:
         } else {
             return make_unique<T>(contents.at(id));
         }
+    }
+
+    virtual bool matches(MatcherFunction matches, const string& name) const {
+        for (const auto& pair: contents) {
+            if (matches(pair.second, name))
+                return true;
+        }
+        return false;
     }
 
 private:
