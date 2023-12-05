@@ -1,6 +1,6 @@
 #include <gmock/gmock.h>
 #include <boost/date_time/gregorian/gregorian_types.hpp>
-
+#include "branch.hh"
 
 using testing::Test;
 using testing::Eq;
@@ -14,8 +14,6 @@ public:
 
 const int Book::BOOK_CHECKOUT_PERIOD{21};
 
-class Branch {
-};
 
 class Holding {
 public:
@@ -108,3 +106,4 @@ TEST_F(HoldingTest, isAvailableAfterCheckin) {
         holding->isAvailable(), Eq(true)
     );
 }
+
