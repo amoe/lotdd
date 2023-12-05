@@ -53,5 +53,5 @@ public:
 
 TEST_F(BranchServiceTest, addThrowsWhenNameNotUnique) {
     service.add("samename", "1");
-    // ASSERT_THROW(service.add("samename", "1"), DuplicateBranchNameException);
+    ASSERT_THROW(service.add("samename", "1"), DuplicateBranchNameException);
 }
