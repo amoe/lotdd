@@ -7,6 +7,7 @@
 
 using testing::Test;
 using testing::Eq;
+using testing::Ne;
 using std::string;
 using std::exception;
 using std::shared_ptr;
@@ -45,13 +46,14 @@ private:
 
 class BranchService {
 public:
-    void add(const string& name, const string& address) {
+    string add(const string& name, const string& address) {
         if (branchAccess.existsWithName(name))
             throw DuplicateBranchNameException();
 
         string generatedId = to_string(branchAccess.size());
         Branch theBranch{generatedId, name};
         branchAccess.save(theBranch);
+        return generatedId;
     }
 
 private:
@@ -68,4 +70,17 @@ public:
 TEST_F(BranchServiceTest, addThrowsWhenNameNotUnique) {
     service.add("samename", "1");
     ASSERT_THROW(service.add("samename", "1"), DuplicateBranchNameException);
+}
+
+
+// Don't do this -- we don't want to add try/catch boilerplate around calls
+// that can throw exceptions, just for the purpose of generating failures.
+TEST_F(BranchServiceTest, addGeneratesUniqueId) {
+    try {
+        string id1 = service.add("name1", "");
+        string id2 = service.add("name2", "");
+        ASSERT_THAT(id1, Ne(id2));
+    } catch (...) {
+        FAIL();
+    }
 }

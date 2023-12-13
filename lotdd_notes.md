@@ -774,3 +774,18 @@ pointer not nullness at the same time:
 
 You always need to pass the VALUE as the second part, so in this case we still
 have to manually dereference the second pointer.
+
+## Don't guard excessively
+
+    // Don't do this -- we don't want to add try/catch boilerplate around calls
+    // that can throw exceptions, just for the purpose of generating failures.
+    TEST_F(BranchServiceTest, addGeneratesUniqueId) {
+        try {
+            string id1 = service.add("name1", "");
+            string id2 = service.add("name2", "");
+            ASSERT_THAT(id1, Ne(id2));
+        } catch (...) {
+            FAIL();
+        }
+    }
+
