@@ -73,14 +73,9 @@ TEST_F(BranchServiceTest, addThrowsWhenNameNotUnique) {
 }
 
 
-// Don't do this -- we don't want to add try/catch boilerplate around calls
-// that can throw exceptions, just for the purpose of generating failures.
+// No need to catch exceptions here, so we don't.
 TEST_F(BranchServiceTest, addGeneratesUniqueId) {
-    try {
-        string id1 = service.add("name1", "");
-        string id2 = service.add("name2", "");
-        ASSERT_THAT(id1, Ne(id2));
-    } catch (...) {
-        FAIL();
-    }
+    string id1 = service.add("name1", "");
+    string id2 = service.add("name2", "");
+    ASSERT_THAT(id1, Ne(id2));
 }
