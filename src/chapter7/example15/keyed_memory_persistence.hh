@@ -38,6 +38,10 @@ public:
         return contents.size();
     }
 
+    virtual void clear() {
+        contents.clear();
+    }
+
 private:
     std::unordered_map<std::string, T> contents;
 };
