@@ -793,4 +793,5 @@ Langr recommends not using descriptive comments on "assert" statements; I would
 tend to agree.
 
 Langr recommends not commenting tests!  But finding a way to structure them so
-that they don't need comments.
+that they don't need comments.  This should probably apply to Python; do tests
+need docstrings?
