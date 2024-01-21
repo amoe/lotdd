@@ -789,3 +789,8 @@ have to manually dereference the second pointer.
         }
     }
 
+Langr recommends not using descriptive comments on "assert" statements; I would
+tend to agree.
+
+Langr recommends not commenting tests!  But finding a way to structure them so
+that they don't need comments.
