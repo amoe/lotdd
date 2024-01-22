@@ -115,16 +115,22 @@ TEST_F(BranchServiceTest, addBranchIncrementsCount) {
 }
 
 
-
-class BranchServiceTest2: public BranchServiceTest {
+// Renamed the class for readability, and create an auxiliary pointer to be
+// more clear about what's happening.
+class BranchServiceTestWithOneBranchPreAdded: public BranchServiceTest {
 public:
+    Branch* alreadyAddedBranch;
     void SetUp() {
         BranchServiceTest::SetUp();
         service.add(*eastBranch);
+        alreadyAddedBranch = eastBranch;
     }
 };
 
 
-TEST_F(BranchServiceTest2, throwsWhenDuplicateBranchAdded) {
-    ASSERT_THROW(service.add("east", ""), DuplicateBranchNameException);
+TEST_F(BranchServiceTestWithOneBranchPreAdded, throwsWhenDuplicateBranchAdded) {
+    ASSERT_THROW(
+        service.add(alreadyAddedBranch->getName(), ""),
+        DuplicateBranchNameException
+    );
 }

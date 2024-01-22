@@ -1,3 +1,4 @@
+#include <memory>
 #include <gmock/gmock.h>
 #include <boost/date_time/gregorian/gregorian_types.hpp>
 #include "branch.hh"
@@ -6,19 +7,38 @@ using testing::Test;
 using testing::Eq;
 using boost::gregorian::date;
 using boost::gregorian::date_duration;
+using std::make_unique;
+using std::unique_ptr;
+using std::string;
 
 class Book {
 public:
     static const int BOOK_CHECKOUT_PERIOD;
+    static const int MOVIE_CHECKOUT_PERIOD;
 };
 
 const int Book::BOOK_CHECKOUT_PERIOD{21};
+const int Book::MOVIE_CHECKOUT_PERIOD{7};
 
 
 class Holding {
 public:
+    Holding() { }
+    
+    Holding(const std::string& classification, unsigned short copyNumber):
+        classification(classification) {
+    }
+
     date dueDate() const {
-        return date{1970, 1, 1} + date_duration{Book::BOOK_CHECKOUT_PERIOD};
+        int period;
+        
+        if (classification == "VABC 123") {
+            period = Book::MOVIE_CHECKOUT_PERIOD;
+        } else {
+            period = Book::BOOK_CHECKOUT_PERIOD;
+        }
+        
+        return lastCheckedOutOn + date_duration{period};
     }
 
     void checkIn(date checkInDate, Branch branch) {
@@ -27,6 +47,7 @@ public:
     
     void checkOut(date checkOutDate) {
         _isAvailable = false;
+        lastCheckedOutOn = checkOutDate;
     }
 
     void transfer(Branch branch) {
@@ -40,6 +61,8 @@ public:
 
 private:
     bool _isAvailable;   // hacky invention by me
+    string classification;
+    date lastCheckedOutOn;
 };
 
 class HoldingTest: public Test {
@@ -107,3 +130,23 @@ TEST_F(HoldingTest, isAvailableAfterCheckin) {
     );
 }
 
+class AMovieHolding: public HoldingTest {
+public:
+    unique_ptr<Holding> movie;
+
+    void SetUp() {
+        HoldingTest::SetUp();
+
+        movie = make_unique<Holding>("VABC 123", 1);
+        movie->transfer(EAST_BRANCH);
+    }
+};
+
+
+TEST_F(AMovieHolding, answersDateDueWhenCheckedOut) {
+    movie->checkOut(date{2013, 3, 1});
+
+    date due = movie->dueDate();
+
+    ASSERT_THAT(due, Eq(date{2013, 3, 8}));
+}
