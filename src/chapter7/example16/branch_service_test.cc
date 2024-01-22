@@ -108,10 +108,9 @@ TEST_F(BranchServiceTest, addGeneratesUniqueId) {
 }
 
 TEST_F(BranchServiceTest, addBranchIncrementsCount) {
-    service.add(*eastBranch);    // East
+    service.add(*eastBranch);
     ASSERT_THAT(service.branchCount(), Eq(1));
-
-    service.add(*westBranch);    // West
+    service.add(*westBranch);
     ASSERT_THAT(service.branchCount(), Eq(2));
 }
 
