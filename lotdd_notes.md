@@ -795,3 +795,6 @@ tend to agree.
 Langr recommends not commenting tests!  But finding a way to structure them so
 that they don't need comments.  This should probably apply to Python; do tests
 need docstrings?
+
+One pattern you can use is to re-derive a fixture to specialize the fixture even
+further.  This is shown in `BranchServiceTest2` declared in `example16` directory.

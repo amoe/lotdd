@@ -114,3 +114,17 @@ TEST_F(BranchServiceTest, addBranchIncrementsCount) {
     ASSERT_THAT(service.branchCount(), Eq(2));
 }
 
+
+
+class BranchServiceTest2: public BranchServiceTest {
+public:
+    void SetUp() {
+        BranchServiceTest::SetUp();
+        service.add(*eastBranch);
+    }
+};
+
+
+TEST_F(BranchServiceTest2, throwsWhenDuplicateBranchAdded) {
+    ASSERT_THROW(service.add("east", ""), DuplicateBranchNameException);
+}
