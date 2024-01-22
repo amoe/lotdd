@@ -798,3 +798,23 @@ need docstrings?
 
 One pattern you can use is to re-derive a fixture to specialize the fixture even
 further.  This is shown in `BranchServiceTest2` declared in `example16` directory.
+
+Langr claims that this:
+
+    TEST_F(AMovieHolding, answersDateDueWhenCheckedOut) {
+        date checkoutDate{2013, 3, 1};
+        movie->checkOut(checkoutDate);
+        date due = movie->dueDate();
+        ASSERT_THAT(due, Eq(checkoutDate + date_duration{Book::MOVIE_CHECKOUT_PERIOD}));
+    }
+
+is better than this:
+
+    TEST_F(AMovieHolding, answersDateDueWhenCheckedOut) {
+        movie->checkOut(date{2013, 3, 1});
+        date due = movie->dueDate();
+        ASSERT_THAT(due, Eq(date{2013, 3, 8}));
+    }
+
+I don't tend to agree with this as it's tending towards the
+mockist/non-black-box style.
