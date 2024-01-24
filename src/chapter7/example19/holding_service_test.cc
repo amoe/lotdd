@@ -67,13 +67,18 @@ public:
 
 };
 
-
+// Refactored.  Langr never named this test so it stays being called X.
 TEST_F(HoldingServiceTest, X) {
+    // Arrange:
     HoldingBarcode barcode(ClassificationData::THE_TRIAL_CLASSIFICATION, 1);
     string patronCardNumber{"p5"};
     checkOut(barcode, branch1, patronCardNumber);
     date_duration oneDayLate(Book::BOOK_CHECKOUT_PERIOD + 1);
+
+    // Act:
     holdingService.checkIn(barcode.toString(), *arbitraryDate + oneDayLate, branch2->getId());
+
+    // Assert:
     ASSERT_THAT(
         findPatronWithId(patronCardNumber).getFineBalance(), Eq(Book::BOOK_DAILY_FINE)
     );
