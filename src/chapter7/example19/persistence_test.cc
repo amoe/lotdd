@@ -37,12 +37,14 @@ class PersistenceTest: public Test {
 public:
     Persistence<TestSerializable>* persister;
     TestSerializable* objectWithId1;
+    TestSerializable* obj;
 
     void SetUp() override {
         // Modified from Langr's class to directly instantiate a persister
         // instead of using a factory and a parameterized test.
         persister = new KeyedMemoryPersistence<TestSerializable>{"table"};
         objectWithId1 = new TestSerializable{"one", "1"};
+        obj = new TestSerializable{"one", "1"};
     }
 };
 
@@ -55,4 +57,9 @@ TEST_F(PersistenceTest, addedItemCanBeRetrievedById) {
 
 TEST_F(PersistenceTest, returnsNullPointerWhenItemNotFound) {
     ASSERT_THAT(persister->get("no id there"), IsNull());
+}
+
+TEST_F(PersistenceTest, retrievedItemIsNewInstance) {
+    persister->add(*obj);
+    ASSERT_FALSE(obj == persister->get("1").get());
 }
