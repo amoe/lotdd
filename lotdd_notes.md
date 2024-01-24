@@ -822,3 +822,10 @@ mockist/non-black-box style.
 There is an erratum on p192 where the 'improved' code is actually the same as
 the non-improved.  This should be fixed by a whitespace change which was
 actually done in example 20 (not 19).
+
+Langr names a concept of "test correlation": correlating expected output to
+expected input.  You have to be able to answer the question: Why does the test
+assert what it does?  If you hide too much setup into helper classes or
+infrastructure then you introduce that test correlation issue.  Langr proposes
+solving this tension between abstraction and correlatability by using more
+meaningful names for abstractions and variables.
