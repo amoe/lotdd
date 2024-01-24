@@ -18,6 +18,8 @@ public:
     static const int BOOK_CHECKOUT_PERIOD{21};
     static const int MOVIE_CHECKOUT_PERIOD{7};
 
+    static const short BOOK_DAILY_FINE{10};
+
     enum BookType { TYPE_BOOK, TYPE_MOVIE };
 
     unsigned short getType() const {
