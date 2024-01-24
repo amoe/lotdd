@@ -2,6 +2,9 @@
 #include <gmock/gmock.h>
 #include <boost/date_time/gregorian/gregorian_types.hpp>
 #include "branch.hh"
+#include "book.hh"
+#include "classification_service.hh"
+#include "classification_data.hh"
 
 using testing::Test;
 using testing::Eq;
@@ -11,28 +14,19 @@ using std::make_unique;
 using std::unique_ptr;
 using std::string;
 
-class Book {
-public:
-    static const int BOOK_CHECKOUT_PERIOD;
-    static const int MOVIE_CHECKOUT_PERIOD;
-};
-
-const int Book::BOOK_CHECKOUT_PERIOD{21};
-const int Book::MOVIE_CHECKOUT_PERIOD{7};
-
-
 class Holding {
 public:
-    Holding() { }
-    
     Holding(const std::string& classification, unsigned short copyNumber):
         classification(classification) {
     }
 
     date dueDate() const {
+        ClassificationService svc;
+
+        Book result = svc.retrieveDetails(classification);
+
         int period;
-        
-        if (classification == "VABC 123") {
+        if (result.getType() == Book::TYPE_MOVIE) {
             period = Book::MOVIE_CHECKOUT_PERIOD;
         } else {
             period = Book::BOOK_CHECKOUT_PERIOD;
@@ -78,7 +72,7 @@ public:
 
 
     virtual void SetUp() override {
-        holding = new Holding();
+        holding = new Holding(ClassificationData::THE_TRIAL_CLASSIFICATION, 1);
     }
 };
 
@@ -137,7 +131,7 @@ public:
     void SetUp() {
         HoldingTest::SetUp();
 
-        movie = make_unique<Holding>("VABC 123", 1);
+        movie = make_unique<Holding>(ClassificationData::SEVEN_CLASSIFICATION, 1);
         movie->transfer(EAST_BRANCH);
     }
 };

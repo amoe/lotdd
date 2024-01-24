@@ -818,3 +818,7 @@ is better than this:
 
 I don't tend to agree with this as it's tending towards the
 mockist/non-black-box style.
+
+There is an erratum on p192 where the 'improved' code is actually the same as
+the non-improved.  This should be fixed by a whitespace change which was
+actually done in example 20 (not 19).
