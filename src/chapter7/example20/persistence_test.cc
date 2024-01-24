@@ -59,7 +59,10 @@ TEST_F(PersistenceTest, returnsNullPointerWhenItemNotFound) {
     ASSERT_THAT(persister->get("no id there"), IsNull());
 }
 
+// Using the name "objectWithId1" rather than just "obj" makes it clearer
+// that the object does indeed have the ID 1 (and thus should be retrieved from
+// persistence by the get() call).
 TEST_F(PersistenceTest, retrievedItemIsNewInstance) {
-    persister->add(*obj);
-    ASSERT_FALSE(obj == persister->get("1").get());
+    persister->add(*objectWithId1);
+    ASSERT_FALSE(objectWithId1 == persister->get("1").get());
 }
