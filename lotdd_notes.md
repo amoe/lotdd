@@ -829,3 +829,19 @@ assert what it does?  If you hide too much setup into helper classes or
 infrastructure then you introduce that test correlation issue.  Langr proposes
 solving this tension between abstraction and correlatability by using more
 meaningful names for abstractions and variables.
+
+
+# ch8 -- LEGACY CHALLENGES
+
+* Legacy code is non-TDD'd code per Langr
+* Most code is legacy code
+* CppUTest is being used instead of GMock
+* Fear of refactoring leaves people to duplicate code
+* Langr calls on reader to: "put a stake in the ground and demand no one allows
+  the system to get worse".
+* Legacy techniques are a subset of the techniques from the Feathers book
+* Don't decrease coverage
+* To test legacy code you will often have to change existing code
+* Take incremental steps and only do one thing at a time
+* When you make a change add tests for your new code + something on the
+  periphery
