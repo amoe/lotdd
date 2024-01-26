@@ -21,6 +21,8 @@ env = Environment(
     CPPPATH=googletest_include_paths + ['#src'],
     CCFLAGS=['-Wall',  '-Wno-deprecated-declarations', '-ggdb', '-g', '-std=c++14'],
     LIBS=[
+        'spdlog',
+        'fmt',
         'pthread',
         'jsoncpp',
         'curl',
@@ -36,7 +38,7 @@ if maybe_term:
     env['ENV']['TERM'] = maybe_term
 
 
-env.MergeFlags(["!pkg-config --cflags jsoncpp"])
+env.MergeFlags(["!pkg-config --cflags jsoncpp spdlog"])
 
 gtest_obj = env.Object(gtest_all_path)
 gmock_obj = env.Object(gmock_all_path)

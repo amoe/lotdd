@@ -56,6 +56,12 @@ follow that convention here.  It makes it easier to avoid name clashes,
 especially since we use `camelCase` for member function names where Langr does
 not.
 
+## Logging
+
+At chapter 8, Langr wants to use logging.  He chooses the "rlog" library.  I
+couldn't find where this is available.  I chose spdlog instead, because I already
+know how to link with this.  You can install it with `libspdlog-dev` on Debian.
+
 ## Errata
 
 Errata for the book are located here:
