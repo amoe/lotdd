@@ -845,3 +845,5 @@ meaningful names for abstractions and variables.
 * Take incremental steps and only do one thing at a time
 * When you make a change add tests for your new code + something on the
   periphery
+
+Langr refers to testing legacy stuff as TAD: Test After Development.
