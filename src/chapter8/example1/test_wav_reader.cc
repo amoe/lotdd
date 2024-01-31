@@ -7,7 +7,7 @@ using testing::Eq;
 TEST(MyComponent, ActsAsIExpect) {
     WavReader reader("foo", "bar");
 
-//    reader.open("foo", true);
+    reader.open("foo", true);
     
     ASSERT_THAT(2 + 2, Eq(4));
 }

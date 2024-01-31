@@ -847,3 +847,10 @@ meaningful names for abstractions and variables.
   periphery
 
 Langr refers to testing legacy stuff as TAD: Test After Development.
+
+Steps to extract method:
+
+1.  Type hypothetical call to free function.
+2.  Add declaration as free function by copying function call.
+3.  Add type information and verify with compiler.
+4.  Move free function into header and scope to class.

@@ -1,6 +1,7 @@
 #ifndef WAV_READER_HH
 #define WAV_READER_HH
 
+#include <fstream>
 #include <boost/filesystem.hpp>
 #include <string>
 #include "wav_descriptor.hh"
@@ -20,6 +21,10 @@ public:
     void publishSnippets();
 
 private:
+    void writeSamples(
+        std::ofstream& out, char* data, uint32_t startingSample,
+        uint32_t samplesToWrite, uint32_t bytesPerSample
+    ) const;
     WavDescriptor* descriptor_;
 
     void seekToEndOfHeader(std::ifstream& file, int headerLength);

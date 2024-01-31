@@ -80,6 +80,13 @@ string WavReader::toString(int8_t* bytes, unsigned int size) {
     return string{(char*)bytes, size};
 }
 
+void WavReader::writeSamples(
+    ofstream& out, char* data, uint32_t startingSample,
+    uint32_t samplesToWrite, uint32_t bytesPerSample
+) const {
+}
+
+
 void WavReader::open(const std::string& name, bool trace) {
     spdlog::debug("opening {}", name);
 
@@ -186,6 +193,9 @@ void WavReader::open(const std::string& name, bool trace) {
 
     uint32_t startingSample{
         totalSeconds >= 10 ? 10 * formatSubchunk.samplesPerSecond : 0};
+
+    writeSamples(out, data, startingSample, samplesToWrite, bytesPerSample);
+    
     spdlog::debug("writing {} samples", samplesToWrite);
     for (auto sample = startingSample; 
          sample < startingSample + samplesToWrite; 
