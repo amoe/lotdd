@@ -28,7 +28,8 @@ env = Environment(
         'curl',
         'm',
         'stdc++',
-        'boost_iostreams'   # for LineReader
+        'boost_iostreams',     # for LineReader
+        'boost_filesystem',    # for WavReader
     ]
 )
 
