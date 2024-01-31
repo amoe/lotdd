@@ -20,11 +20,13 @@ public:
     void listAll() const;
     void publishSnippets();
 
-private:
     void writeSamples(
-        std::ofstream& out, char* data, uint32_t startingSample,
+        std::ostream* out, char* data, uint32_t startingSample,
         uint32_t samplesToWrite, uint32_t bytesPerSample
     ) const;
+
+    
+private:
     WavDescriptor* descriptor_;
 
     void seekToEndOfHeader(std::ifstream& file, int headerLength);

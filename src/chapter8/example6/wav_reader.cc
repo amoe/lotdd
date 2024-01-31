@@ -10,6 +10,7 @@ using boost::filesystem::directory_iterator;
 using std::string;
 using std::ifstream;
 using std::ofstream;
+using std::ostream;
 using std::ios;
 using std::min;
 using std::ios_base;
@@ -81,7 +82,7 @@ string WavReader::toString(int8_t* bytes, unsigned int size) {
 }
 
 void WavReader::writeSamples(
-    ofstream& out, char* data, uint32_t startingSample,
+    ostream* out, char* data, uint32_t startingSample,
     uint32_t samplesToWrite, uint32_t bytesPerSample
 ) const {
     spdlog::debug("writing {} samples", samplesToWrite);
@@ -90,7 +91,7 @@ void WavReader::writeSamples(
          sample++) {
         auto byteOffsetForSample = sample * bytesPerSample;
         for (uint32_t byte{0}; byte < bytesPerSample; byte++) 
-            out.put(data[byteOffsetForSample + byte]);
+            out->put(data[byteOffsetForSample + byte]);
     }
 }
 
@@ -202,7 +203,7 @@ void WavReader::open(const std::string& name, bool trace) {
     uint32_t startingSample{
         totalSeconds >= 10 ? 10 * formatSubchunk.samplesPerSecond : 0};
 
-    writeSamples(out, data, startingSample, samplesToWrite, bytesPerSample);
+    writeSamples(&out, data, startingSample, samplesToWrite, bytesPerSample);
     
     spdlog::debug("completed writing {}", name);
     descriptor_->add(dest_, name, 
