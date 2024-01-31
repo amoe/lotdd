@@ -848,9 +848,14 @@ meaningful names for abstractions and variables.
 
 Langr refers to testing legacy stuff as TAD: Test After Development.
 
-Steps to extract method:
+Steps to extract method having identified a region of code _R_:
 
 1.  Type hypothetical call to free function.
 2.  Add declaration as free function by copying function call.
 3.  Add type information and verify with compiler.
 4.  Move free function into header and scope to class.
+5.  Move intended method code _R_ from call site into method implementation.
+
+Advice is to not change any code of the region _R_ that's going to be extracted
+into the function.  This is a sign that this is a bad section to extract if you
+have to change it to get it to compile.
