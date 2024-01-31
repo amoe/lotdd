@@ -8,12 +8,12 @@ using testing::Eq;
 
 class WavReaderTest: public Test {
 public:
+    WavReader reader{"", ""};
     ostringstream out;
 };
 
 TEST_F(WavReaderTest, writesSingleSample) {
     char data[] { "abcd" };
-    WavReader reader("foo", "bar");
 
     uint32_t bytesPerSample{1};
     uint32_t startingSample{0};
@@ -22,5 +22,16 @@ TEST_F(WavReaderTest, writesSingleSample) {
     reader.writeSamples(&out, data, startingSample, samplesToWrite, bytesPerSample);
 
     ASSERT_THAT("a", Eq(out.str()));
+}
+
+TEST_F(WavReaderTest, writesMultibyteSampleFromMiddle) {
+    char data[] { "0123456789ABCDEFG" };
+    uint32_t bytesPerSample{2};
+    uint32_t startingSample{4};
+    uint32_t samplesToWrite{3};
+
+    reader.writeSamples(&out, data, startingSample, samplesToWrite, bytesPerSample);
+
+    ASSERT_THAT("89ABCD", Eq(out.str()));
 }
 
