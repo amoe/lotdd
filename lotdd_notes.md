@@ -860,3 +860,35 @@ Steps to extract method having identified a region of code _R_:
 Advice is to not change any code of the region _R_ that's going to be extracted
 into the function.  This is a sign that this is a bad section to extract if you
 have to change it to get it to compile.
+
+## Creating a test double for `rlog`
+
+Why do this?  We need a way to turn off the logging code that WavReader uses.
+In Langr's project (not in my version), rlog is stored as a member variable in
+WavReader, and linked to using `-lrlog` command line flag to the linker.  This
+is done using CMake.
+
+As a result, Langr proposes using *link-time substitution* to stub out the rlog
+calls.
+
+This is done by creating a dummy header which matches the signature of the
+classes (and functions?) defined by the rlog library.  The implementations of
+the functions just do nothing, or return a static predefined value.  You only
+need to define enough stubs that your client code can actually build.  This is
+grunt work but only needs to be done once.
+
+Having done this you adjust your build tool to now build your special stub
+library.  In Langr's demo it is called `rlogStub`.  You link the test program to
+`rlogStub`, while linking the production application (executable) to `rlog` as
+before.  Having done this, the test executable will no-op all calls to rlog
+functions.  The big benefit of this over a DI style is that you don't have to
+modify the code at all which you might not be able to do in the case of legacy
+code.  I believe Feathers refers to this as a 'link seam'.
+
+For this reason we skipped:
+
+8.7 -- commenting out linking the test executable with rlog.
+8.8 -- adding rlog stub headers and configuring new stub library
+8.9 -- adding the rest of the rlog stubs
+
+And we resume with 8.10.
