@@ -50,3 +50,12 @@ TEST_F(WavReaderTest, incorporatesChannelCount) {
     
     ASSERT_THAT("01234567", Eq(out.str()));
 }
+
+TEST_F(WavReaderTest, isProductOfChannelsBytesPerSampleAndSamples) {
+    uint32_t channels{2};
+    uint32_t bytesPerSample{5};
+    uint32_t samples{4};
+    
+    uint32_t length = reader.dataLength(bytesPerSample, samples, channels);
+    ASSERT_THAT(length, Eq(2 * 5 * 4));
+}
