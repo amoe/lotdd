@@ -22,7 +22,7 @@ public:
 
     void writeSamples(
         std::ostream* out, char* data, uint32_t startingSample,
-        uint32_t samplesToWrite, uint32_t bytesPerSample
+        uint32_t samplesToWrite, uint32_t bytesPerSample, uint32_t channels = 1
     ) const;
 
     

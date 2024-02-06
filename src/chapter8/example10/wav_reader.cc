@@ -83,15 +83,25 @@ string WavReader::toString(int8_t* bytes, unsigned int size) {
 
 void WavReader::writeSamples(
     ostream* out, char* data, uint32_t startingSample,
-    uint32_t samplesToWrite, uint32_t bytesPerSample
+    uint32_t samplesToWrite, uint32_t bytesPerSample,
+    uint32_t channels
 ) const {
     spdlog::debug("writing {} samples", samplesToWrite);
-    for (auto sample = startingSample; 
-         sample < startingSample + samplesToWrite; 
-         sample++) {
-        auto byteOffsetForSample = sample * bytesPerSample;
-        for (uint32_t byte{0}; byte < bytesPerSample; byte++) 
-            out->put(data[byteOffsetForSample + byte]);
+
+    // XXX: Langr is going "sample > channel > byte" as the hierarchy, but this
+    // doesn't fit the normal nomenclature in audio programming.
+    
+    for (
+        uint32_t sample = startingSample; 
+        sample < startingSample + samplesToWrite; 
+        sample++
+    ) {
+        for (uint32_t channel{0}; channel < channels; channel++) {
+            for (uint32_t byte{0}; byte < bytesPerSample; byte++) {
+                uint32_t byteOffset = (sample * bytesPerSample * channels) + (channel * bytesPerSample);
+                out->put(data[byteOffset + byte]);
+            }
+        }
     }
 }
 
