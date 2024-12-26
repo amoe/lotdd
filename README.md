@@ -67,4 +67,5 @@ know how to link with this.  You can install it with `libspdlog-dev` on Debian.
 Errata for the book are located here:
 https://pragprog.com/cms/errata/lotdd-errata/
 
-You can find Langr's solutions in the file named `lotdd-code.tgz`.
+You can find Langr's solutions in the file named `lotdd-code.tgz`: link
+[here](https://media.pragprog.com/titles/lotdd/code/lotdd-code.zip).
